@@ -1,0 +1,43 @@
+school-crud/
+│
+├── assets/             # CSS, JS, dan gambar (untuk tampilan)
+│   ├── css/
+│   └── js/
+│
+├── config/             # Konfigurasi aplikasi dan koneksi database
+│   └── config.php
+│
+├── controllers/        # Logika untuk menangani CRUD dan hak akses
+│   ├── AuthController.php    # Controller untuk login/logout
+│   ├── SiswaController.php  # Controller untuk data siswa
+│   ├── GuruController.php   # Controller untuk data guru
+│   └── AdminController.php  # Controller untuk admin
+│
+├── models/             # Kelas model untuk interaksi dengan database
+│   ├── User.php            # Model untuk pengguna (admin, guru, siswa)
+│   ├── Siswa.php           # Model untuk data siswa
+│   ├── Guru.php            # Model untuk data guru
+│   └── Kelas.php           # Model untuk data kelas
+│
+├── views/              # Tampilan (views) untuk setiap halaman
+│   ├── auth/             # Halaman login, register
+│   │   ├── login.php
+│   │   └── register.php
+│   ├── admin/            # Halaman admin
+│   │   └── dashboard.php
+│   ├── guru/             # Halaman guru
+│   │   └── dashboard.php
+│   ├── siswa/            # Halaman siswa
+│   │   └── dashboard.php
+│   └── layouts/          # Template layout bersama
+│       └── header.php
+│       └── footer.php
+│
+├── public/             # Folder yang dapat diakses oleh publik
+│   ├── index.php       # Halaman utama atau landing page
+│   ├── logout.php      # Halaman untuk logout
+│   └── assets/         # Berisi file statis (CSS, JS, images)
+│
+├── .gitignore          # Mengabaikan file/folder yang tidak perlu di git
+├── README.md           # Deskripsi proyek
+└── composer.json       # Untuk mengelola dependensi (jika diperlukan)

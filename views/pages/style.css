@@ -1,0 +1,5 @@
+.dashboard-scroll {
+  overflow-y: scroll;
+  height: 100vh;
+  z-index: -1;
+}
