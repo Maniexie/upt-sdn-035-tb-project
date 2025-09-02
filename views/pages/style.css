@@ -3,3 +3,65 @@
   height: 100vh;
   z-index: -1;
 }
+
+.slider-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.card {
+  min-width: 2px; /* lebar tiap card */
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.card-img-top{
+  width: 100%;
+  height: 150px;
+}
+
+  #sidebarDropdown.collapse:not(.show) {
+    display: block;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+  }
+
+  #sidebarDropdown.collapse.show {
+    height: auto;
+    transition: height 0.3s ease;
+  }
+
+    .nav-link[aria-expanded="true"] .fa-chevron-down {
+    transform: rotate(180deg);
+    transition: transform 0.3s;
+  }
+
+  .nav-link[aria-expanded="false"] .fa-chevron-down {
+    transition: transform 0.3s;
+  }
+
+  /* Tambahkan ini ke style.css atau <style> */
+.sidebar {
+    transition: transform 0.3s ease;
+}
+
+.sidebar-hidden {
+    transform: translateX(-100%);
+    position: absolute;
+    z-index: 1040;
+    top: 0;
+    left: 0;
+}
+
+.nav-link:hover{
+  background-color: aqua;
+  color: black;
+  /* border-radius: */
+}

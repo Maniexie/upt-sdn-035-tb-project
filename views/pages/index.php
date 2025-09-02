@@ -1,397 +1,184 @@
-<?php require_once '../layouts/header.php'; ?>
+<?php
+
+$dataPoints = array(
+	array("label" => "Education", "y" => 22),
+	array("label" => "Entertainment", "y" => 48),
+	array("label" => "Lifestyle", "y" => 14),
+	array("label" => "Business", "y" => 64),
+	array("label" => "Music & Audio", "y" => 85),
+	array("label" => "Personalization", "y" => 42),
+	array("label" => "Tools", "y" => 37),
+	array("label" => "Books & Reference", "y" => 40),
+	array("label" => "Travel & Local", "y" => 87),
+	array("label" => "Puzzle", "y" => 30),
+	array("label" => "Kotok", "y" => 99)
+);
+
+?>
+
+<script>
+	window.onload = function() {
+
+		var chart = new CanvasJS.Chart("chartContainer", {
+			animationEnabled: true,
+			theme: "light2", // "light1", "light2", "dark1", "dark2"
+			title: {
+				text: "Peringkat Kelas Bermasalah"
+			},
+			axisY: {
+				title: "Point"
+			},
+			data: [{
+				type: "column",
+				dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+			}]
+		});
+		chart.render();
+
+		var chart2 = new CanvasJS.Chart("chartContainer2", {
+			animationEnabled: true,
+			theme: "light2", // "light1", "light2", "dark1", "dark2"
+			title: {
+				text: "Peringkat Kelas Bermasalah"
+			},
+			axisY: {
+				title: "Point"
+			},
+			data: [{
+				type: "column",
+				dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+			}]
+		});
+		chart2.render();
+
+		var chart3 = new CanvasJS.Chart("chartContainer3", {
+			animationEnabled: true,
+			theme: "light2", // "light1", "light2", "dark1", "dark2"
+			title: {
+				text: "Peringkat Kelas Bermasalah"
+			},
+			axisY: {
+				title: "Point"
+			},
+			data: [{
+				type: "column",
+				dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+			}]
+		});
+		chart3.render();
+
+	}
+</script>
+<?php require_once '../layouts/header.php';
+
+?>
 <!-- Dashboard Content -->
-<h2 class="mb-4">Dashboard Content</h2>
-<div class="row dashboard-scroll">
-    <table class="table mx-2">
-        <thead class="table-dark sticky-top mx-2">
-            <tr>
-                <th scope=" col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Type</th>
-                <th scope="col">Column heading</th>
-                <th scope="col">Column heading</th>
-                <th scope="col">Column heading</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="table-active">
-                <th scope="row">Active</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr>
-                <th scope="row">Default</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-primary">
-                <th scope="row">Primary</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-secondary">
-                <th scope="row">Secondary</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-success">
-                <th scope="row">Success</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-danger">
-                <th scope="row">Danger</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-warning">
-                <th scope="row">Warning</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-info">
-                <th scope="row">Info</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-light">
-                <th scope="row">Light</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-dark">
-                <th scope="row">Dark</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Type</th>
-                <th scope="col">Column heading</th>
-                <th scope="col">Column heading</th>
-                <th scope="col">Column heading</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="table-active">
-                <th scope="row">Active</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr>
-                <th scope="row">Default</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-primary">
-                <th scope="row">Primary</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-secondary">
-                <th scope="row">Secondary</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-success">
-                <th scope="row">Success</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-danger">
-                <th scope="row">Danger</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-warning">
-                <th scope="row">Warning</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-info">
-                <th scope="row">Info</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-light">
-                <th scope="row">Light</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-            <tr class="table-dark">
-                <th scope="row">Dark</th>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Card Title</h5>
-                <p class="card-text">Some content inside this card.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Card Title</h5>
-                <p class="card-text">Some content inside this card.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Card Title</h5>
-                <p class="card-text">Some content inside this card.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
+<!-- <h2 class="mb-4">Dashboard Content</h2> -->
+<!-- <div class="container d-flex">
+
+		<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+	</section> -->
+
+<div class="container-fluid">
+
+	<!-- SISWA_BERMASALAH -->
+	<section id="siswa_bermasalah" class="py-4">
+		<div class="container">
+			<h4>Siswa Bermasalah hari ini <span class="fw-bold" id="tanggal"></span></h4>
+			<div class="slider-wrapper">
+				<div class="slider" id="slider">
+					<!-- Card 1 -->
+					<div class="card">
+						<img src="../../assets/img/default.png" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Suroto Pangestu Wijaya</h5>
+							<p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Topi</p>
+						</div>
+					</div>
+					<!-- Card 2 -->
+					<div class="card">
+						<img src="../../assets/img/default.png" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Budi Santoso</h5>
+							<p class="card-text"><span class="fw-semibold">Kesalahan:</span> Terlambat Masuk</p>
+						</div>
+					</div>
+					<!-- Card 3 -->
+					<div class="card">
+						<img src="../../assets/img/default.png" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Andi Saputra</h5>
+							<p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
+						</div>
+					</div>
+					<div class="card">
+						<img src="../../assets/img/default.png" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Andi Saputra</h5>
+							<p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
+						</div>
+					</div>
+					<div class="card">
+						<img src="../../assets/img/default.png" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Andi Saputra</h5>
+							<p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
+						</div>
+					</div>
+					<div class="card">
+						<img src="../../assets/img/default.png" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Andi Saputra</h5>
+							<p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
+						</div>
+					</div>
+					<div class="card">
+						<img src="../../assets/img/default.png" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Andi Saputra</h5>
+							<p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
+						</div>
+					</div>
+					<div class="card">
+						<img src="../../assets/img/default.png" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Andi Saputra</h5>
+							<p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
+						</div>
+					</div>
+					<!-- Tambahkan card lain sesuai kebutuhan -->
+				</div>
+			</div>
+		</div>
+	</section>
+	<hr class="mb-4">
+	<br>
+	<!-- CHART -->
+	<section id="chart">
+		<div class="row">
+			<div class="col-md-4 ">
+				<div id="chartContainer2" style="height: 370px; width: 100%; border-left:1px solid #333;"></div>
+			</div>
+			<div class="col-md-4 border-end">
+				<div id="chartContainer3" style="height: 370px; width: 100%; border-left:1px solid #333;"></div>
+			</div>
+			<div class="col-md-4">
+				<div id="chartContainer" style="height: 370px; width: 100%; border-left:1px solid #333;"></div>
+			</div>
+		</div>
+	</section>
+
 </div>
-<div class="row dashboard-scroll">
-    <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Card Title</h5>
-                <p class="card-text">Some content inside this card.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Card Title</h5>
-                <p class="card-text">Some content inside this card.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Card Title</h5>
-                <p class="card-text">Some content inside this card.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
+
+<!-- utilities -->
+<script src="../utilities/tanggal.js"></script>
+<script src="../utilities/slider.js"></script>
+<script src="../utilities/sidebar.js"></script>
+
+
+<!-- chart js -->
+<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 </div>
+</div>
+
+<?php require_once '../layouts/footer.php';
