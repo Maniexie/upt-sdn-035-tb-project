@@ -16,6 +16,9 @@ if ($selectedKelas) {
 // Ambil semua jenis pelanggaran
 $pelanggaranList = $db->query("SELECT * FROM pelanggaran")->fetchAll();
 
+
+
+
 // Handle form submit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $siswaId = $_POST['siswa_id'];
@@ -23,13 +26,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt = $db->prepare("INSERT INTO pelanggaran_siswa (siswa_id, pelanggaran_id) VALUES (?, ?)");
     $stmt->execute([$siswaId, $pelanggaranId]);
-    echo "<div class='alert alert-success'>Data pelanggaran berhasil disimpan.</div>";
+
+    // Mengambil data pelanggaran siswa Untuk Sweetalert
+
+    // Ambil nama siswa
+    $stmt = $db->prepare("SELECT nama FROM users WHERE id = ?");
+    $stmt->execute([$siswaId]);
+    $siswa = $stmt->fetchColumn(); // hasil: nama siswa
+
+    // Ambil nama pelanggaran
+    $stmt = $db->prepare("SELECT nama_pelanggaran FROM pelanggaran WHERE id = ?");
+    $stmt->execute([$pelanggaranId]);
+    $pelanggaran = $stmt->fetchColumn(); // hasil: nama pelanggaran
+    echo "
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    html: '<strong>$siswa</strong> <br> <em>$pelanggaran</em>', 
+                    confirmButtonColor: '#3085d6',
+                    timer: 6000,
+                    timerProgressBar: true,
+                        willClose: () => {
+                window.location.href = window.location.href; 
+            }
+                });
+            });
+        </script>
+        ";
+
+
+
+
 }
 ?>
 
 
 <?php
-// Simulasi data pelanggaran
+// Menampilkan data pelanggaran siswa
 $dataPelanggaran = $db->query("
     SELECT 
         ps.id,
@@ -41,6 +76,7 @@ $dataPelanggaran = $db->query("
     FROM pelanggaran_siswa ps
     JOIN users u ON ps.siswa_id = u.id
     JOIN pelanggaran p ON ps.pelanggaran_id = p.id
+    WHERE DATE (ps.tanggal) = CURDATE()
     ORDER BY ps.tanggal DESC
 ")->fetchAll();
 
@@ -58,9 +94,10 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
     <div class="row">
 
         <!-- Form Input (Kiri) -->
-        <div class="col-md-5">
-            <h3 class="mb-3">Input Pelanggaran</h3>
-            <form action="" method="post">
+        <div class="col-md-5 border-end">
+            <h3 class="mb-3">Form Input Pelanggaran Siswa</h3>
+            <!-- <form action="" method="post"> -->
+            <form action="" method="post" id="pelanggaran-form" class="position-relative border rounded p-3">
                 <div class="mb-3">
                     <label for="kelas" class="form-label">Kelas</label>
                     <select class="form-select" id="kelas" name="kelas" required>
@@ -75,7 +112,7 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
                 <div class="mb-3">
                     <label for="siswa_id">Nama Siswa:</label>
                     <select name="siswa_id" class="form-select" required>
-                        <option value="">-- Pilih Siswa --</option>
+                        <option value="">Pilih Siswa</option>
                         <?php if (!empty($siswaList)): ?>
                             <?php foreach ($siswaList as $siswa): ?>
                                 <option value="<?= $siswa['id'] ?>"><?= $siswa['nama'] ?></option>
@@ -86,7 +123,7 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
                 <div class="mb-3">
                     <label for="pelanggaran_id">Jenis Pelanggaran:</label>
                     <select name="pelanggaran_id" class="form-select" required>
-                        <option value="">-- Pilih Pelanggaran --</option>
+                        <option value="">Pelanggaran</option>
                         <?php foreach ($pelanggaranList as $p): ?>
                             <option value="<?= $p['id'] ?>"><?= $p['nama_pelanggaran'] ?> (<?= $p['poin'] ?> poin)</option>
                         <?php endforeach; ?>
@@ -97,8 +134,8 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
         </div>
 
         <!-- Tabel Daftar Siswa (Kanan) -->
-        <div class="col-md-7">
-            <h3 class="mb-3">Daftar Siswa yang Melanggar</h3>
+        <div class="col-md-7 border-start">
+            <h3 class="mb-3">Daftar Siswa yang Melanggar <span class="fw-bold" id="tanggal"></span></h3>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover text-center">
                     <thead class="table-primary">
@@ -148,6 +185,27 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
     </div>
 </div>
 
+
+
+<!-- border spinner -->
+<script>
+
+    Swal.fire("SweetAlert2 is working!");
+
+    // Hilangkan alert sukses setelah 3 detik
+    setTimeout(function () {
+        const alert = document.getElementById('success-alert');
+        if (alert) {
+            alert.remove();
+        }
+    }, 3000); // 3000ms = 3 detik
+    setTimeout(() => {
+        myModal.hide();
+    }, 3000);
+
+</script>
+
+
 <script>
     document.getElementById('kelas').addEventListener('change', function () {
         var kelas = this.value;
@@ -155,13 +213,15 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
         fetch('../ajax/get_siswa_by_kelas.php?kelas=' + encodeURIComponent(kelas))
             .then(response => response.text())
             .then(data => {
-                document.querySelector('select[name="siswa_id"]').innerHTML = '<option value="">-- Pilih Siswa --</option>' + data;
+                document.querySelector('select[name="siswa_id"]').innerHTML = '<option value="">Pilih Siswa</option>' + data;
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     });
 </script>
+
+
 
 
 <?php require_once '../layouts/footer.php'; ?>
