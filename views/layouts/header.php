@@ -124,6 +124,11 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link text-white" href="rekap_pelanggaran.php">
+                                        Rekap Pelanggaran
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link text-white" href="#">
                                         Pelanggaran Siswa
                                     </a>
