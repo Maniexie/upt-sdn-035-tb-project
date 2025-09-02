@@ -19,17 +19,18 @@
         <div class="row">
 
             <!-- Sidebar -->
-            <div id="sidebar" class="col-md-3 col-lg-2 p-3 bg-dark text-white sticky-top sidebar" style="height: 100vh; overflow-y: auto;">
-                <div class="container d-flex justify-content-between" style="cursor: pointer;">
+            <div id="sidebar" class="col-md-3 col-lg-2 p-3 bg-dark text-white sticky-top sidebar"
+                style="height: 100vh; overflow-y: auto;">
+                <div class="container d-flex justify-content-between">
                     <h4 class="mb-4">Dashboard</h4>
-                    <i id="toggleSidebar" class="fa-solid fa-bars fa-xl mt-3"></i>
+                    <!-- <i id="toggleSidebar" class="fa-solid fa-bars fa-xl mt-3" style="cursor: pointer;"></i> -->
                 </div>
                 <ul class="nav flex-column">
                     <!-- Home -->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="index.php">
+                            <i class="fa-solid fa-house text-white"></i>
                             Home
-                            <i class="fa fa-car fa-md"></i>
                         </a>
                     </li>
                     <!-- Profile -->
@@ -41,12 +42,8 @@
 
                     <!-- DATA GURU -->
                     <li class="nav-item">
-                        <a
-                            class="nav-link text-white d-flex justify-content-between align-items-center"
-                            data-bs-toggle="collapse"
-                            href="#data_guru"
-                            role="button"
-                            aria-expanded="false"
+                        <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                            data-bs-toggle="collapse" href="#data_guru" role="button" aria-expanded="false"
                             aria-controls="data_guru">
                             <span>Data Guru</span>
                             <i class="fa fa-chevron-down"></i>
@@ -78,12 +75,8 @@
                     </li>
                     <!-- DATA SISWA -->
                     <li class="nav-item">
-                        <a
-                            class="nav-link text-white d-flex justify-content-between align-items-center"
-                            data-bs-toggle="collapse"
-                            href="#data_siswa"
-                            role="button"
-                            aria-expanded="false"
+                        <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                            data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
                             aria-controls="data_siswa">
                             <span>Data Siswa</span>
                             <i class="fa fa-chevron-down"></i>
@@ -114,12 +107,8 @@
                     </li>
                     <!-- PELANGGARAN -->
                     <li class="nav-item">
-                        <a
-                            class="nav-link text-white d-flex justify-content-between align-items-center"
-                            data-bs-toggle="collapse"
-                            href="#pelanggaran"
-                            role="button"
-                            aria-expanded="false"
+                        <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                            data-bs-toggle="collapse" href="#pelanggaran" role="button" aria-expanded="false"
                             aria-controls="pelanggaran">
                             <span>Pelanggaran</span>
                             <i class="fa fa-chevron-down"></i>
@@ -127,6 +116,11 @@
 
                         <div class="collapse ps-3 mt-1" id="pelanggaran">
                             <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="input_pelanggaran.php">
+                                        Input Pelanggaran
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-white" href="#">
                                         Pelanggaran Siswa
@@ -136,8 +130,13 @@
                                     <hr class="dropdown-divider bg-light">
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" href="../pages/pelanggaran/jenis_pelanggaran.php">
+                                    <a class="nav-link text-white" href="jenis_pelanggaran.php">
                                         Jenis Pelanggaran
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="history_pelanggaran.php">
+                                        History Pelanggaran
                                     </a>
                                 </li>
                             </ul>
@@ -145,12 +144,8 @@
                     </li>
                     <!-- PENGATURAN -->
                     <li class="nav-item">
-                        <a
-                            class="nav-link text-white d-flex justify-content-between align-items-center"
-                            data-bs-toggle="collapse"
-                            href="#pengaturan"
-                            role="button"
-                            aria-expanded="false"
+                        <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                            data-bs-toggle="collapse" href="#pengaturan" role="button" aria-expanded="false"
                             aria-controls="pengaturan">
                             <span>Pengaturan</span>
                             <i class="fa fa-chevron-down"></i>

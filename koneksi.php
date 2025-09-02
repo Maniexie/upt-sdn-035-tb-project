@@ -1,22 +1,14 @@
 <?php
+$host = 'localhost';
+$dbname = 'upt_sdn_035_tb';
+$username = 'root';
+$password = '';
 
-$server = "localhost";
-$username = "root";
-$password = "";
-$database = "upt_sdn_035_tb";
-
-
-$conn = new mysqli($server, $username, $password, $database);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-
-
-
-
+try {
+    $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // echo "Connected successfully"; // bisa dihapus jika tidak dibutuhkan
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }
-
-
-echo "Connected successfully";
-
 ?>
