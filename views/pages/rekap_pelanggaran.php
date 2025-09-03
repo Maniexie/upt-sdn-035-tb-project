@@ -101,8 +101,14 @@ foreach ($urutanKelas as $kelas) {
                                                     <td><?= $siswa['total_poin'] ?></td>
                                                     <td>
                                                         <a target="_blank"
-                                                            href="rekap_pelanggaran_siswa.php?id=<?= $siswa['siswa_id'] ?>"
+                                                            href="detail_pelanggaran.php?id=<?= $siswa['siswa_id'] ?>"
                                                             class="btn btn-primary btn-sm">
+                                                            Detail
+                                                            <!-- <i class="fa-solid fa-file-pdf"></i> -->
+                                                        </a>
+                                                        <a target="_blank"
+                                                            href="rekap_pelanggaran_siswa.php?id=<?= $siswa['siswa_id'] ?>"
+                                                            class="btn btn-success btn-sm">
                                                             Rekap
                                                             <i class="fa-solid fa-file-pdf"></i>
                                                         </a>

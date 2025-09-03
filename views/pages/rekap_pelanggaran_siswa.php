@@ -79,7 +79,7 @@ $totalPoin = array_sum(array_column($dataPelanggaran, 'poin'));
     </div>
 
     <div class="container d-flex justify-content-between">
-        <a href="rekap_kelas.php" class="btn btn-secondary mt-3">← Kembali</a>
+        <a href="rekap_pelanggaran.php" class="btn btn-secondary mt-3">← Kembali</a>
 
         <a href="cetak_rekap_siswa.php?id=<?= $siswa_id ?>" class="btn btn-danger mt-3" target="_blank">
             Cetak PDF
