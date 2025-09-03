@@ -1,75 +1,95 @@
-<?php require_once '../layouts/header.php'; ?>
-
 <?php
-// Simulasi data (bisa diganti dari database)
-$data = [
-    ['first' => 'Mark', 'last' => 'Otto', 'handle' => '@mdo'],
-    ['first' => 'Jacob', 'last' => 'Thornton', 'handle' => '@fat'],
-    ['first' => 'Larry', 'last' => 'Bird', 'handle' => '@larry'],
-    ['first' => 'John', 'last' => 'Doe', 'handle' => '@social'],
-    ['first' => 'Jane', 'last' => 'Smith', 'handle' => '@jane'],
-    ['first' => 'Ali', 'last' => 'Baba', 'handle' => '@ali'],
-    ['first' => 'Siti', 'last' => 'Aisyah', 'handle' => '@siti'],
-    ['first' => 'Budi', 'last' => 'Gunawan', 'handle' => '@budi'],
-    ['first' => 'Agus', 'last' => 'Salim', 'handle' => '@agus'],
-    ['first' => 'Tina', 'last' => 'Turner', 'handle' => '@tina'],
-    ['first' => 'Ahmad', 'last' => 'Zain', 'handle' => '@ahmad'],
-    ['first' => 'Rina', 'last' => 'Rahma', 'handle' => '@rina'],
-];
+require_once '../layouts/header.php';
+require_once '../../koneksi.php';
 
-// Pagination setup
-$perPage = 10;
-$total = count($data);
-$pages = ceil($total / $perPage);
-$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
-$page = max(1, min($page, $pages));
-$start = ($page - 1) * $perPage;
-$dataPage = array_slice($data, $start, $perPage);
+// Ambil ID siswa dari URL
+$siswa_id = isset($_GET['id']) ? $_GET['id'] : 0;  // Cek apakah ID ada di URL, jika tidak, set ID ke 0
+
+// Pastikan ID valid
+if ($siswa_id == 0) {
+    echo "<div class='alert alert-danger'>ID siswa tidak valid.</div>";
+    exit;
+}
+
+// Ambil data pelanggaran siswa berdasarkan ID
+$query = "
+    SELECT 
+        u.id AS siswa_id,
+        u.nama AS nama_siswa,
+        u.kelas,
+        p.nama_pelanggaran,
+        p.poin,
+        ps.tanggal,
+        p.id AS pelanggaran_id
+    FROM pelanggaran_siswa ps
+    JOIN users u ON ps.siswa_id = u.id
+    JOIN pelanggaran p ON ps.pelanggaran_id = p.id
+    WHERE u.id = ?
+    ORDER BY ps.tanggal ASC
+";
+
+$stmt = $db->prepare($query);
+$stmt->execute([$siswa_id]);
+$pelanggaranSiswa = $stmt->fetchAll();
+
+// Jika tidak ada data pelanggaran untuk siswa ini
+if (empty($pelanggaranSiswa)) {
+    echo "<div class='alert alert-info'>Tidak ada pelanggaran untuk siswa ini.</div>";
+    exit;
+}
 ?>
 
-<div class="container mt-4">
+<div class="container mt-2">
+    <h1 class="text-center">Detail Pelanggaran Siswa</h1>
 
-    <section>
-        <a href="history_pelanggaran.php" class="btn btn-primary mb-2">
-            <i class="fa-solid fa-angle-left">
-            </i>
-            Kembali
-        </a>
-        <table class="table table-hover table-striped">
-            <h5 class="card-title mb-1">Detail Pelanggaran : 25-Januari-2023</h5>
-            <thead class="table-warning">
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Nama</th>
-                    <th scope="col">Jenis Pelanggaran</th>
-                    <th scope="col">Poin</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                <?php foreach ($dataPage as $index => $item): ?>
+    <div class="card">
+        <div class="card-header">
+            <h4>Nama Siswa: <?= htmlspecialchars($pelanggaranSiswa[0]['nama_siswa']) ?></h4>
+            <h5>Kelas: <?= htmlspecialchars($pelanggaranSiswa[0]['kelas']) ?></h5>
+            <h5> <?= htmlspecialchars($pelanggaranSiswa[0]['siswa_id']) ?></h5>
+        </div>
+        <div class="card-body" style="height: 600px; overflow-y: auto;">
+            <!-- <h5>Daftar Pelanggaran:</h5> -->
+            <table class="table table-bordered table-hover">
+                <thead class="table-primary">
                     <tr>
-                        <th scope="row"><?= $start + $index + 1 ?></th>
-                        <td><?= htmlspecialchars($item['first']) ?></td>
-                        <td><?= htmlspecialchars($item['last']) ?></td>
-                        <td><?= htmlspecialchars($item['handle']) ?></td>
+                        <th>No</th>
+                        <th>Jenis Pelanggaran</th>
+                        <th>Poin</th>
+                        <th>Tanggal</th>
+                        <th>Aksi</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </section>
+                </thead>
+                <tbody class="table-group-divider">
+                    <?php foreach ($pelanggaranSiswa as $index => $pelanggaran): ?>
+                        <tr>
+                            <td><?= $index + 1 ?></td>
+                            <td><?= htmlspecialchars($pelanggaran['nama_pelanggaran']) ?></td>
+                            <td><?= $pelanggaran['poin'] ?></td>
+                            <td><?= date('d-F-Y', strtotime($pelanggaran['tanggal'])) ?></td>
+                            <td>
+                                <a href="edit_pelanggaran.php?id=<?= $pelanggaran['siswa_id'] ?>&pelanggaran_id=<?= $pelanggaran['pelanggaran_id'] ?>"
+                                    class="btn btn-primary">
+                                    Edit
+                                </a>
 
-    <!-- Pagination -->
-    <?php if ($pages > 1): ?>
-        <nav class="d-flex justify-content-center">
-            <ul class="pagination">
-                <?php for ($i = 1; $i <= $pages; $i++): ?>
-                    <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                    </li>
-                <?php endfor; ?>
-            </ul>
-        </nav>
-    <?php endif; ?>
+
+                                <a href="hapus_pelanggaran.php?id=<?= $pelanggaran['siswa_id'] ?>&pelanggaran_id=<?= $pelanggaran['pelanggaran_id'] ?>"
+                                    class="btn btn-danger"
+                                    onclick="return confirm('Yakin ingin menghapus pelanggaran ini?');">
+                                    Hapus
+                                </a>
+                            </td>
+
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container d-flex justify-content-between">
+        <a href="rekap_pelanggaran.php" class="btn btn-secondary mt-3">← Kembali</a>
+    </div>
 </div>
 
 <?php require_once '../layouts/footer.php'; ?>

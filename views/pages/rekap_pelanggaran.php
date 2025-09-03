@@ -2,7 +2,7 @@
 require_once '../layouts/header.php';
 require_once '../../koneksi.php';
 
-// Ambil data pelanggaran hari ini
+// Ambil data pelanggaran 
 $dataPelanggaran = $db->query("
     SELECT 
         u.id AS siswa_id,
@@ -106,6 +106,7 @@ foreach ($urutanKelas as $kelas) {
                                                             Detail
                                                             <!-- <i class="fa-solid fa-file-pdf"></i> -->
                                                         </a>
+
                                                         <a target="_blank"
                                                             href="rekap_pelanggaran_siswa.php?id=<?= $siswa['siswa_id'] ?>"
                                                             class="btn btn-success btn-sm">
