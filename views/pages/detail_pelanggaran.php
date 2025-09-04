@@ -14,6 +14,7 @@ if ($siswa_id == 0) {
 // Ambil data pelanggaran siswa berdasarkan ID
 $query = "
     SELECT 
+        ps.id AS pelanggaran_siswa_id,
         u.id AS siswa_id,
         u.nama AS nama_siswa,
         u.kelas,
@@ -35,6 +36,7 @@ $pelanggaranSiswa = $stmt->fetchAll();
 // Jika tidak ada data pelanggaran untuk siswa ini
 if (empty($pelanggaranSiswa)) {
     echo "<div class='alert alert-info'>Tidak ada pelanggaran untuk siswa ini.</div>";
+    echo "<div class='text-center'><a href='rekap_pelanggaran.php' class='btn btn-primary'>Kembali</a></div>";
     exit;
 }
 ?>
@@ -72,13 +74,13 @@ if (empty($pelanggaranSiswa)) {
                                     class="btn btn-primary">
                                     Edit
                                 </a>
-
-
-                                <a href="hapus_pelanggaran.php?id=<?= $pelanggaran['siswa_id'] ?>&pelanggaran_id=<?= $pelanggaran['pelanggaran_id'] ?>"
-                                    class="btn btn-danger"
-                                    onclick="return confirm('Yakin ingin menghapus pelanggaran ini?');">
+                                <a href="javascript:void(0)"
+                                    onclick="konfirmasiHapus(<?= $pelanggaran['siswa_id'] ?>, <?= $pelanggaran['pelanggaran_siswa_id'] ?>)"
+                                    class="btn btn-danger">
                                     Hapus
                                 </a>
+
+
                             </td>
 
                         </tr>
@@ -91,5 +93,54 @@ if (empty($pelanggaranSiswa)) {
         <a href="rekap_pelanggaran.php" class="btn btn-secondary mt-3">← Kembali</a>
     </div>
 </div>
+
+<!-- border spinner -->
+<script>
+
+    Swal.fire("SweetAlert2 is working!");
+    Swal.fire({
+        title: "Good job!",
+        text: "You clicked the button!",
+        icon: "success"
+    });
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function konfirmasiHapus(siswa_id, pelanggaran_siswa_id) {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Pelanggaran ini akan dihapus dan tidak bisa dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Tidak, Batal!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success",
+                    timer: 6000,
+                    timerProgressBar: true,
+                    willClose: () => {
+                        // Redirect ke file hapus jika user konfirmasi
+                        window.location.href = `hapus_pelanggaran.php?id=${siswa_id}&pelanggaran_siswa_id=${pelanggaran_siswa_id}`
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Dibatalkan',
+                    'Pelanggaran tidak jadi dihapus.',
+                    'error'
+                );
+            }
+        });
+    }
+</script>
+
+
 
 <?php require_once '../layouts/footer.php'; ?>

@@ -51,8 +51,27 @@ if (isset($_POST["submit"])) {
     $stmt = $db->prepare($updateQuery);
     $stmt->execute([$pelanggaran_baru, $siswa_id, $pelanggaran_lama]);
 
-    // Redirect ke halaman detail setelah update
-    header("Location: detail_pelanggaran.php?id=$siswa_id&pelanggaran_id=$pelanggaran_baru");
+    // Sweetalert
+
+    echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil Merubah Pelanggaran!',
+                    timer: 6000,
+                    timerProgressBar: true,
+                        willClose: () => {
+                        window.location.href = 'detail_pelanggaran.php?id=' + '$siswa_id' + '&pelanggaran_id=' + '$pelanggaran_baru'; 
+                    }
+                });
+            });
+        </script>
+        ";
+
+
+
     exit();
 }
 ;
@@ -60,8 +79,8 @@ if (isset($_POST["submit"])) {
 
 
 <div class="container-md">
-    <h1>Halaman Merubah Pelanggaran </h1>
-    <form action="" method="POST">
+    <h1 class="text-center">Halaman Merubah Pelanggaran </h1>
+    <form action="" method="POST" class="border rounded p-3">
 
         <div class="form-group">
             <label for="nama_siswa">Nama Siswa</label>
@@ -110,6 +129,10 @@ if (isset($_POST["submit"])) {
         <button type="submit" class="btn btn-primary mt-2" name="submit">Simpan</button>
     </form>
 </div>
+<div class="container d-flex justify-content-between">
+    <a href="detail_pelanggaran.php?id=<?= $pelanggaran['siswa_id'] ?>&pelanggaran_id=<?= $pelanggaran['pelanggaran_id'] ?>"
+        class="btn btn-secondary mt-3">← Kembali</a>
+</div>
 
 <script>
     // Fungsi untuk memperbarui poin berdasarkan pelanggaran yang dipilih
@@ -129,6 +152,24 @@ if (isset($_POST["submit"])) {
             }
         <?php endforeach; ?>
     }
+</script>
+
+<!-- border spinner -->
+<script>
+
+    Swal.fire("SweetAlert2 is working!");
+
+    // Hilangkan alert sukses setelah 3 detik
+    setTimeout(function () {
+        const alert = document.getElementById('success-alert');
+        if (alert) {
+            alert.remove();
+        }
+    }, 3000); // 3000ms = 3 detik
+    setTimeout(() => {
+        myModal.hide();
+    }, 3000);
+
 </script>
 
 <?php
