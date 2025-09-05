@@ -9,4 +9,6 @@ $conn = new mysqli($host, $username, $password, $dbname);
 if ($conn->connect_error) {
     die('Connection failed: ' . $conn->connect_error);
 }
+// base url assets
+define('BASE_URL', 'http://localhost/upt-sdn-035-tb-project/');
 ?>

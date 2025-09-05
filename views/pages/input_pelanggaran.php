@@ -1,9 +1,17 @@
 <?php
-require_once '../layouts/header.php';
-require_once '../../koneksi.php';
+require_once __DIR__ . '/../layouts/header.php';
+require_once __DIR__ . '/../../koneksi.php';
+
+
+// untuk tabel kiri //
 
 // Ambil data kelas unik
-$kelasList = $db->query("SELECT DISTINCT kelas FROM users")->fetchAll();
+// $kelasList = $db->query("SELECT DISTINCT kelas FROM users ORDER BY kelas DESC")->fetchAll();
+$kelasList = $db->query("SELECT DISTINCT kelas 
+FROM users 
+ORDER BY 
+  CAST(SUBSTRING(kelas, 1, LENGTH(kelas) - 1) AS UNSIGNED),
+  RIGHT(kelas, 1)")->fetchAll();
 // Jika kelas dipilih, ambil siswa berdasarkan kelas
 $selectedKelas = $_GET['kelas'] ?? '';
 $siswaList = [];
@@ -15,6 +23,7 @@ if ($selectedKelas) {
 
 // Ambil semua jenis pelanggaran
 $pelanggaranList = $db->query("SELECT * FROM pelanggaran")->fetchAll();
+
 
 
 
@@ -64,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <?php
-// Menampilkan data pelanggaran siswa
+// Menampilkan data pelanggaran siswa untuk tabel kanan
 $dataPelanggaran = $db->query("
     SELECT 
         ps.id,
@@ -185,7 +194,7 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
     </div>
 </div>
 
-
+<script src="../../utilities/tanggal.js"></script>
 
 <!-- border spinner -->
 <script>
@@ -210,7 +219,7 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
     document.getElementById('kelas').addEventListener('change', function () {
         var kelas = this.value;
 
-        fetch('../ajax/get_siswa_by_kelas.php?kelas=' + encodeURIComponent(kelas))
+        fetch(`views/ajax/get_siswa_by_kelas.php?kelas=${encodeURIComponent(kelas)}`)
             .then(response => response.text())
             .then(data => {
                 document.querySelector('select[name="siswa_id"]').innerHTML = '<option value="">Pilih Siswa</option>' + data;
@@ -219,9 +228,31 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
                 console.error('Error:', error);
             });
     });
+
+
+    // Fungsi untuk memformat tanggal
+    function tampilkanTanggal() {
+        const sekarang = new Date();
+
+        // Opsi format lokal
+        const opsiFormat = {
+            weekday: 'long',     // Hari (misal: Senin)
+            year: 'numeric',
+            month: 'long',       // Bulan (misal: September)
+            day: 'numeric'
+        };
+
+        // Format dengan bahasa Indonesia
+        const tanggalFormatted = sekarang.toLocaleDateString('id-ID', opsiFormat);
+
+        // Tampilkan di elemen <p id="tanggal">
+        document.getElementById('tanggal').textContent = tanggalFormatted;
+    }
+
+
+    tampilkanTanggal();
 </script>
 
 
 
-
-<?php require_once '../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>

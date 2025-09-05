@@ -3,7 +3,7 @@ $host = 'localhost';
 $dbname = 'upt_sdn_035_tb';
 $username = 'root';
 $password = '';
-$db = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname);
 
 try {
     $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
@@ -12,4 +12,6 @@ try {
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }
+
+define('BASE_URL', 'http://localhost/upt-sdn-035-tb-project/');
 ?>

@@ -1,7 +1,7 @@
 <?php
 ob_start();
-require_once '../layouts/header.php';
-require_once '../../koneksi.php';
+require_once __DIR__ . '/../layouts/header.php';
+require_once __DIR__ . '/../../koneksi.php';
 
 // Ambil ID siswa dan ID pelanggaran dari URL (data lama)
 $siswa_id = isset($_GET['id']) ? $_GET['id'] : 0;
@@ -78,7 +78,7 @@ if (isset($_POST["submit"])) {
                     timer: 600000,
                     timerProgressBar: true,
                         willClose: () => {
-                        window.location.href = 'detail_pelanggaran.php?id=' + '$siswa_id'; 
+                        window.location.href = 'index.php?page=detail_pelanggaran&id=' + '$siswa_id'; 
                     }
                 });
             });
@@ -190,4 +190,4 @@ if (isset($_POST["submit"])) {
 <?php
 ob_end_flush();
 ?>
-<?php require_once '../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>

@@ -11,7 +11,7 @@
 
 <body>
     <div class="container">
-        <form action="check_register.php" method="post">
+        <form action="index.php?page=check_register" method="post">
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama</label>
                 <input type="text" name="nama" class="form-control" id="nama" placeholder="name@example.com">

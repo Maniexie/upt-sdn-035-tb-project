@@ -1,0 +1,97 @@
+.dashboard-scroll {
+  overflow-y: scroll;
+  height: 100vh;
+  z-index: -1;
+}
+
+.slider-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.card {
+  min-width: 250px;
+  margin-right: 20px;
+  background: #eee;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 150px;
+}
+
+#sidebarDropdown.collapse:not(.show) {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+
+#sidebarDropdown.collapse.show {
+  height: auto;
+  transition: height 0.3s ease;
+}
+
+.nav-link[aria-expanded="true"] .fa-chevron-down {
+  transform: rotate(180deg);
+  transition: transform 0.3s;
+}
+
+.nav-link[aria-expanded="false"] .fa-chevron-down {
+  transition: transform 0.3s;
+}
+
+/* Tambahkan ini ke style.css atau <style> */
+/* .sidebar {
+  transition: transform 0.3s ease;
+} */
+/* 
+.sidebar-hidden {
+  transform: translateX(-80%);
+  position: absolute;
+  z-index: 1040;
+  top: 0;
+  left: 0;
+} */
+
+/* Transisi main content */
+.main-content {
+  transition: margin-left 0.3s ease, width 0.3s ease;
+  margin-left: 16.6667%; /* default col-lg-2 (2/12 = 16.67%) */
+  width: 83.3333%;
+}
+
+.nav-link:hover {
+  background-color: aqua;
+  color: black;
+  /* border-radius: */
+}
+
+.custom-select-enhanced {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 2px solid #0d6efd;
+  background-color: #fff;
+  color: #212529;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.custom-select-enhanced:hover {
+  border-color: #0a58ca;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.custom-select-enhanced:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}

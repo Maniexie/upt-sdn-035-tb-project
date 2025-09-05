@@ -1,6 +1,6 @@
 <?php
-require_once '../../koneksi.php';
-require_once '../../vendor/autoload.php'; // pastikan path ini sesuai
+require_once __DIR__ . '/../../koneksi.php';
+require_once __DIR__ . '/../../vendor/autoload.php'; // pastikan path ini sesuai
 
 use Mpdf\Mpdf;
 

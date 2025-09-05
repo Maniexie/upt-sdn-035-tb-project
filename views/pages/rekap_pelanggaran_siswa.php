@@ -1,6 +1,6 @@
 <?php
-require_once '../layouts/header.php';
-require_once '../../koneksi.php';
+require_once __DIR__ . '/../layouts/header.php';
+require_once __DIR__ . '/../../koneksi.php';
 
 
 // Ambil ID siswa dari URL
@@ -79,13 +79,13 @@ $totalPoin = array_sum(array_column($dataPelanggaran, 'poin'));
     </div>
 
     <div class="container d-flex justify-content-between">
-        <a href="rekap_pelanggaran.php" class="btn btn-secondary mt-3">← Kembali</a>
+        <a href="index.php?page=rekap_pelanggaran" class="btn btn-secondary mt-3">← Kembali</a>
 
-        <a href="cetak_rekap_siswa.php?id=<?= $siswa_id ?>" class="btn btn-danger mt-3" target="_blank">
+        <a href="index.php?page=cetak_rekap_siswa&id=<?= $siswa_id ?>" class="btn btn-danger mt-3" target="_blank">
             Cetak PDF
             <i class="fa fa-file-pdf"></i>
         </a>
     </div>
 </div>
 
-<?php require_once '../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>

@@ -1,6 +1,6 @@
 <?php
-require_once '../layouts/header.php';
-require_once '../../koneksi.php';
+require_once __DIR__ . '/../layouts/header.php';
+require_once __DIR__ . '/../../koneksi.php';
 
 // Ambil filter bulan dan tahun dari query string (default ke bulan dan tahun saat ini)
 $filterBulan = $_GET['bulan'] ?? date('Y-m');
@@ -115,4 +115,4 @@ $items = array_slice($groupedByDate, $start, $perPage);
     <?php endif; ?>
 </div>
 
-<?php require_once '../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>

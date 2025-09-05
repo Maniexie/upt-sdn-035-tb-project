@@ -69,14 +69,17 @@ $dataPoints = array(
 
     }
 </script>
-<?php require_once '../layouts/header.php';
+<?php
+//  require_once '../layouts/header.php';
+require_once(__DIR__ . '/../layouts/header.php');
 
 ?>
+
 <!-- Dashboard Content -->
 <!-- <h2 class="mb-4">Dashboard Content</h2> -->
 <!-- <div class="container d-flex">
 
-        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
     </section> -->
 
 <div class="container-fluid">
@@ -86,66 +89,49 @@ $dataPoints = array(
         <div class="">
             <h4>Siswa Bermasalah hari ini <span class="fw-bold" id="tanggal"></span></h4>
             <div class="slider-wrapper">
-                <div class="slider" id="slider">
+                <div class="slider slider-track" id="slider">
                     <!-- Card 1 -->
                     <div class="card">
-                        <img src="../../assets/img/default.png" class="card-img-top" alt="...">
+                        <img src="<?= BASE_URL ?>assets/img/default.png" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Suroto Pangestu Wijaya</h5>
-                            <p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Topi</p>
+                            <h5 class="card-title">Andi Saputra1</h5>
+                            <p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
                         </div>
                     </div>
+
                     <!-- Card 2 -->
                     <div class="card">
-                        <img src="../../assets/img/default.png" class="card-img-top" alt="...">
+                        <img src="<?= BASE_URL ?>assets/img/default.png" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Budi Santoso</h5>
-                            <p class="card-text"><span class="fw-semibold">Kesalahan:</span> Terlambat Masuk</p>
+                            <h5 class="card-title">Andi Saputra2</h5>
+                            <p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
                         </div>
                     </div>
+
                     <!-- Card 3 -->
                     <div class="card">
-                        <img src="../../assets/img/default.png" class="card-img-top" alt="...">
+                        <img src="<?= BASE_URL ?>assets/img/default.png" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Andi Saputra</h5>
+                            <h5 class="card-title">Andi Saputra3</h5>
                             <p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
                         </div>
                     </div>
                     <div class="card">
-                        <img src="../../assets/img/default.png" class="card-img-top" alt="...">
+                        <img src="<?= BASE_URL ?>assets/img/default.png" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Andi Saputra</h5>
+                            <h5 class="card-title">Andi Saputra4</h5>
                             <p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
                         </div>
                     </div>
                     <div class="card">
-                        <img src="../../assets/img/default.png" class="card-img-top" alt="...">
+                        <img src="<?= BASE_URL ?>assets/img/default.png" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Andi Saputra</h5>
+                            <h5 class="card-title">Andi Saputra5</h5>
                             <p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
                         </div>
                     </div>
-                    <div class="card">
-                        <img src="../../assets/img/default.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Andi Saputra</h5>
-                            <p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="../../assets/img/default.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Andi Saputra</h5>
-                            <p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="../../assets/img/default.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Andi Saputra</h5>
-                            <p class="card-text"><span class="fw-semibold">Kesalahan:</span> Tidak Membawa Buku</p>
-                        </div>
-                    </div>
+
+
                     <!-- Tambahkan card lain sesuai kebutuhan -->
                 </div>
             </div>
@@ -171,9 +157,44 @@ $dataPoints = array(
 </div>
 
 <!-- utilities -->
-<script src="../utilities/tanggal.js"></script>
-<script src="../utilities/slider.js"></script>
-<script src="../utilities/sidebar.js"></script>
+<script src="<?= BASE_URL ?>assets/js/tanggal.js"></script>
+<!-- <script src="<?= BASE_URL ?>assets/js/slider.js"></script> -->
+<script src="<?= BASE_URL ?>assets/js/sidebar.js"></script>
+
+<script>
+    let slider = document.getElementById("slider");
+    let index = 0;
+    let cardWidth = 270; // 250 + 20
+    let cards = slider.children.length;
+
+    // Hanya bergerak jika lebih dari 4 card
+    if (cards > 4) {
+        // Clone semua card untuk loop
+        for (let i = 0; i < cards; i++) {
+            let clone = slider.children[i].cloneNode(true);
+            slider.appendChild(clone);
+        }
+
+        let totalCards = slider.children.length;
+
+        function slideCards() {
+            index++;
+            slider.style.transition = "transform 0.5s ease";
+            slider.style.transform = `translateX(-${index * cardWidth}px)`;
+
+            // Reset jika sudah sampai akhir clone
+            if (index >= cards) {
+                setTimeout(() => {
+                    slider.style.transition = "none";
+                    slider.style.transform = `translateX(0px)`;
+                    index = 0;
+                }, 0); // match transition duration
+            }
+        }
+
+        setInterval(slideCards, 2300);
+    }
+</script>
 
 
 <!-- chart js -->
@@ -181,4 +202,7 @@ $dataPoints = array(
 </div>
 </div>
 
-<?php require_once '../layouts/footer.php';
+<?php
+require_once(__DIR__ . '/../layouts/footer.php');
+// require_once '../layouts/footer.php';
+?>

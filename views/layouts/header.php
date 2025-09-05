@@ -10,7 +10,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="../../assets/style.css"> -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css">
+    <!-- <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
@@ -123,11 +125,13 @@
 
                         <div class="collapse ps-3 mt-1" id="pelanggaran">
                             <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="index.php?page=input_pelanggaran">
-                                        Input Pelanggaran
-                                    </a>
-                                </li>
+                                <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="index.php?page=input_pelanggaran">
+                                            Input Pelanggaran
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
                                 <li class="nav-item">
                                     <a class="nav-link text-white" href="index.php?page=rekap_pelanggaran">
                                         Rekap Pelanggaran
@@ -227,7 +231,7 @@
                     </li> -->
 
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">
+                        <a class="nav-link text-white" href="index.php?page=logout">
                             Logout
                         </a>
                     </li>
@@ -238,7 +242,16 @@
             <div class="col-md-9 col-lg-10 px-0">
                 <!-- Navbar -->
                 <nav class="navbar navbar-expand-lg bg-primary px-4 sticky-top" data-bs-theme="dark">
-                    <a class="navbar-brand" href="#">Welcome, Admin</a>
+                    <!-- <a class="navbar-brand" href="#">Welcome, Admin | Role -->
+                    <!-- </a> -->
+                    <?php if (isset($_SESSION['user_id']) && isset($_SESSION['role_id'])): ?>
+                        <a class="navbar-brand" href="#">
+                            Welcome, <?= htmlspecialchars($_SESSION['user_name']) ?> | Role_id =
+                            <?= $_SESSION['role_id'] ?> | Role_name =
+                            <?= $_SESSION['role_name'] ?>
+                        </a>
+                    <?php endif; ?>
+
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>

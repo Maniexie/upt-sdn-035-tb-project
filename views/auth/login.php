@@ -11,7 +11,7 @@
 
 <body>
     <div class="container">
-        <form action="check_login.php" method="post">
+        <form action="index.php?page=check_login" method="post">
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <input type="email" name="email" class="form-control" required id="email"

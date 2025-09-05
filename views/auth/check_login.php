@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once '../../koneksi_auth.php';
+require_once __DIR__ . '/../../config/koneksi.php';
+
 
 
 $email = $_POST['email'];
@@ -27,16 +28,16 @@ if ($user = $result->fetch_assoc()) {
         // Redirect sesuai role
         switch ($user['role_name']) {
             case 'admin':
-                header("Location: ../../index.php?page=dashboard");
+                header("Location: index.php?page=dashboard");
                 break;
             case 'guru':
-                header("Location: ../../index.php?page=input_pelanggaran");
+                header("Location: index.php?page=input_pelanggaran");
                 break;
             case 'siswa':
-                header("Location: ../../index.php?page=rekap_pelanggaran");
+                header("Location: index.php?page=rekap_pelanggaran");
                 break;
             default:
-                header("Location: ../../index.php?page=dashboard");
+                header("Location: index.php?page=dashboard");
         }
         exit;
     }

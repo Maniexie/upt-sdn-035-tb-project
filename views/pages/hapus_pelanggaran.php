@@ -1,7 +1,7 @@
 <?php
 ob_start();
-require_once '../layouts/header.php';
-require_once '../../koneksi.php';
+require_once __DIR__ . '/../layouts/header.php';
+require_once __DIR__ . '/../../koneksi.php';
 
 $siswa_id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 $pelanggaran_siswa_id = isset($_GET['pelanggaran_siswa_id']) ? (int) $_GET['pelanggaran_siswa_id'] : 0;
@@ -13,7 +13,7 @@ if ($siswa_id > 0 && $pelanggaran_siswa_id > 0) {
 }
 
 // Setelah hapus, redirect ke halaman detail
-header("Location: detail_pelanggaran.php?id=$siswa_id");
+header("Location: index.php?page=detail_pelanggaran&id=$siswa_id");
 exit;
 
 ?>
@@ -22,6 +22,6 @@ exit;
 <?php
 ob_end_flush();
 ?>
-<?php require_once '../layouts/footer.php';
+<?php require_once __DIR__ . '/../layouts/footer.php';
 
 ?>

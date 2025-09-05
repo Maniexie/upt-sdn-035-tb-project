@@ -1,6 +1,6 @@
 <?php
-require_once '../layouts/header.php';
-require_once '../../koneksi.php';
+require_once __DIR__ . '/../layouts/header.php';
+require_once __DIR__ . '/../../koneksi.php';
 
 // Ambil ID siswa dari URL
 $siswa_id = isset($_GET['id']) ? $_GET['id'] : 0;  // Cek apakah ID ada di URL, jika tidak, set ID ke 0
@@ -36,7 +36,7 @@ $pelanggaranSiswa = $stmt->fetchAll();
 // Jika tidak ada data pelanggaran untuk siswa ini
 if (empty($pelanggaranSiswa)) {
     echo "<div class='alert alert-info'>Tidak ada pelanggaran untuk siswa ini.</div>";
-    echo "<div class='text-center'><a href='rekap_pelanggaran.php' class='btn btn-primary'>Kembali</a></div>";
+    echo "<div class='text-center'><a href='index.php?page=rekap_pelanggaran' class='btn btn-primary'>Kembali</a></div>";
     exit;
 }
 ?>
@@ -70,17 +70,15 @@ if (empty($pelanggaranSiswa)) {
                             <td><?= $pelanggaran['poin'] ?></td>
                             <td><?= date('d-F-Y', strtotime($pelanggaran['tanggal'])) ?></td>
                             <td>
-                                <a href="edit_pelanggaran.php?id=<?= $pelanggaran['siswa_id'] ?>&pelanggaran_siswa_id=<?= $pelanggaran['pelanggaran_siswa_id'] ?>"
+                                <a href="index.php?page=edit_pelanggaran&id=<?= $pelanggaran['siswa_id'] ?>&pelanggaran_siswa_id=<?= $pelanggaran['pelanggaran_siswa_id'] ?>"
                                     class="btn btn-primary">
                                     Edit
                                 </a>
-                                <a href="javascript:void(0)"
-                                    onclick="konfirmasiHapus(<?= $pelanggaran['siswa_id'] ?>, <?= $pelanggaran['pelanggaran_siswa_id'] ?>)"
-                                    class="btn btn-danger">
+                                <button type="button" class="btn btn-danger"
+                                    onclick="konfirmasiHapus(<?= $pelanggaran['siswa_id'] ?>, <?= $pelanggaran['pelanggaran_siswa_id'] ?>)">
                                     Hapus
-                                </a>
-
-
+                                    <i class="fa fa-trash"></i>
+                                </button>
                             </td>
 
                         </tr>
@@ -90,7 +88,7 @@ if (empty($pelanggaranSiswa)) {
         </div>
     </div>
     <div class="container d-flex justify-content-between">
-        <a href="rekap_pelanggaran.php" class="btn btn-secondary mt-3">← Kembali</a>
+        <a href="index.php?page=rekap_pelanggaran" class="btn btn-secondary mt-3">← Kembali</a>
     </div>
 </div>
 
@@ -120,14 +118,14 @@ if (empty($pelanggaranSiswa)) {
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
+                    title: "Terhapus!",
+                    text: "Data pelanggaran berhasil dihapus.",
                     icon: "success",
                     timer: 6000,
                     timerProgressBar: true,
                     willClose: () => {
                         // Redirect ke file hapus jika user konfirmasi
-                        window.location.href = `hapus_pelanggaran.php?id=${siswa_id}&pelanggaran_siswa_id=${pelanggaran_siswa_id}`
+                        window.location.href = `index.php?page=hapus_pelanggaran&id=${siswa_id}&pelanggaran_siswa_id=${pelanggaran_siswa_id}`
                     }
                 });
             } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -143,4 +141,4 @@ if (empty($pelanggaranSiswa)) {
 
 
 
-<?php require_once '../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
