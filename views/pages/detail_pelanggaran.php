@@ -70,7 +70,7 @@ if (empty($pelanggaranSiswa)) {
                             <td><?= $pelanggaran['poin'] ?></td>
                             <td><?= date('d-F-Y', strtotime($pelanggaran['tanggal'])) ?></td>
                             <td>
-                                <a href="edit_pelanggaran.php?id=<?= $pelanggaran['siswa_id'] ?>&pelanggaran_id=<?= $pelanggaran['pelanggaran_id'] ?>"
+                                <a href="edit_pelanggaran.php?id=<?= $pelanggaran['siswa_id'] ?>&pelanggaran_siswa_id=<?= $pelanggaran['pelanggaran_siswa_id'] ?>"
                                     class="btn btn-primary">
                                     Edit
                                 </a>

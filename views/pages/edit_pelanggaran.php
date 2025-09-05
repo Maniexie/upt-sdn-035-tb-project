@@ -5,10 +5,11 @@ require_once '../../koneksi.php';
 
 // Ambil ID siswa dan ID pelanggaran dari URL (data lama)
 $siswa_id = isset($_GET['id']) ? $_GET['id'] : 0;
-$pelanggaran_lama = isset($_GET['pelanggaran_id']) ? $_GET['pelanggaran_id'] : 0;
+$pelanggaran_siswa_id = isset($_GET['pelanggaran_siswa_id']) ? $_GET['pelanggaran_siswa_id'] : 0;
+// $pelanggaran_lama = isset($_GET['pelanggaran_id']) ? $_GET['pelanggaran_id'] : 0;
 
 // Pastikan ID valid
-if ($siswa_id == 0 || $pelanggaran_lama == 0) {
+if ($siswa_id == 0 || $pelanggaran_siswa_id == 0) {
     echo "<div class='alert alert-danger'>ID tidak valid.</div>";
     exit;
 }
@@ -22,13 +23,14 @@ $stmt = $db->prepare("
         p.id AS pelanggaran_id,
         p.nama_pelanggaran AS nama_pelanggaran,
         p.poin,
-        ps.tanggal
+        ps.tanggal,
+        ps.id AS pelanggaran_siswa_id
     FROM pelanggaran_siswa ps
     JOIN users u ON ps.siswa_id = u.id
     JOIN pelanggaran p ON ps.pelanggaran_id = p.id
-    WHERE u.id = ? AND p.id = ?
+    WHERE ps.id = ?
 ");
-$stmt->execute([$siswa_id, $pelanggaran_lama]);
+$stmt->execute([$pelanggaran_siswa_id]);
 $pelanggaran = $stmt->fetch();
 
 // Jika data pelanggaran tidak ditemukan
@@ -40,16 +42,27 @@ if (!$pelanggaran) {
 // Proses update jika form disubmit
 if (isset($_POST["submit"])) {
     $pelanggaran_baru = $_POST["pelanggaran_id"];
-    // $tanggal = $_POST["tanggal"];
+    $pelanggaran_lama = $pelanggaran["nama_pelanggaran"];
+    $nama_siswa = $pelanggaran["nama_siswa"];
 
-    // Update query (gunakan pelanggaran lama di WHERE)
+
+    $stmt = $db->prepare("
+        SELECT 
+            p.nama_pelanggaran AS nama_pelanggaran,
+            u.nama AS nama_siswa
+        FROM pelanggaran p 
+        JOIN users u ON p.id = ?
+    ");
+    $stmt->execute([$pelanggaran_baru]);
+    $nama_pelanggaran_baru = $stmt->fetchColumn();
+
     $updateQuery = "
         UPDATE pelanggaran_siswa 
         SET pelanggaran_id = ? 
-        WHERE siswa_id = ? AND pelanggaran_id = ?
+        WHERE id = ?
     ";
     $stmt = $db->prepare($updateQuery);
-    $stmt->execute([$pelanggaran_baru, $siswa_id, $pelanggaran_lama]);
+    $stmt->execute([$pelanggaran_baru, $pelanggaran_siswa_id]);
 
     // Sweetalert
 
@@ -60,10 +73,12 @@ if (isset($_POST["submit"])) {
                 Swal.fire({
                     icon: 'success',
                     title: 'Berhasil Merubah Pelanggaran!',
-                    timer: 6000,
+                    html: 'Nama : <b>$nama_siswa</b> <br>Pelanggaran <b>$pelanggaran_lama</b>  berhasil diubah menjadi <b>$nama_pelanggaran_baru</b>.',
+                    confirmButtonColor: '#3085d6',
+                    timer: 600000,
                     timerProgressBar: true,
                         willClose: () => {
-                        window.location.href = 'detail_pelanggaran.php?id=' + '$siswa_id' + '&pelanggaran_id=' + '$pelanggaran_baru'; 
+                        window.location.href = 'detail_pelanggaran.php?id=' + '$siswa_id'; 
                     }
                 });
             });
