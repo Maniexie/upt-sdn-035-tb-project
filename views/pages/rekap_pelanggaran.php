@@ -1,8 +1,15 @@
 <?php
-require_once '../layouts/header.php';
-require_once '../../koneksi.php';
+// require_once '../layouts/header.php';
+require_once(__DIR__ . '/../layouts/header.php');
+require_once(__DIR__ . '/../../koneksi.php');
+echo __DIR__;
+// Debugging untuk melihat direktori saat ini
+
+
+
 
 // Ambil data pelanggaran 
+
 $dataPelanggaran = $db->query("
     SELECT 
         u.id AS siswa_id,
@@ -127,4 +134,7 @@ foreach ($urutanKelas as $kelas) {
     </section>
 </div>
 
-<?php require_once '../layouts/footer.php'; ?>
+<?php
+// require_once '/../layouts/footer.php';
+require_once(__DIR__ . '/../layouts/footer.php');
+?>

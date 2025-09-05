@@ -35,14 +35,14 @@
                 <ul class="nav flex-column">
                     <!-- Home -->
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="index.php?page=index">
+                        <a class="nav-link text-white" href="index.php">
                             <i class="fa-solid fa-house text-white"></i>
                             Home
                         </a>
                     </li>
                     <!-- Profile -->
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="index.php?page=profile">
+                        <a class="nav-link text-white" href="profile.php">
                             Profile
                         </a>
                     </li>
@@ -124,15 +124,17 @@
                         <div class="collapse ps-3 mt-1" id="pelanggaran">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" href="index.php?page=input_pelanggaran">
+                                    <a class="nav-link text-white" href="input_pelanggaran.php">
                                         Input Pelanggaran
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="index.php?page=rekap_pelanggaran">
-                                        Rekap Pelanggaran
-                                    </a>
-                                </li>
+                                <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="index.php?page=rekap_pelanggaran">
+                                            Rekap Pelanggaran
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
 
 
                                 <li class="nav-item">
@@ -144,12 +146,12 @@
                                     <hr class="dropdown-divider bg-light">
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" href="index.php?page=jenis_pelanggaran">
+                                    <a class="nav-link text-white" href="jenis_pelanggaran.php">
                                         Jenis Pelanggaran
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" href="index.php?page=history_pelanggaran">
+                                    <a class="nav-link text-white" href="history_pelanggaran.php">
                                         History Pelanggaran
                                     </a>
                                 </li>

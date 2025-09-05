@@ -3,8 +3,6 @@ $host = 'localhost';
 $dbname = 'upt_sdn_035_tb';
 $username = 'root';
 $password = '';
-
-
 $db = new mysqli($host, $username, $password, $dbname);
 
 try {
