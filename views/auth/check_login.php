@@ -34,7 +34,7 @@ if ($user = $result->fetch_assoc()) {
                 header("Location: index.php?page=input_pelanggaran");
                 break;
             case 'siswa':
-                header("Location: index.php?page=rekap_pelanggaran");
+                header("Location: index.php?page=history_pelanggaran");
                 break;
             default:
                 header("Location: index.php?page=dashboard");

@@ -43,30 +43,40 @@
                         </a>
                     </li>
                     <!-- Profile -->
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="index.php?page=profile">
-                            Profile
-                        </a>
-                    </li>
+                    <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-white text-capitalize" href="index.php?page=profile">
+                                Profile <?= ($_SESSION['role_name']) ?>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if ($_SESSION['role_id'] == 3): ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="index.php?page=profile">
+                                Profile Siswa
+                            </a>
+                        </li>
+                    <?php endif; ?>
 
                     <!-- DATA GURU -->
-                    <li class="nav-item">
-                        <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                            data-bs-toggle="collapse" href="#data_guru" role="button" aria-expanded="false"
-                            aria-controls="data_guru">
-                            <span>Data Guru</span>
-                            <i class="fa fa-chevron-down"></i>
-                        </a>
+                    <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" href="#data_guru" role="button" aria-expanded="false"
+                                aria-controls="data_guru">
+                                <span>Data Guru</span>
+                                <i class="fa fa-chevron-down"></i>
+                            </a>
 
-                        <div class="collapse ps-3 mt-1" id="data_guru">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="#">
-                                        <!-- <i class="fa fa-bolt me-2 text-danger"></i>  -->
-                                        Profil Guru
-                                    </a>
-                                </li>
-                                <!-- <li class="nav-item">
+                            <div class="collapse ps-3 mt-1" id="data_guru">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="#">
+                                            <!-- <i class="fa fa-bolt me-2 text-danger"></i>  -->
+                                            Profil Guru
+                                        </a>
+                                    </li>
+                                    <!-- <li class="nav-item">
                                     <a class="nav-link text-white" href="#">
                                         <i class="fa fa-cogs me-2 text-info"></i> Another Action
                                     </a>
@@ -79,26 +89,28 @@
                                         <i class="fa fa-question-circle me-2 text-light"></i> Something Else
                                     </a>
                                 </li> -->
-                            </ul>
-                        </div>
-                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    <?php endif; ?>
                     <!-- DATA SISWA -->
-                    <li class="nav-item">
-                        <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                            data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
-                            aria-controls="data_siswa">
-                            <span>Data Siswa</span>
-                            <i class="fa fa-chevron-down"></i>
-                        </a>
+                    <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
+                                aria-controls="data_siswa">
+                                <span>Data Siswa</span>
+                                <i class="fa fa-chevron-down"></i>
+                            </a>
 
-                        <div class="collapse ps-3 mt-1" id="data_siswa">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="#">
-                                        </i> Profil Siswa
-                                    </a>
-                                </li>
-                                <!-- <li class="nav-item">
+                            <div class="collapse ps-3 mt-1" id="data_siswa">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="#">
+                                            </i> Profil Siswa
+                                        </a>
+                                    </li>
+                                    <!-- <li class="nav-item">
                                     <a class="nav-link text-white" href="#">
                                         <i class="fa fa-cogs me-2 text-info"></i> Another Action
                                     </a>
@@ -111,9 +123,10 @@
                                         <i class="fa fa-question-circle me-2 text-light"></i> Something Else
                                     </a>
                                 </li> -->
-                            </ul>
-                        </div>
-                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    <?php endif; ?>
                     <!-- PELANGGARAN -->
                     <li class="nav-item">
                         <a class="nav-link text-white d-flex justify-content-between align-items-center"
@@ -132,18 +145,23 @@
                                         </a>
                                     </li>
                                 <?php endif; ?>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="index.php?page=rekap_pelanggaran">
-                                        Rekap Pelanggaran
-                                    </a>
-                                </li>
 
+                                <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="index.php?page=rekap_pelanggaran">
+                                            Rekap Pelanggaran
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="#">
-                                        Pelanggaran Siswa
-                                    </a>
-                                </li>
+                                <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2 || $_SESSION['role_id'] == 3): ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="#">
+                                            Pelanggaran Siswa
+                                        </a>
+                                    </li>
+                                <?php endif ?>
+
                                 <li>
                                     <hr class="dropdown-divider bg-light">
                                 </li>

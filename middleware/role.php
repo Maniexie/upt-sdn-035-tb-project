@@ -24,11 +24,22 @@ function checkRoleAccess($page)
             'dashboard',
             'input_pelanggaran',
             'edit_pelanggaran',
+            'profile',
+            'index',
+            'rekap_pelanggaran',
+            'detail_pelanggaran',
+            'rekap_pelanggaran_siswa',
+            'cetak_rekap_siswa',
+            'jenis_pelanggaran',
+            'history_pelanggaran'
         ],
         3 => [ // siswa
             'dashboard',
             'rekap_pelanggaran',
             'index',
+            'history_pelanggaran',
+            'jenis_pelanggaran',
+            'profile'
         ],
     ];
 

@@ -17,7 +17,7 @@ $dataPoints = array(
 ?>
 
 <script>
-    window.onload = function () {
+    window.onload = function() {
 
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
@@ -82,16 +82,16 @@ require_once(__DIR__ . '/../layouts/header.php');
     <div id="chartContainer" style="height: 370px; width: 100%;"></div>
     </section> -->
 
-<div class="container-fluid">
+<div class="container ">
 
     <!-- SISWA_BERMASALAH -->
     <section id="siswa_bermasalah" class="py-2">
         <div class="">
             <h4>Siswa Bermasalah hari ini <span class="fw-bold" id="tanggal"></span></h4>
             <div class="slider-wrapper">
-                <div class="slider slider-track" id="slider">
+                <div class="slider-track d-flex" id="slider">
                     <!-- Card 1 -->
-                    <div class="card">
+                    <div class="card d-flex">
                         <img src="<?= BASE_URL ?>assets/img/default.png" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Andi Saputra1</h5>

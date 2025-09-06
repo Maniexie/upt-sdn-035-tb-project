@@ -74,11 +74,13 @@ if (empty($pelanggaranSiswa)) {
                                     class="btn btn-primary">
                                     Edit
                                 </a>
-                                <button type="button" class="btn btn-danger"
-                                    onclick="konfirmasiHapus(<?= $pelanggaran['siswa_id'] ?>, <?= $pelanggaran['pelanggaran_siswa_id'] ?>)">
-                                    Hapus
-                                    <i class="fa fa-trash"></i>
-                                </button>
+                                <?php if ($_SESSION['role_id'] == 1): ?>
+                                    <button type="button" class="btn btn-danger"
+                                        onclick="konfirmasiHapus(<?= $pelanggaran['siswa_id'] ?>, <?= $pelanggaran['pelanggaran_siswa_id'] ?>)">
+                                        Hapus
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                <?php endif; ?>
                             </td>
 
                         </tr>
@@ -94,14 +96,12 @@ if (empty($pelanggaranSiswa)) {
 
 <!-- border spinner -->
 <script>
-
     Swal.fire("SweetAlert2 is working!");
     Swal.fire({
         title: "Good job!",
         text: "You clicked the button!",
         icon: "success"
     });
-
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
