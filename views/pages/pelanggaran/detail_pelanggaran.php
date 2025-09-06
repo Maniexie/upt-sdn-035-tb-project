@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../layouts/header.php';
-require_once __DIR__ . '/../../koneksi.php';
+require_once __DIR__ . '/../../layouts/header.php';
+require_once __DIR__ . '/../../../koneksi.php';
 
 // Ambil ID siswa dari URL
 $siswa_id = isset($_GET['id']) ? $_GET['id'] : 0;  // Cek apakah ID ada di URL, jika tidak, set ID ke 0
@@ -141,4 +141,4 @@ if (empty($pelanggaranSiswa)) {
 
 
 
-<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../../layouts/footer.php'; ?>

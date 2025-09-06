@@ -71,9 +71,15 @@
                             <div class="collapse ps-3 mt-1" id="data_guru">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link text-white" href="#">
+                                        <a class="nav-link text-white" href="index.php?page=daftar_guru">
                                             <!-- <i class="fa fa-bolt me-2 text-danger"></i>  -->
-                                            Profil Guru
+                                            Daftar Guru
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="index.php?page=input_guru">
+                                            <!-- <i class="fa fa-bolt me-2 text-danger"></i>  -->
+                                            Input Guru
                                         </a>
                                     </li>
                                     <!-- <li class="nav-item">
@@ -154,9 +160,10 @@
                                     </li>
                                 <?php endif; ?>
 
-                                <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2 || $_SESSION['role_id'] == 3): ?>
+                                <?php if ($_SESSION['role_id'] == 3): ?>
                                     <li class="nav-item">
-                                        <a class="nav-link text-white" href="#">
+                                        <a class="nav-link text-white"
+                                            href="index.php?page=pelanggaran_siswa&id=<?= $_SESSION['user_id'] ?>">
                                             Pelanggaran Siswa
                                         </a>
                                     </li>

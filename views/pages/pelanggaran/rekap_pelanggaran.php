@@ -1,7 +1,7 @@
 <?php
 // require_once '../layouts/header.php';
-require_once(__DIR__ . '/../layouts/header.php');
-require_once(__DIR__ . '/../../koneksi.php');
+require_once(__DIR__ . '/../../layouts/header.php');
+require_once(__DIR__ . '/../../../koneksi.php');
 echo __DIR__;
 // Debugging untuk melihat direktori saat ini
 
@@ -136,5 +136,5 @@ foreach ($urutanKelas as $kelas) {
 
 <?php
 // require_once '/../layouts/footer.php';
-require_once(__DIR__ . '/../layouts/footer.php');
+require_once(__DIR__ . '/../../layouts/footer.php');
 ?>

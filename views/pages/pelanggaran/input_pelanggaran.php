@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../layouts/header.php';
-require_once __DIR__ . '/../../koneksi.php';
+require_once __DIR__ . '/../../layouts/header.php';
+require_once __DIR__ . '/../../../koneksi.php';
 
 
 // untuk tabel kiri //
@@ -255,4 +255,4 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
 
 
 
-<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../../layouts/footer.php'; ?>

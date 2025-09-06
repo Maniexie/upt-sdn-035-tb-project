@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '/../layouts/header.php'; ?>
+<?php require_once __DIR__ . '../../../layouts/header.php'; ?>
 <div class="container">
     <h1 class="text-center me-5">Jenis Pelanggaran Beserta Poin</h1>
     <section>
@@ -428,4 +428,4 @@
 </div>
 
 
-<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../../layouts/footer.php'; ?>

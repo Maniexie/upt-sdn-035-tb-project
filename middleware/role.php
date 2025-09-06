@@ -18,6 +18,8 @@ function checkRoleAccess($page)
             'jenis_pelanggaran',
             'rekap_pelanggaran_siswa',
             'cetak_rekap_siswa',
+            'daftar_guru',
+            'input_guru',
 
         ],
         2 => [ // guru
@@ -31,15 +33,17 @@ function checkRoleAccess($page)
             'rekap_pelanggaran_siswa',
             'cetak_rekap_siswa',
             'jenis_pelanggaran',
-            'history_pelanggaran'
+            'history_pelanggaran',
+            'daftar_guru',
         ],
         3 => [ // siswa
             'dashboard',
-            'rekap_pelanggaran',
             'index',
             'history_pelanggaran',
             'jenis_pelanggaran',
-            'profile'
+            'profile',
+            'pelanggaran_siswa',
+            'cetak_rekap_siswa'
         ],
     ];
 

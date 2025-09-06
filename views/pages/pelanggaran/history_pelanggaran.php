@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../layouts/header.php';
-require_once __DIR__ . '/../../koneksi.php';
+require_once __DIR__ . '/../../layouts/header.php';
+require_once __DIR__ . '/../../../koneksi.php';
 
 // Ambil filter bulan dan tahun dari query string (default ke bulan dan tahun saat ini)
 $filterBulan = $_GET['bulan'] ?? date('Y-m');
@@ -40,6 +40,7 @@ $items = array_slice($groupedByDate, $start, $perPage);
     <section>
         <div class="container d-flex justify-content-end">
             <form method="GET" class="mb-2">
+                <input type="hidden" name="page" value="history_pelanggaran">
                 <label for="bulan">Pilih Bulan & Tahun:</label>
                 <select name="bulan" id="bulan" class="custom-select-enhanced">
                     <?php
@@ -115,4 +116,4 @@ $items = array_slice($groupedByDate, $start, $perPage);
     <?php endif; ?>
 </div>
 
-<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../../layouts/footer.php'; ?>
