@@ -57,7 +57,8 @@ $allowedPages = [
 // cek apakah halaman ada
 if (!array_key_exists($page, $allowedPages)) {
     http_response_code(404);
-    echo "<h1 class='text-center'>404 - Halaman tidak ditemukan mas</h1>";
+    // echo "<h1 class='text-center'>404 - Halaman tidak ditemukan mas</h1>";
+    require_once __DIR__ . '/views/pages/errors/404.php';
     exit;
 }
 

@@ -49,7 +49,8 @@ function checkRoleAccess($page)
 
     if (!$role || !isset($rolePages[$role]) || !in_array($page, $rolePages[$role])) {
         http_response_code(403);
-        echo "<h1>403 Forbidden - Anda tidak punya akses ke halaman ini!</h1>";
+        require_once __DIR__ . '/../views/pages/errors/403.php';
+        // echo "<h1>403 Forbidden - Anda tidak punya akses ke halaman ini mas!</h1>";
         exit;
     }
 }

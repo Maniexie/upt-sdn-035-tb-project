@@ -86,7 +86,7 @@ $dataPelanggaran = $db->query("
 ")->fetchAll();
 
 // Pagination setup
-$page = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
+$page = isset($_GET['halaman']) ? max(1, (int) $_GET['halaman']) : 1;
 $perPage = 5;
 $total = count($dataPelanggaran);
 $pages = ceil($total / $perPage);
@@ -180,7 +180,7 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
                     <ul class="pagination">
                         <?php for ($i = 1; $i <= $pages; $i++): ?>
                             <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                                <a class="page-link" href="index.php?page=input_pelanggaran&halaman=<?= $i ?>"><?= $i ?></a>
                             </li>
                         <?php endfor; ?>
                     </ul>
@@ -192,23 +192,6 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
 
 <script src="../../utilities/tanggal.js"></script>
 
-<!-- border spinner -->
-<script>
-
-    Swal.fire("SweetAlert2 is working!");
-
-    // Hilangkan alert sukses setelah 3 detik
-    setTimeout(function () {
-        const alert = document.getElementById('success-alert');
-        if (alert) {
-            alert.remove();
-        }
-    }, 3000); // 3000ms = 3 detik
-    setTimeout(() => {
-        myModal.hide();
-    }, 3000);
-
-</script>
 
 
 <script>

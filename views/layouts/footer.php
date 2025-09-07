@@ -3,10 +3,11 @@
 </div>
 </div>
 
+
 <!-- utilities -->
-<script src="../utilities/tanggal.js"></script>
-<script src="../utilities/slider.js"></script>
-<script src="../utilities/sidebar.js"></script>
+<script src="<?= BASE_URL ?>assets/js/tanggal.js"></script>
+<script src="<?= BASE_URL ?>assets/js/slider.js"></script>
+<script src="<?= BASE_URL ?>assets/js/sidebar.js"></script>
 
 
 <!-- chart js -->
