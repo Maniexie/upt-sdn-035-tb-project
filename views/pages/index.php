@@ -59,6 +59,7 @@ $getDataPelanggaranHarian = $conn->query('
 
 $dataPage = [];
 
+
 while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
     $dataPage[] = $row;
 }
@@ -106,20 +107,33 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
                             <thead class="table-dark sticky-top">
                                 <tr>
                                     <th scope="col">No</th>
+                                    <th scope="col">Foto</th>
                                     <th scope="col">Nama Siswa</th>
                                     <th scope="col">Kelas</th>
+                                    <th scope="col">Pelanggaran</th>
                                     <th scope="col">Poin</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider table-hover">
-                                <?php foreach ($dataPage as $i => $item): ?>
+                                <?php if (count($dataPage) === 0): ?>
                                     <tr>
-                                        <th scope="row"><?= $i + 1 ?></th>
-                                        <td><?= htmlspecialchars($item['user_nama']) ?></td>
-                                        <td><?= htmlspecialchars($item['user_kelas']) ?></td>
-                                        <td><?= htmlspecialchars($item['pelanggaran_poin']) ?></td>
+                                        <td colspan="6" class="text-center">Tidak ada data pelanggaran hari ini.</td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php else: ?>
+                                    <?php foreach ($dataPage as $i => $item): ?>
+                                        <tr>
+                                            <th scope="row"><?= $i + 1 ?></th>
+                                            <!-- <td><img src="<?= BASE_URL ?>assets/img/<?= $item[''] ?>.jpg" alt=""
+                                                    srcset=""></td> -->
+                                            <td><img src="<?= BASE_URL ?>assets/img/default.png"
+                                                    alt="<?= htmlspecialchars($item['user_nama']) ?>" style="width: 40px;"></td>
+                                            <td><?= htmlspecialchars($item['user_nama']) ?></td>
+                                            <td><?= htmlspecialchars($item['user_kelas']) ?></td>
+                                            <td><?= htmlspecialchars($item['pelanggaran_nama']) ?></td>
+                                            <td><?= htmlspecialchars($item['pelanggaran_poin']) ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>

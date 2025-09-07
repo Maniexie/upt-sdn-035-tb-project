@@ -37,6 +37,7 @@ $allowedPages = [
     'cetak_rekap_siswa' => 'views/pages/cetak_rekap_siswa.php',
     'detail_pelanggaran' => 'views/pages/pelanggaran/detail_pelanggaran.php',
     'history_pelanggaran' => 'views/pages/pelanggaran/history_pelanggaran.php',
+    'input_jenis_pelanggaran' => 'views/pages/pelanggaran/input_jenis_pelanggaran.php',
     'jenis_pelanggaran' => 'views/pages/pelanggaran/jenis_pelanggaran.php',
     'input_pelanggaran' => 'views/pages/pelanggaran/input_pelanggaran.php',
     'edit_pelanggaran' => 'views/pages/pelanggaran/edit_pelanggaran.php',

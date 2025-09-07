@@ -20,6 +20,7 @@ function checkRoleAccess($page)
             'cetak_rekap_siswa',
             'daftar_guru',
             'input_guru',
+            'input_jenis_pelanggaran',
 
         ],
         2 => [ // guru

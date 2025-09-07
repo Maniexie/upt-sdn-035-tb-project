@@ -4,6 +4,7 @@ require_once __DIR__ . '/header.php';
 
 $nama = trim($_POST['nama']);
 $email = trim($_POST['email']);
+$kelas = trim($_POST['kelas']);
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $role_id = $_POST['role_id'];
 
@@ -50,8 +51,8 @@ if ($check_email->num_rows > 0) {
 $check_email->close();
 
 // Insert data baru
-$stmt = $conn->prepare("INSERT INTO users (nama, email, password, role_id) VALUES (?, ?, ?, ?)");
-$stmt->bind_param("sssi", $nama, $email, $password, $role_id);
+$stmt = $conn->prepare("INSERT INTO users (nama, kelas, email, password, role_id) VALUES (?, ?, ?, ?, ?)");
+$stmt->bind_param("ssssi", $nama, $kelas, $email, $password, $role_id);
 
 if ($stmt->execute()) {
     echo "

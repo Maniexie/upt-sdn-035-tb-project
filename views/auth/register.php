@@ -21,6 +21,31 @@ require_once __DIR__ . '/header.php';
         <label for="nama" class="form-label">Nama</label>
         <input type="text" name="nama" class="form-control" id="nama" placeholder="name@example.com" required>
     </div>
+
+    <div class="form-outline mb-4">
+        <label class="form-label" for="password">Kelas</label>
+        <select name="kelas" class="form-select" aria-label="Default select example" required>
+            <option selected>== Kelas ==</option>
+            <option value="1A">1A</option>
+            <option value="1B">1B</option>
+            <option value="1C">1C</option>
+            <option value="2A">2A</option>
+            <option value="2B">2B</option>
+            <option value="2C">2C</option>
+            <option value="3A">3A</option>
+            <option value="3B">3B</option>
+            <option value="3C">3C</option>
+            <option value="4A">4A</option>
+            <option value="4B">4B</option>
+            <option value="4C">4C</option>
+            <option value="5A">5A</option>
+            <option value="5B">5B</option>
+            <option value="5C">5C</option>
+            <option value="6A">6A</option>
+            <option value="6B">6B</option>
+            <option value="6C">6C</option>
+        </select>
+    </div>
     <div class="form-outline mb-4">
         <label class="form-label" for="email">Email address</label>
         <input id="email" type="email" name="email" class="form-control" required>
