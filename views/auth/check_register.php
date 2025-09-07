@@ -1,20 +1,76 @@
 <?php
-// require_once '../../koneksi_auth.php';
 require_once __DIR__ . '/../../config/koneksi.php';
+require_once __DIR__ . '/header.php';
 
-$nama = $_POST['nama'];
-$email = $_POST['email'];
-$password = password_hash($_POST['password'], PASSWORD_DEFAULT); // hash aman
+$nama = trim($_POST['nama']);
+$email = trim($_POST['email']);
+$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $role_id = $_POST['role_id'];
 
+// Cek apakah email sudah ada
+$check_email = $conn->prepare('SELECT email FROM users WHERE email = ?');
+$check_email->bind_param("s", $email);
+$check_email->execute();
+$check_email->store_result();
+
+// Validasi role_id
+if (empty($role_id) || $role_id == 0) {
+    echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            Swal.fire({
+                title: 'Role belum dipilih!',
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                timer: 5000,
+                showConfirmButton: true
+            }).then(() => {
+                window.location.href = 'index.php?page=register';
+            });
+        </script>";
+    exit;
+}
+
+if ($check_email->num_rows > 0) {
+    echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        Swal.fire({
+            title: 'Email sudah terdaftar!',
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+            timer: 5000,
+            showConfirmButton: true
+        }).then(() => {
+            window.location.href = 'index.php?page=register';
+        });
+    </script>";
+    exit;
+}
+$check_email->close();
+
+// Insert data baru
 $stmt = $conn->prepare("INSERT INTO users (nama, email, password, role_id) VALUES (?, ?, ?, ?)");
 $stmt->bind_param("sssi", $nama, $email, $password, $role_id);
 
-
 if ($stmt->execute()) {
-    header("Location: index.php?page=login");
+    echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        Swal.fire({
+            title: 'Registrasi berhasil!',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            timer: 2000,
+            showConfirmButton: true
+        }).then(() => {
+            window.location.href = 'index.php?page=login';
+        });
+    </script>";
     exit;
 } else {
     echo "Error: " . $stmt->error;
 }
 
+require_once __DIR__ . '/footer.php';
+?>

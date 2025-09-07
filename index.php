@@ -6,6 +6,29 @@ require_once __DIR__ . '/middleware/role.php';
 // ambil parameter ?page=
 $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
 
+switch ($page) {
+    case 'login':
+        $title = "Login Page";
+        $content = "views/auth/login.php";
+        break;
+    case 'register':
+        $title = "Register Page";
+        $content = "views/auth/register.php";
+        break;
+    case 'dashboard':
+        $title = "Dashboard";
+        $content = "pages/dashboard.php";
+        break;
+    case 'check_login':
+        $title = "Processing Login";
+        $content = "pages/check_login.php";
+        break;
+    default:
+        $title = "Page Not Found";
+        $content = "pages/404.php"; // optional
+        break;
+}
+
 // daftar halaman yang ada
 $allowedPages = [
     'index' => 'views/pages/index.php',
@@ -34,7 +57,7 @@ $allowedPages = [
 // cek apakah halaman ada
 if (!array_key_exists($page, $allowedPages)) {
     http_response_code(404);
-    echo "<h1>404 - Halaman tidak ditemukan</h1>";
+    echo "<h1 class='text-center'>404 - Halaman tidak ditemukan mas</h1>";
     exit;
 }
 

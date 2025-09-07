@@ -1,6 +1,7 @@
 <?php
-session_start();
+// session_start();
 require_once __DIR__ . '/../../config/koneksi.php';
+require_once __DIR__ . '/header.php';
 
 
 
@@ -43,4 +44,15 @@ if ($user = $result->fetch_assoc()) {
     }
 }
 
-echo "Email atau password salah";
+echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        Swal.fire({
+            title: 'Email atau Password Salah!',
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+            timer: 5000,
+            showConfirmButton: true
+        }).then(() => {
+            window.location.href = 'index.php?page=login';
+        });
+    </script>";
