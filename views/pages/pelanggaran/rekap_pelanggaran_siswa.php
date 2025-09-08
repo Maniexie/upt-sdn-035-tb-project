@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../layouts/header.php';
-require_once __DIR__ . '/../../koneksi.php';
+require_once __DIR__ . '/../../layouts/header.php';
+require_once __DIR__ . '/../../../koneksi.php';
 
 
 // Ambil ID siswa dari URL
@@ -88,4 +88,4 @@ $totalPoin = array_sum(array_column($dataPelanggaran, 'poin'));
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../../layouts/footer.php'; ?>
