@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../../koneksi.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
+date_default_timezone_set('Asia/Jakarta');
+
 
 use Mpdf\Mpdf;
 
@@ -102,7 +104,7 @@ function getTanggalHariKerja($jumlahHariKerja)
 }
 
 // --- Hitung hari & tanggal pemanggilan ---
-$tanggalPemanggilanObj = getTanggalHariKerja(2);
+$tanggalPemanggilanObj = getTanggalHariKerja(1);
 $hariPemanggilan = getNamaHariIndonesia($tanggalPemanggilanObj->format('Y-m-d'));
 $tanggalPemanggilan = formatTanggalIndonesia($tanggalPemanggilanObj->format('Y-m-d'));
 
@@ -307,7 +309,7 @@ $html .= '
             NIP: 19700509 199304 2 001
             </td>
             <td style="width:50%; text-align:center;">
-            Taraibangun,' . formatTanggalIndonesia(date('Y-m-d')) . '<br>
+            Tarai Bangun,' . formatTanggalIndonesia(date('Y-m-d')) . '<br>
             Wali Kelas,<br><br><br><br><br>
             <u><strong>' . $namaGuru . '</strong></u><br>
             NIP: ' . $nipGuru . '

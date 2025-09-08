@@ -11,4 +11,6 @@ if ($conn->connect_error) {
 }
 // base url assets
 define('BASE_URL', 'http://localhost/upt-sdn-035-tb-project/');
+date_default_timezone_set('Asia/Jakarta');
+
 ?>

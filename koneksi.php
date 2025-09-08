@@ -15,6 +15,7 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
+date_default_timezone_set('Asia/Jakarta');
 
 
 ?>
