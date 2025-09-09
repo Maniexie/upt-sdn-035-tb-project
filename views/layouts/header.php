@@ -10,8 +10,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dashboard</title>
-    <!-- <link rel="stylesheet" href="../../assets/style.css"> -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
@@ -270,9 +270,7 @@
                     <!-- </a> -->
                     <?php if (isset($_SESSION['user_id']) && isset($_SESSION['role_id'])): ?>
                         <a class="navbar-brand" href="#">
-                            Welcome, <?= htmlspecialchars($_SESSION['user_name']) ?> | Role_id =
-                            <?= $_SESSION['role_id'] ?> | Role_name =
-                            <?= $_SESSION['role_name'] ?>
+                            Welcome, <?= htmlspecialchars($_SESSION['user_name']) ?>
                         </a>
                     <?php endif; ?>
 
@@ -280,13 +278,186 @@
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Notifications</a>
+
+                    <!-- Toggle Sidebar Button -->
+                    <!-- <button class="btn btn-primary" id="toggleSidebar" style="display: none;">
+                        <i class="fa fa-bars"></i>
+                    </button> -->
+                    <div class="collapse navbar-collapse " id="navbarNav">
+                        <ul class="nav flex-column">
+                            <!-- Home -->
+                            <li class="nav-item nav-test">
+                                <a class="nav-link text-white" href="index.php?page=index">
+                                    <i class="fa-solid fa-house text-white"></i>
+                                    Home
+                                </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Messages</a>
+                            <!-- Profile -->
+                            <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                                <li class="nav-item nav-test">
+                                    <a class="nav-link text-white text-capitalize" href="index.php?page=profile">
+                                        Profile <?= ($_SESSION['role_name']) ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if ($_SESSION['role_id'] == 3): ?>
+                                <li class="nav-item nav-test">
+                                    <a class="nav-link text-white" href="index.php?page=profile">
+                                        Profile Siswa
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+
+                            <!-- DATA GURU -->
+                            <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                                <li class="nav-item nav-test">
+                                    <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                                        data-bs-toggle="collapse" href="#data_guru" role="button" aria-expanded="false"
+                                        aria-controls="data_guru">
+                                        <span>Data Guru</span>
+                                        <i class="fa fa-chevron-down"></i>
+                                    </a>
+
+                                    <div class="collapse ps-3 mt-1" id="data_guru">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item nav-test">
+                                                <a class="nav-link text-white" href="index.php?page=daftar_guru">
+                                                    <!-- <i class="fa fa-bolt me-2 text-danger"></i>  -->
+                                                    Daftar Guru
+                                                </a>
+                                            </li>
+                                            <li class="nav-item nav-test">
+                                                <a class="nav-link text-white" href="index.php?page=input_guru">
+                                                    <!-- <i class="fa fa-bolt me-2 text-danger"></i>  -->
+                                                    Input Guru
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            <?php endif; ?>
+                            <!-- DATA SISWA -->
+                            <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                                <li class="nav-item nav-test">
+                                    <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                                        data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
+                                        aria-controls="data_siswa">
+                                        <span>Data Siswa</span>
+                                        <i class="fa fa-chevron-down"></i>
+                                    </a>
+
+                                    <div class="collapse ps-3 mt-1" id="data_siswa">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item nav-test">
+                                                <a class="nav-link text-white" href="#">
+                                                    </i> Profil Siswa
+                                                </a>
+                                            </li>
+                                            <!-- <li class="nav-item nav-test">
+                                    <a class="nav-link text-white" href="#">
+                                        <i class="fa fa-cogs me-2 text-info"></i> Another Action
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider bg-light">
+                                </li>
+                                <li class="nav-item nav-test">
+                                    <a class="nav-link text-white" href="#">
+                                        <i class="fa fa-question-circle me-2 text-light"></i> Something Else
+                                    </a>
+                                </li> -->
+                                        </ul>
+                                    </div>
+                                </li>
+                            <?php endif; ?>
+                            <!-- PELANGGARAN -->
+                            <li class="nav-item nav-test">
+                                <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                                    data-bs-toggle="collapse" href="#pelanggaran" role="button" aria-expanded="false"
+                                    aria-controls="pelanggaran">
+                                    <span>Pelanggaran</span>
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+
+                                <div class="collapse ps-3 mt-1" id="pelanggaran">
+                                    <ul class="nav flex-column">
+                                        <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                                            <li class="nav-item nav-test">
+                                                <a class="nav-link text-white" href="index.php?page=input_pelanggaran">
+                                                    Input Pelanggaran
+                                                </a>
+                                            </li>
+                                        <?php endif; ?>
+
+                                        <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                                            <li class="nav-item nav-test">
+                                                <a class="nav-link text-white" href="index.php?page=rekap_pelanggaran">
+                                                    Rekap Pelanggaran
+                                                </a>
+                                            </li>
+                                        <?php endif; ?>
+
+                                        <?php if ($_SESSION['role_id'] == 3): ?>
+                                            <li class="nav-item nav-test">
+                                                <a class="nav-link text-white"
+                                                    href="index.php?page=pelanggaran_siswa&id=<?= $_SESSION['user_id'] ?>">
+                                                    Pelanggaran Siswa
+                                                </a>
+                                            </li>
+                                        <?php endif ?>
+
+                                        <li>
+                                            <hr class="dropdown-divider bg-light">
+                                        </li>
+                                        <li class="nav-item nav-test">
+                                            <a class="nav-link text-white" href="index.php?page=jenis_pelanggaran">
+                                                Jenis Pelanggaran
+                                            </a>
+                                        </li>
+                                        <li class="nav-item nav-test">
+                                            <a class="nav-link text-white" href="index.php?page=history_pelanggaran">
+                                                History Pelanggaran
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <!-- PENGATURAN -->
+                            <li class="nav-item nav-test">
+                                <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                                    data-bs-toggle="collapse" href="#pengaturan" role="button" aria-expanded="false"
+                                    aria-controls="pengaturan">
+                                    <span>Pengaturan</span>
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+
+                                <div class="collapse ps-3 mt-1" id="pengaturan">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item nav-test">
+                                            <a class="nav-link text-white" href="#">
+                                                <i class="fa fa-bolt me-2 text-warning"></i> Action
+                                            </a>
+                                        </li>
+                                        <li class="nav-item nav-test">
+                                            <a class="nav-link text-white" href="#">
+                                                <i class="fa fa-cogs me-2 text-info"></i> Another Action
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider bg-light">
+                                        </li>
+                                        <li class="nav-item nav-test">
+                                            <a class="nav-link text-white" href="#">
+                                                <i class="fa fa-question-circle me-2 text-light"></i> Something Else
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item nav-test">
+                                <a class="nav-link text-white" href="index.php?page=logout">
+                                    Logout
+                                </a>
                             </li>
                         </ul>
                     </div>

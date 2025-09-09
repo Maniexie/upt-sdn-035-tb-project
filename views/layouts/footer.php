@@ -4,6 +4,20 @@
 </div>
 
 
+<!-- SIDEBAR -->
+<script>
+    // Ambil elemen tombol toggle dan sidebar
+    const toggleSidebarBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+
+    // Event listener untuk tombol toggle sidebar
+    toggleSidebarBtn.addEventListener('click', () => {
+        // Menambahkan dan menghapus kelas 'sidebar-expanded' saat tombol ditekan
+        sidebar.classList.toggle('sidebar-expanded');
+    });
+</script>
+
+
 <!-- utilities -->
 <script src="<?= BASE_URL ?>assets/js/tanggal.js"></script>
 <script src="<?= BASE_URL ?>assets/js/slider.js"></script>
