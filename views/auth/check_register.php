@@ -3,8 +3,9 @@ require_once __DIR__ . '/../../config/koneksi.php';
 require_once __DIR__ . '/header.php';
 
 $nama = trim($_POST['nama']);
-$email = trim($_POST['email']);
+// $email = trim($_POST['email']);
 $kelas = trim($_POST['kelas']);
+$username = trim($_POST['username']);
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $role_id = $_POST['role_id'];
 
@@ -13,6 +14,12 @@ $check_email = $conn->prepare('SELECT email FROM users WHERE email = ?');
 $check_email->bind_param("s", $email);
 $check_email->execute();
 $check_email->store_result();
+
+// Cek apakah username sudah ada
+$check_username = $conn->prepare('SELECT username FROM users WHERE username = ?');
+$check_username->bind_param("s", $username);
+$check_username->execute();
+$check_username->store_result();
 
 // Validasi role_id
 if (empty($role_id) || $role_id == 0) {
@@ -32,12 +39,30 @@ if (empty($role_id) || $role_id == 0) {
     exit;
 }
 
-if ($check_email->num_rows > 0) {
+// if ($check_email->num_rows > 0) {
+//     echo "
+//     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+//     <script>
+//         Swal.fire({
+//             title: 'Email sudah terdaftar!',
+//             icon: 'error',
+//             confirmButtonColor: '#3085d6',
+//             timer: 5000,
+//             showConfirmButton: true
+//         }).then(() => {
+//             window.location.href = 'index.php?page=register';
+//         });
+//     </script>";
+//     exit;
+// }
+// $check_email->close();
+
+if ($check_username->num_rows > 0) {
     echo "
     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
     <script>
         Swal.fire({
-            title: 'Email sudah terdaftar!',
+            title: 'Username sudah terdaftar!',
             icon: 'error',
             confirmButtonColor: '#3085d6',
             timer: 5000,
@@ -48,11 +73,11 @@ if ($check_email->num_rows > 0) {
     </script>";
     exit;
 }
-$check_email->close();
+$check_username->close();
 
 // Insert data baru
-$stmt = $conn->prepare("INSERT INTO users (nama, kelas, email, password, role_id) VALUES (?, ?, ?, ?, ?)");
-$stmt->bind_param("ssssi", $nama, $kelas, $email, $password, $role_id);
+$stmt = $conn->prepare("INSERT INTO users (nama, kelas, username, password, role_id) VALUES (?, ?, ?, ?, ?)");
+$stmt->bind_param("ssssi", $nama, $kelas, $username, $password, $role_id);
 
 if ($stmt->execute()) {
     echo "

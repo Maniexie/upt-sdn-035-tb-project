@@ -21,8 +21,8 @@ require_once __DIR__ . '/header.php';
                                             account</h5> -->
 
     <div data-mdb-input-init class="form-outline mb-4">
-        <label class="form-label" for="email">Email address</label>
-        <input id="email" type="email" name="email" class="form-control" required>
+        <label class="form-label" for="username">Username</label>
+        <input id="username" type="text" name="username" class="form-control" required>
     </div>
 
     <div data-mdb-input-init class="form-outline mb-4">

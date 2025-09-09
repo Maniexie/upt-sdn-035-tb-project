@@ -5,16 +5,17 @@ require_once __DIR__ . '/header.php';
 
 
 
-$email = $_POST['email'];
+// $email = $_POST['email'];
+$username = $_POST['username'];
 $password = $_POST['password'];
 
 // Ambil user + role
 $sql = "SELECT u.*, r.role_name 
         FROM users u
         JOIN roles r ON u.role_id = r.id
-        WHERE email = ? LIMIT 1";
+        WHERE u.username = ? LIMIT 1";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $email);
+$stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -25,6 +26,7 @@ if ($user = $result->fetch_assoc()) {
         $_SESSION['user_email'] = $user['email'];
         $_SESSION['role_id'] = $user['role_id'];
         $_SESSION['role_name'] = $user['role_name'];
+        $_SESSION['user_username'] = $user['username'];
 
         // Redirect sesuai role
         switch ($user['role_name']) {
@@ -47,7 +49,7 @@ if ($user = $result->fetch_assoc()) {
 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
     <script>
         Swal.fire({
-            title: 'Email atau Password Salah!',
+            title: 'Username atau Password Salah!',
             icon: 'error',
             confirmButtonColor: '#3085d6',
             timer: 5000,

@@ -18,8 +18,18 @@ require_once __DIR__ . '/header.php';
     </div>
 
     <div class="form-outline mb-4">
+        <label class="form-label" for="username">Username</label>
+        <input id="username" type="text" name="username" class="form-control" required>
+    </div>
+
+    <div class="form-outline mb-4">
         <label for="nama" class="form-label">Nama</label>
         <input type="text" name="nama" class="form-control" id="nama" placeholder="name@example.com" required>
+    </div>
+
+    <div class="form-outline mb-4">
+        <label class="form-label" for="password">Password</label>
+        <input id="password" type="password" name="password" class="form-control" required />
     </div>
 
     <div class="form-outline mb-4">
@@ -45,15 +55,6 @@ require_once __DIR__ . '/header.php';
             <option value="6B">6B</option>
             <option value="6C">6C</option>
         </select>
-    </div>
-    <div class="form-outline mb-4">
-        <label class="form-label" for="email">Email address</label>
-        <input id="email" type="email" name="email" class="form-control" required>
-    </div>
-
-    <div class="form-outline mb-4">
-        <label class="form-label" for="password">Password</label>
-        <input id="password" type="password" name="password" class="form-control" required />
     </div>
 
     <input type="hidden" name="role_id" value="3">
