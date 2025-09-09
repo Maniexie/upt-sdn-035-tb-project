@@ -80,65 +80,101 @@
 
 /* Untuk layar kecil (max-width: 767px) */
 @media (max-width: 768px) {
-    .sidebar {
-        display: none; /* Menyembunyikan sidebar pada perangkat kecil */
-    }
+  .sidebar {
+    display: none; /* Menyembunyikan sidebar pada perangkat kecil */
+  }
 
+  .navbar-collapse {
+    flex-direction: column;
+    /* Mengubah navbar menjadi vertikal */
+  }
 
-    .navbar-collapse {
-        flex-direction: column; 
-        /* Mengubah navbar menjadi vertikal */
-    }
+  .navbar-nav {
+    width: 100%; /* Agar menu navbar mengisi seluruh lebar */
+  }
 
-    .navbar-nav {
-        width: 100%; /* Agar menu navbar mengisi seluruh lebar */
-    }
+  .nav-link {
+    /* text-align: center; */
+    padding: 10px;
+    width: 100%; /* Membuat link navbar full width */
+  }
 
-    .nav-link {
-        /* text-align: center; */
-        padding: 10px;
-        width: 100%; /* Membuat link navbar full width */
-    }
+  /* Menambahkan pengaturan saat sidebar ditampilkan */
+  .sidebar-expanded {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #343a40;
+    z-index: 1050; /* Membuat sidebar muncul di atas konten */
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+  }
 
-    /* Menambahkan pengaturan saat sidebar ditampilkan */
-    .sidebar-expanded {
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background-color: #343a40;
-        z-index: 1050; /* Membuat sidebar muncul di atas konten */
-        padding: 20px;
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .sidebar-expanded .nav-link {
-        color: white;
-    }
-    
-
+  .sidebar-expanded .nav-link {
+    color: white;
+  }
 }
 
 /* Untuk layar besar (min-width: 768px) dan seterusnya */
 @media (min-width: 768px) {
-    #toggleSidebar {
-        display: none; /* Menyembunyikan tombol toggle sidebar pada layar besar */
-    }
+  #toggleSidebar {
+    display: none; /* Menyembunyikan tombol toggle sidebar pada layar besar */
+  }
 
-    .sidebar {
-        display: block; /* Sidebar tetap tampil */
-    }
+  .sidebar {
+    display: block; /* Sidebar tetap tampil */
+  }
 
- .nav-test{
-  display: none;
- }
- #navbarNav{
-  display: none;
- }
+  .nav-test {
+    display: none;
+  }
+  #navbarNav {
+    display: none;
+  }
 
- .navbar-collapse{
-  display: none;
- }
+  .navbar-collapse {
+    display: none;
+  }
+}
+
+/* native css */
+/* Untuk layar kecil (max-width: 767px) */
+@media screen and (max-width: 768px) {
+  /* Styles for screens up to 768px wide */
+  .navbar-brand {
+    white-space: nowrap; /* Prevents text from wrapping to the next line */
+    overflow: hidden; /* Hides any text that overflows the container */
+    text-overflow: ellipsis;
+    display: none;
+  }
+
+  .navbar-collapse {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .navbar-toggler {
+    margin-left: auto;
+  }
+
+  .navbar-brand-md {
+    font-size: 20px;
+    color: #fcfffe;
+  }
+}
+
+/* Untuk layar besar (min-width: 767px) */
+@media screen and (min-width: 768px) {
+  /* Styles for screens up to 768px wide */
+  .navbar-brand {
+    display: inline;
+  }
+  .navbar-brand-md {
+    display: none;
+  }
 }

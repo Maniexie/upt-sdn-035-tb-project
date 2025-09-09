@@ -21,7 +21,8 @@ $query = "
         p.nama_pelanggaran,
         p.poin,
         ps.tanggal,
-        p.id AS pelanggaran_id
+        p.id AS pelanggaran_id,
+        ps.guru_piket
     FROM pelanggaran_siswa ps
     JOIN users u ON ps.siswa_id = u.id
     JOIN pelanggaran p ON ps.pelanggaran_id = p.id
@@ -58,6 +59,7 @@ if (empty($pelanggaranSiswa)) {
                         <th>No</th>
                         <th>Jenis Pelanggaran</th>
                         <th>Poin</th>
+                        <th>Guru Piket</th>
                         <th>Tanggal</th>
                         <th>Aksi</th>
                     </tr>
@@ -68,6 +70,7 @@ if (empty($pelanggaranSiswa)) {
                             <td><?= $index + 1 ?></td>
                             <td><?= htmlspecialchars($pelanggaran['nama_pelanggaran']) ?></td>
                             <td><?= $pelanggaran['poin'] ?></td>
+                            <td><?= $pelanggaran['guru_piket'] ?></td>
                             <td><?= date('d-F-Y', strtotime($pelanggaran['tanggal'])) ?></td>
                             <td>
                                 <a href="index.php?page=edit_pelanggaran&id=<?= $pelanggaran['siswa_id'] ?>&pelanggaran_siswa_id=<?= $pelanggaran['pelanggaran_siswa_id'] ?>"

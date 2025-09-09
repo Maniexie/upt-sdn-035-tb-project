@@ -44,7 +44,8 @@ $dataPelanggaran = $db->query("
     SELECT 
         p.nama_pelanggaran,
         p.poin,
-        ps.tanggal
+        ps.tanggal,
+        ps.guru_piket
     FROM pelanggaran_siswa ps
     JOIN pelanggaran p ON ps.pelanggaran_id = p.id
     WHERE ps.siswa_id = $siswa_id
@@ -68,6 +69,7 @@ $totalPoin = array_sum(array_column($dataPelanggaran, 'poin'));
                     <th>No</th>
                     <th>Jenis Pelanggaran</th>
                     <th>Poin</th>
+                    <th>Guru Piket</th>
                     <th>Tanggal</th>
                 </tr>
             </thead>
@@ -82,6 +84,7 @@ $totalPoin = array_sum(array_column($dataPelanggaran, 'poin'));
                             <td><?= $i + 1 ?></td>
                             <td><?= htmlspecialchars($pelanggaran['nama_pelanggaran']) ?></td>
                             <td><?= $pelanggaran['poin'] ?></td>
+                            <td><?= $pelanggaran['guru_piket'] ?></td>
                             <td><?= $pelanggaran['tanggal'] ?></td>
                         </tr>
                     <?php endforeach; ?>
@@ -93,15 +96,16 @@ $totalPoin = array_sum(array_column($dataPelanggaran, 'poin'));
             </tbody>
         </table>
     </div>
+    <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+        <div class="container d-flex justify-content-end">
+            <!-- <a href="index.php?page=rekap_pelanggaran" class="btn btn-secondary mt-3">← Kembali</a> -->
 
-    <div class="container d-flex justify-content-end">
-        <!-- <a href="index.php?page=rekap_pelanggaran" class="btn btn-secondary mt-3">← Kembali</a> -->
-
-        <a href="index.php?page=cetak_rekap_siswa&id=<?= $siswa_id ?>" class="btn btn-danger mt-3" target="_blank">
-            Cetak PDF
-            <i class="fa fa-file-pdf"></i>
-        </a>
-    </div>
+            <a href="index.php?page=cetak_rekap_siswa&id=<?= $siswa_id ?>" class="btn btn-danger mt-3" target="_blank">
+                Cetak PDF
+                <i class="fa fa-file-pdf"></i>
+            </a>
+        </div>
+    <?php endif; ?>
 </div>
 
 <?php require_once __DIR__ . '/../../layouts/footer.php'; ?>

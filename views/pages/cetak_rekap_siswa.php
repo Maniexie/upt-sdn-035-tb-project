@@ -104,7 +104,7 @@ function getTanggalHariKerja($jumlahHariKerja)
 }
 
 // --- Hitung hari & tanggal pemanggilan ---
-$tanggalPemanggilanObj = getTanggalHariKerja(1);
+$tanggalPemanggilanObj = getTanggalHariKerja(2);
 $hariPemanggilan = getNamaHariIndonesia($tanggalPemanggilanObj->format('Y-m-d'));
 $tanggalPemanggilan = formatTanggalIndonesia($tanggalPemanggilanObj->format('Y-m-d'));
 

@@ -27,6 +27,7 @@ if ($user = $result->fetch_assoc()) {
         $_SESSION['role_id'] = $user['role_id'];
         $_SESSION['role_name'] = $user['role_name'];
         $_SESSION['user_username'] = $user['username'];
+        $_SESSION['user_kelas'] = $user['kelas'];
 
         // Redirect sesuai role
         switch ($user['role_name']) {

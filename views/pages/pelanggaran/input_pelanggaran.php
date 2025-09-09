@@ -32,9 +32,10 @@ $pelanggaranList = $db->query("SELECT * FROM pelanggaran")->fetchAll();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $siswaId = $_POST['siswa_id'];
     $pelanggaranId = $_POST['pelanggaran_id'];
+    $guruPiket = $_SESSION['user_name'];
 
-    $stmt = $db->prepare("INSERT INTO pelanggaran_siswa (siswa_id, pelanggaran_id) VALUES (?, ?)");
-    $stmt->execute([$siswaId, $pelanggaranId]);
+    $stmt = $db->prepare("INSERT INTO pelanggaran_siswa (siswa_id, pelanggaran_id, guru_piket) VALUES (?, ?, ?)");
+    $stmt->execute([$siswaId, $pelanggaranId, $guruPiket]);
 
     // Mengambil data pelanggaran siswa Untuk Sweetalert
 
@@ -77,7 +78,8 @@ $dataPelanggaran = $db->query("
         u.nama AS nama_siswa,
         u.kelas,
         p.nama_pelanggaran,
-        p.poin
+        p.poin,
+        ps.guru_piket AS guru_piket
     FROM pelanggaran_siswa ps
     JOIN users u ON ps.siswa_id = u.id
     JOIN pelanggaran p ON ps.pelanggaran_id = p.id
@@ -134,6 +136,8 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
                         <?php endforeach; ?>
                     </select>
                 </div>
+
+                <input type="hidden" name="guru_piket" value="<?= $guruPiket ?>">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
@@ -150,7 +154,8 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
                             <th>Kelas</th>
                             <th>Pelanggaran</th>
                             <th>Poin</th>
-                            <th>Tanggal</th>
+                            <th>Guru Piket</th>
+                            <!-- <th>Tanggal</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -166,7 +171,8 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
                                     <td><?= htmlspecialchars($siswa['kelas']) ?></td>
                                     <td><?= htmlspecialchars($siswa['nama_pelanggaran']) ?></td>
                                     <td><?= $siswa['poin'] ?></td>
-                                    <td><?= $siswa['tanggal'] ?></td>
+                                    <td><?= $_SESSION['user_name'] ?></td>
+                                    <!-- <td><?= $siswa['tanggal'] ?></td> -->
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>

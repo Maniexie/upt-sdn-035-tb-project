@@ -21,6 +21,8 @@ function checkRoleAccess($page)
             'daftar_guru',
             'input_guru',
             'input_jenis_pelanggaran',
+            'daftar_siswa_for_admin',
+            'detail_siswa_for_admin',
 
         ],
         2 => [ // guru
@@ -35,7 +37,8 @@ function checkRoleAccess($page)
             'cetak_rekap_siswa',
             'jenis_pelanggaran',
             'history_pelanggaran',
-            'daftar_guru',
+            'data_siswa_pelanggaran_siswa',
+            'daftar_siswa',
         ],
         3 => [ // siswa
             'dashboard',

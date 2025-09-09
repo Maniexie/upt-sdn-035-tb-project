@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../../koneksi.php';
 $filterBulan = $_GET['bulan'] ?? date('Y-m');
 
 // Query untuk mengambil data pelanggaran berdasarkan bulan
-$sql = "SELECT ps.tanggal, u.id AS siswa_id, u.nama AS nama_siswa, u.kelas, p.nama_pelanggaran AS pelanggaran , p.poin
+$sql = "SELECT ps.tanggal, u.id AS siswa_id, u.nama AS nama_siswa, u.kelas, p.nama_pelanggaran AS pelanggaran , p.poin, ps.guru_piket
         FROM pelanggaran_siswa ps
         JOIN users u ON ps.siswa_id = u.id
         JOIN pelanggaran p ON ps.pelanggaran_id = p.id
@@ -70,6 +70,7 @@ $items = array_slice($groupedByDate, $start, $perPage);
                     <th>Nama Siswa</th>
                     <th>Kelas</th>
                     <th>Pelanggaran</th>
+                    <th>Guru Piket</th>
                 </tr>
             </thead>
             <tbody>
@@ -94,6 +95,7 @@ $items = array_slice($groupedByDate, $start, $perPage);
                                 <td><?= htmlspecialchars($data['nama_siswa']) ?></td>
                                 <td><?= htmlspecialchars($data['kelas']) ?></td>
                                 <td><?= htmlspecialchars($data['pelanggaran']) ?> (<?= htmlspecialchars($data['poin']) ?> poin)</td>
+                                <td><?= htmlspecialchars($data['guru_piket']) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php endforeach; ?>

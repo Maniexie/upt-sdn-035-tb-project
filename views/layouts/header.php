@@ -52,13 +52,13 @@
                     <?php if ($_SESSION['role_id'] == 3): ?>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="index.php?page=profile">
-                                Profile Siswa
+                                Daftar Siswa
                             </a>
                         </li>
                     <?php endif; ?>
 
                     <!-- DATA GURU -->
-                    <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                    <?php if ($_SESSION['role_id'] == 1): ?>
                         <li class="nav-item">
                             <a class="nav-link text-white d-flex justify-content-between align-items-center"
                                 data-bs-toggle="collapse" href="#data_guru" role="button" aria-expanded="false"
@@ -98,8 +98,8 @@
                             </div>
                         </li>
                     <?php endif; ?>
-                    <!-- DATA SISWA -->
-                    <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                    <!-- DATA SISWA for guru -->
+                    <?php if ($_SESSION['role_id'] == 2): ?>
                         <li class="nav-item">
                             <a class="nav-link text-white d-flex justify-content-between align-items-center"
                                 data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
@@ -111,23 +111,36 @@
                             <div class="collapse ps-3 mt-1" id="data_siswa">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link text-white" href="#">
-                                            </i> Profil Siswa
+                                        <a class="nav-link text-white" href="index.php?page=daftar_siswa">
+                                            </i> Daftar Siswa
                                         </a>
                                     </li>
-                                    <!-- <li class="nav-item">
-                                    <a class="nav-link text-white" href="#">
-                                        <i class="fa fa-cogs me-2 text-info"></i> Another Action
-                                    </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider bg-light">
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="#">
-                                        <i class="fa fa-question-circle me-2 text-light"></i> Something Else
-                                    </a>
-                                </li> -->
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="index.php?page=data_siswa_pelanggaran_siswa">
+                                            </i> Pelanggaran Siswa
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    <?php endif; ?>
+                    <!-- DATA SISWA for admin -->
+                    <?php if ($_SESSION['role_id'] == 1): ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
+                                aria-controls="data_siswa">
+                                <span>Data Siswa</span>
+                                <i class="fa fa-chevron-down"></i>
+                            </a>
+
+                            <div class="collapse ps-3 mt-1" id="data_siswa">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="index.php?page=daftar_siswa_for_admin">
+                                            </i> Daftar Siswa
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -151,7 +164,7 @@
                                     </li>
                                 <?php endif; ?>
 
-                                <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                                <?php if ($_SESSION['role_id'] == 1): ?>
                                     <li class="nav-item">
                                         <a class="nav-link text-white" href="index.php?page=rekap_pelanggaran">
                                             Rekap Pelanggaran
@@ -266,12 +279,26 @@
             <div class="col-md-9 col-lg-10 px-0">
                 <!-- Navbar -->
                 <nav class="navbar navbar-expand-lg bg-primary px-4 sticky-top" data-bs-theme="dark">
+                    <div class="container-fluid d-flex justify-content-between align-items-center"></div>
                     <!-- <a class="navbar-brand" href="#">Welcome, Admin | Role -->
                     <!-- </a> -->
                     <?php if (isset($_SESSION['user_id']) && isset($_SESSION['role_id'])): ?>
-                        <a class="navbar-brand" href="#">
+                        <p class="navbar-brand">
                             Welcome, <?= htmlspecialchars($_SESSION['user_name']) ?>
-                        </a>
+                        </p>
+                    <?php endif; ?>
+
+                    <?php if (isset($_SESSION['user_id']) && isset($_SESSION['role_id'])): ?>
+                        <?php
+                        // Ambil nama dari session
+                        $fullName = $_SESSION['user_name'];
+
+                        // Pecah berdasarkan spasi dan ambil nama depan
+                        $firstName = explode(' ', trim($fullName))[0];
+                        ?>
+                        <p class="navbar-brand-md">
+                            Welcome, <?= htmlspecialchars($firstName) ?>
+                        </p>
                     <?php endif; ?>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -309,7 +336,7 @@
                             <?php endif; ?>
 
                             <!-- DATA GURU -->
-                            <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                            <?php if ($_SESSION['role_id'] == 1): ?>
                                 <li class="nav-item nav-test">
                                     <a class="nav-link text-white d-flex justify-content-between align-items-center"
                                         data-bs-toggle="collapse" href="#data_guru" role="button" aria-expanded="false"
@@ -350,7 +377,13 @@
                                         <ul class="nav flex-column">
                                             <li class="nav-item nav-test">
                                                 <a class="nav-link text-white" href="#">
-                                                    </i> Profil Siswa
+                                                    </i> Daftar Siswa
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-white"
+                                                    href="index.php?page=data_siswa_pelanggaran_siswa">
+                                                    </i> Pelanggaran Siswa
                                                 </a>
                                             </li>
                                             <!-- <li class="nav-item nav-test">
@@ -389,7 +422,7 @@
                                             </li>
                                         <?php endif; ?>
 
-                                        <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                                        <?php if ($_SESSION['role_id'] == 1): ?>
                                             <li class="nav-item nav-test">
                                                 <a class="nav-link text-white" href="index.php?page=rekap_pelanggaran">
                                                     Rekap Pelanggaran

@@ -53,6 +53,10 @@ $allowedPages = [
     'logout' => 'views/auth/logout.php',
     'daftar_guru' => 'views/pages/data-guru/daftar_guru.php',
     'input_guru' => 'views/pages/data-guru/input_guru.php',
+    'data_siswa_pelanggaran_siswa' => 'views/pages/data-siswa/data_siswa_pelanggaran_siswa.php',
+    'daftar_siswa' => 'views/pages/data-siswa/daftar_siswa.php',
+    'daftar_siswa_for_admin' => 'views/pages/data-siswa/daftar_siswa_for_admin.php',
+    'detail_siswa_for_admin' => 'views/pages/data-siswa/detail_siswa_for_admin.php',
 ];
 
 // cek apakah halaman ada

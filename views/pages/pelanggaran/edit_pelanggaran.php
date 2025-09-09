@@ -145,8 +145,8 @@ if (isset($_POST["submit"])) {
     </form>
 </div>
 <div class="container d-flex justify-content-between">
-    <a href="detail_pelanggaran.php?id=<?= $pelanggaran['siswa_id'] ?>&pelanggaran_id=<?= $pelanggaran['pelanggaran_id'] ?>"
-        class="btn btn-secondary mt-3">← Kembali</a>
+    <a href="index.php?page=detail_pelanggaran&id=<?= $pelanggaran['siswa_id'] ?>" class="btn btn-secondary mt-3">←
+        Kembali</a>
 </div>
 
 <script>

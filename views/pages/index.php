@@ -45,7 +45,8 @@ $getDataPelanggaranHarian = $conn->query('
         p.id AS pelanggaran_id,
         p.nama_pelanggaran AS pelanggaran_nama,
         p.poin AS pelanggaran_poin,
-        ps.tanggal AS pelanggaran_tanggal
+        ps.tanggal AS pelanggaran_tanggal,
+        ps.guru_piket
     FROM
         users u
         JOIN pelanggaran_siswa ps ON u.id = ps.siswa_id
@@ -112,6 +113,7 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
                                     <th scope="col">Kelas</th>
                                     <th scope="col">Pelanggaran</th>
                                     <th scope="col">Poin</th>
+                                    <th scope="col">Guru Piket</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider table-hover">
@@ -131,6 +133,7 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
                                             <td><?= htmlspecialchars($item['user_kelas']) ?></td>
                                             <td><?= htmlspecialchars($item['pelanggaran_nama']) ?></td>
                                             <td><?= htmlspecialchars($item['pelanggaran_poin']) ?></td>
+                                            <td><?= htmlspecialchars($item['guru_piket']) ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
