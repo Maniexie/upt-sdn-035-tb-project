@@ -13,5 +13,5 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
-define('BASE_URL', 'http://192.168.100.235/upt-sdn-035-tb-project/');
+define('BASE_URL', 'http://localhost/upt-sdn-035-tb-project/');
 date_default_timezone_set('Asia/Jakarta');
