@@ -24,7 +24,7 @@
                     <div class="card" style="border-radius: 1rem;">
                         <div class="row g-0">
                             <div class="col-md-6 col-lg-5 d-none d-md-block">
-                                <img src="<?= BASE_URL ?>assets/img/logo-auth.png" alt="Auth Form"
+                                <img src="<?= BASE_URL ?>assets/img/logo.jpg" alt="Auth Form"
                                     class="img-fluid mt-5 ms-5 pb-5 " style="border-radius: 1rem 0 0 1rem;" />
                             </div>
                             <div class="col-md-6 col-lg-7 d-flex align-items-center">
