@@ -3,6 +3,8 @@ ob_start();
 require_once __DIR__ . '/../../layouts/header.php';
 require_once __DIR__ . '/../../../koneksi.php';
 
+// jika bukan guru piket = tidak bisa akses
+
 // Ambil ID siswa dan ID pelanggaran dari URL (data lama)
 $siswa_id = isset($_GET['id']) ? $_GET['id'] : 0;
 $pelanggaran_siswa_id = isset($_GET['pelanggaran_siswa_id']) ? $_GET['pelanggaran_siswa_id'] : 0;

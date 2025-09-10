@@ -23,6 +23,7 @@ function checkRoleAccess($page)
             'input_jenis_pelanggaran',
             'daftar_siswa_for_admin',
             'detail_siswa_for_admin',
+            'edit_data_siswa',
 
         ],
         2 => [ // guru

@@ -57,6 +57,7 @@ $allowedPages = [
     'daftar_siswa' => 'views/pages/data-siswa/daftar_siswa.php',
     'daftar_siswa_for_admin' => 'views/pages/data-siswa/daftar_siswa_for_admin.php',
     'detail_siswa_for_admin' => 'views/pages/data-siswa/detail_siswa_for_admin.php',
+    'edit_data_siswa' => 'views/pages/data-siswa/edit_data_siswa.php',
 ];
 
 // cek apakah halaman ada
