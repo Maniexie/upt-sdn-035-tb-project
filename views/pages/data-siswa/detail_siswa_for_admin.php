@@ -22,73 +22,135 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
 
 ?>
 <div class="container w-auto">
-    <div class="card mt-4 p-4">
-        <div class="card-header">
-            <h2 class="card-title text-capitalize">
-                Detail Siswa <?= htmlspecialchars($dataSiswa['nama']) ?>
-            </h2>
+    <section>
+        <div class="container d-flex justify-content-between">
+            <a href="index.php?page=daftar_siswa_for_admin&scroll_to=<?= htmlspecialchars($dataSiswa['id']) ?> "
+                class="btn btn-secondary mt-3" onclick="window.close();">
+                ← Kembali
+            </a>
         </div>
-        <div class="mb-3 row">
-            <label for="nisn" class="col-sm-2 col-form-label">NISN </label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="nisn"
-                    value=": <?= htmlspecialchars($dataSiswa['nisn']) ?>">
+    </section>
+    <section>
+        <div class="card mt-4 p-4">
+            <div class="card-header">
+                <h2 class="card-title text-capitalize">
+                    Detail Siswa <?= htmlspecialchars($dataSiswa['nama']) ?>
+                </h2>
             </div>
-        </div>
+            <div class="mb-3 row">
+                <label for="nisn" class="col-sm-2 col-form-label">NISN </label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="nisn"
+                        value=": <?= htmlspecialchars($dataSiswa['nisn']) ?>">
+                </div>
+            </div>
 
 
-        <div class="mb-3 row">
-            <label for="nama" class="col-sm-2 col-form-label">Nama Siswa</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="nama"
-                    value=": <?= htmlspecialchars($dataSiswa['nama']) ?>">
+            <div class="mb-3 row">
+                <label for="nama" class="col-sm-2 col-form-label">Nama Siswa</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="nama"
+                        value=": <?= htmlspecialchars($dataSiswa['nama']) ?>">
+                </div>
             </div>
-        </div>
 
-        <div class="mb-3 row">
-            <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="kelas"
-                    value=": <?= htmlspecialchars($dataSiswa['kelas']) ?>">
+            <div class="mb-3 row">
+                <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="kelas"
+                        value=": <?= htmlspecialchars($dataSiswa['kelas']) ?>">
+                </div>
             </div>
-        </div>
 
 
-        <div class="mb-3 row">
-            <label for="ttl" class="col-sm-2 col-form-label">Tempat/Tanggal Lahir</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="ttl"
-                    value=": <?= htmlspecialchars($dataSiswa['tempat_lahir']) ?>, <?= htmlspecialchars($dataSiswa['tanggal_lahir']) ?>">
+            <div class="mb-3 row">
+                <label for="ttl" class="col-sm-2 col-form-label">Tempat/Tanggal Lahir</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="ttl"
+                        value=": <?= htmlspecialchars($dataSiswa['tempat_lahir']) ?>, <?= htmlspecialchars($dataSiswa['tanggal_lahir']) ?>">
+                </div>
             </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="ttl" class="col-sm-2 col-form-label">Alamat</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="ttl"
-                    value=": <?= htmlspecialchars($dataSiswa['alamat']) ?>">
+            <div class="mb-3 row">
+                <label for="ttl" class="col-sm-2 col-form-label">Alamat</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="ttl"
+                        value=": <?= htmlspecialchars($dataSiswa['alamat']) ?>">
+                </div>
             </div>
-        </div>
 
-        <div class="mb-3 row">
-            <label for="kelas" class="col-sm-2 col-form-label">Wali Kelas</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="kelas"
-                    value=": <?= htmlspecialchars($namaGuru) ?> (<?= htmlspecialchars($nipGuru) ?> )">
+            <div class="mb-3 row">
+                <label for="kelas" class="col-sm-2 col-form-label">Wali Kelas</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="kelas"
+                        value=": <?= htmlspecialchars($namaGuru) ?> (<?= htmlspecialchars($nipGuru) ?> )">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="aksi" class="col-sm-2 col-form-label">&nbsp;</label>
+                <div class="col-sm-10">
+                    <a href="index.php?page=edit_data_siswa&id=<?= $dataSiswa['id'] ?>" class="btn btn-primary btn-sm">
+                        Edit
+                    </a>
+                    <button type="button" class="btn btn-danger btn-sm"
+                        onclick="confirmDelete(<?= $dataSiswa['id'] ?>)">
+                        Hapus
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="mb-3 row">
-            <label for="aksi" class="col-sm-2 col-form-label">&nbsp;</label>
-            <div class="col-sm-10">
-                <a href="index.php?page=edit_data_siswa&id=<?= $dataSiswa['id'] ?>" class="btn btn-primary btn-sm">
-                    Edit
-                </a>
-                <a href="index.php?page=hapus_siswa&id=<?= $dataSiswa['id'] ?>" class="btn btn-danger btn-sm"
-                    onclick="return confirm('Anda yakin ingin menghapus siswa ini?')">
-                    Hapus
-                </a>
-            </div>
-        </div>
-    </div>
+    </section>
+
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmDelete() {
+        Swal.fire({
+            title: 'Anda yakin ingin menghapus siswa ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Terhapus!',
+                    text: 'Data siswa berhasil dihapus.',
+                    icon: 'success',
+                    timer: 6000,
+                    timerProgressBar: true,
+                    willClose: () => {
+                        // window.location.href = 'index.php?page=hapus_data_siswa&id=<?= $dataSiswa['id'] ?>';
+                        window.close();
+                    }
+                })
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Dibatalkan',
+                    'Data siswa tidak jadi dihapus.',
+                    'error'
+                )
+            }
+        });
+    }
+</script>
+
+<!-- Script untuk melakukan scroll ke elemen tertentu -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const scrollToId = urlParams.get('scroll_to');
+
+        if (scrollToId) {
+            const targetElement = document.getElementById(scrollToId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    });
+</script>
+
 
 <?php require_once __DIR__ . "/../../layouts/footer.php"; ?>

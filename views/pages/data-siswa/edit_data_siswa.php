@@ -1,15 +1,13 @@
 <?php
+ob_start();
 require_once __DIR__ . "/../../../koneksi.php";
 require_once __DIR__ . "/../../layouts/header.php";
 
 
+// ambil data siswa sebagai value
 $dataSiswa = $db->prepare("SELECT id , nisn , nama , kelas, tempat_lahir, tanggal_lahir, alamat  FROM users  WHERE users.id = :id");
 $dataSiswa->execute(['id' => $_GET['id']]);
 $dataSiswa = $dataSiswa->fetch();
-
-
-
-// ambil data siswa 
 
 
 // pastikan ID valid 
@@ -17,7 +15,10 @@ if ($dataSiswa == false || $dataSiswa == 0) {
     echo "<div class='alert alert-danger'>ID tidak valid.</div>";
     exit;
 }
+
+// merubah data siswa
 if (isset($_POST["submit"])) {
+    $id = $_GET["id"];
     $nisn = $_POST["nisn"];
     $nama = $_POST["nama"];
     $kelas = $_POST["kelas"];
@@ -25,14 +26,43 @@ if (isset($_POST["submit"])) {
     $tanggal_lahir = $_POST["tanggal_lahir"];
     $alamat = $_POST["alamat"];
 
-    $stmt = $db->prepare("SELECT id , nisn , nama , kelas , tempat_lahir , tanggal_lahir , wali_kelas , alamat FROM users WHERE id = :id");
+    $updateQuery = "UPDATE users SET nisn = :nisn, nama = :nama, kelas = :kelas, tempat_lahir = :tempat_lahir, tanggal_lahir = :tanggal_lahir, alamat = :alamat WHERE id = :id";
+
+    $stmt = $db->prepare($updateQuery);
+    $stmt->bindParam(':nisn', $nisn);
+    $stmt->bindParam(':nama', $nama);
+    $stmt->bindParam(':kelas', $kelas);
+    $stmt->bindParam(':tempat_lahir', $tempat_lahir);
+    $stmt->bindParam(':tanggal_lahir', $tanggal_lahir);
+    $stmt->bindParam(':alamat', $alamat);
+    $stmt->bindParam(':id', $id);
     $stmt->execute();
 
-    $updateQuery = "UPDATE nisn, nama, kelas, tempat_lahir, tanggal_lahir, alamat SET "
+    echo "
+     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    html: 'Data siswa berhasil diubah.',
+                    confirmButtonColor: '#3085d6',
+                    timer: 6000,
+                    timerProgressBar: true,
+                        willClose: () => {
+                        window.location.href = 'index.php?page=detail_siswa_for_admin&id=' + '$id';
+                    }
+                });
+            });
+        </script>
+    ";
+
+    // header("Location: index.php?page=detail_siswa_for_admin&id=" . $id);
+    exit;
 }
 
 
-// Ambil data guru wali kelas
+// Ambil data guru wali kelas sebagai value
 $guru = $db->query("
     SELECT nama,nip 
     FROM users 
@@ -49,13 +79,13 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
     <!-- Halaman edit siswa -->
     <section>
         <div class="container d-flex justify-content-between">
-            <a href="index.php?page=detail_siswa_for_admin&id=<?= $dataSiswa['id'] ?>"
-                class="btn btn-secondary mt-3">←
+            <a href="index.php?page=detail_siswa_for_admin&id=<?= $dataSiswa['id'] ?>" class="btn btn-secondary mt-3">←
                 Kembali</a>
         </div>
         <div class="container-md">
             <h1 class="text-center">Halaman Edit Data Siswa </h1>
             <form action="" method="POST" class="border rounded p-3">
+                <!-- <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $dataSiswa["id"]; ?>"> -->
 
                 <div class="form-group">
                     <label for="nisn">NISN</label>

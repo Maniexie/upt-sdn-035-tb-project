@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .dashboard-scroll {
   overflow-y: scroll;
   height: 100vh;

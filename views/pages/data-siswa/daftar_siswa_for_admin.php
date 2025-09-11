@@ -60,14 +60,15 @@ foreach ($dataSiswaArray as $siswa) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($siswa as $i => $siswa): ?>
+                                        <?php foreach ($siswa as $i => $s): ?>
                                             <tr>
                                                 <td><?= $i + 1 ?></td>
-                                                <td><?= htmlspecialchars($siswa['nisn']) ?></td>
-                                                <td><?= htmlspecialchars($siswa['nama']) ?></td>
-                                                <td><?= htmlspecialchars($siswa['kelas']) ?></td>
+                                                <td><?= htmlspecialchars($s['nisn']) ?></td>
+                                                <td><?= htmlspecialchars($s['nama']) ?></td>
+                                                <td><?= htmlspecialchars($s['kelas']) ?></td>
                                                 <td>
-                                                    <a href="index.php?page=detail_siswa_for_admin&id=<?= $siswa['id'] ?>"
+                                                    <a target="_blank"
+                                                        href="index.php?page=detail_siswa_for_admin&id=<?= $s['id'] ?>"
                                                         class="btn btn-primary btn-sm">
                                                         Detail
                                                     </a>
@@ -85,6 +86,35 @@ foreach ($dataSiswaArray as $siswa) {
         </div>
     </section>
 </div>
+
+
+<!-- JavaScript -  -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const scrollToId = urlParams.get('scroll_to');
+
+        if (scrollToId) {
+            const targetElement = document.getElementById(scrollToId);
+            if (targetElement) {
+                // Tambahkan highlight untuk menonjolkan baris
+                targetElement.classList.add("highlight");
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Hapus highlight setelah beberapa detik
+                setTimeout(() => {
+                    targetElement.classList.remove("highlight");
+                }, 2000);
+            }
+        }
+    });
+</script>
+<style>
+    /* Gaya highlight opsional */
+    .highlight {
+        background-color: #ffff99 !important;
+    }
+</style>
 
 <?php
 require_once(__DIR__ . '/../../layouts/footer.php');
