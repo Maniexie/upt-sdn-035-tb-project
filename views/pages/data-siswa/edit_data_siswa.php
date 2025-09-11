@@ -3,10 +3,13 @@ require_once __DIR__ . "/../../../koneksi.php";
 require_once __DIR__ . "/../../layouts/header.php";
 
 
-$dataSiswa = $db->prepare("SELECT id FROM users  WHERE users.id = :id");
+$dataSiswa = $db->prepare("SELECT id , nisn , nama , kelas, tempat_lahir, tanggal_lahir, alamat  FROM users  WHERE users.id = :id");
 $dataSiswa->execute(['id' => $_GET['id']]);
 $dataSiswa = $dataSiswa->fetch();
 
+
+
+// ambil data siswa 
 
 
 // pastikan ID valid 
@@ -20,15 +23,12 @@ if (isset($_POST["submit"])) {
     $kelas = $_POST["kelas"];
     $tempat_lahir = $_POST["tempat_lahir"];
     $tanggal_lahir = $_POST["tanggal_lahir"];
-    $wali_kelas = $_POST["wali_kelas"];
     $alamat = $_POST["alamat"];
 
     $stmt = $db->prepare("SELECT id , nisn , nama , kelas , tempat_lahir , tanggal_lahir , wali_kelas , alamat FROM users WHERE id = :id");
+    $stmt->execute();
 
-
-
-
-
+    $updateQuery = "UPDATE nisn, nama, kelas, tempat_lahir, tanggal_lahir, alamat SET "
 }
 
 
@@ -49,7 +49,7 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
     <!-- Halaman edit siswa -->
     <section>
         <div class="container d-flex justify-content-between">
-            <a href="index.php?page=detail_pelanggaran&id=<?= $pelanggaran['siswa_id'] ?>"
+            <a href="index.php?page=detail_siswa_for_admin&id=<?= $dataSiswa['id'] ?>"
                 class="btn btn-secondary mt-3">←
                 Kembali</a>
         </div>
@@ -58,65 +58,66 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
             <form action="" method="POST" class="border rounded p-3">
 
                 <div class="form-group">
-                    <label for="nama_siswa">NISN</label>
-                    <input type="text" class="form-control" id="nama_siswa" name="nama_siswa"
-                        value="<?php echo $dataSiswa["nama"]; ?>" readonly disabled>
+                    <label for="nisn">NISN</label>
+                    <input type="text" class="form-control" id="nisn" name="nisn"
+                        value="<?php echo $dataSiswa["nisn"]; ?>">
                 </div>
                 <div class="form-group">
-                    <label for="nama_siswa">Nama Siswa</label>
-                    <input type="text" class="form-control" id="nama_siswa" name="nama_siswa"
-                        value="<?php echo $dataSiswa["nama"]; ?>" readonly disabled>
+                    <label for="nama">Nama Siswa</label>
+                    <input type="text" class="form-control" id="nama" name="nama"
+                        value="<?php echo $dataSiswa["nama"]; ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="pelanggaran_id">Kelas</label>
-                    <select class="form-select" name="pelanggaran_id" id="pelanggaran_id" onchange="updatePoin()">
-                        <option value="<?php echo $pelanggaran['pelanggaran_id']; ?>" selected>
-                            <?php echo $pelanggaran['nama_pelanggaran'] . " (" . $pelanggaran['poin'] . " poin)" ?>
+                    <label for="kelas">Kelas</label>
+                    <select class="form-select" name="kelas" id="kelas" onchange="updatePoin()">
+                        <option value="<?php echo $dataSiswa['kelas']; ?>" selected>
+                            <?php echo $dataSiswa['kelas'] . " " ?>
                         </option>
+                        <option value="1A">1A</option>
+                        <option value="1B">1B</option>
+                        <option value="1C">1C</option>
+                        <option value="2A">2A</option>
+                        <option value="2B">2B</option>
+                        <option value="2C">2C</option>
+                        <option value="3A">3A</option>
+                        <option value="3B">3B</option>
+                        <option value="3C">3C</option>
+                        <option value="4A">4A</option>
+                        <option value="4B">4B</option>
+                        <option value="4C">4C</option>
+                        <option value="5A">5A</option>
+                        <option value="5B">5B</option>
+                        <option value="5C">5C</option>
+                        <option value="6A">6A</option>
+                        <option value="6B">6B</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="kelas">Tempat Lahir</label>
-                    <input type="text" class="form-control" id="kelas" name="kelas"
-                        value="<?php echo $pelanggaran["kelas"]; ?>" readonly disabled>
+                    <label for="tempat_lahir">Tempat Lahir</label>
+                    <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
+                        value="<?php echo $dataSiswa["tempat_lahir"]; ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="kelas">Tanggal Lahir</label>
-                    <input type="text" class="form-control" id="kelas" name="kelas"
-                        value="<?php echo $pelanggaran["kelas"]; ?>" readonly disabled>
+                    <label for="tanggal_lahir">Tanggal Lahir</label>
+                    <input type="text" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
+                        value="<?php echo $dataSiswa["tanggal_lahir"]; ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="kelas">Alamat</label>
-                    <input type="text" class="form-control" id="kelas" name="kelas"
-                        value="<?php echo $pelanggaran["kelas"]; ?>" readonly disabled>
+                    <label for="alamat">Alamat</label>
+                    <input type="text" class="form-control" id="alamat" name="alamat"
+                        value="<?php echo $dataSiswa["alamat"]; ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="kelas">Wali Kelas</label>
-                    <input type="text" class="form-control" id="kelas" name="kelas"
+                    <label for="wali_kelas">Wali Kelas</label>
+                    <input type="text" class="form-control" id="wali_kelas" name="wali_kelas"
                         value=" <?= htmlspecialchars($namaGuru) ?>" readonly disabled>
                 </div>
 
-                <div class="form-group">
-                    <label for="pelanggaran_id">Pelanggaran</label>
-                    <select class="form-select" name="pelanggaran_id" id="pelanggaran_id" onchange="updatePoin()">
-                        <option value="<?php echo $pelanggaran['pelanggaran_id']; ?>" selected>
-                            <?php echo $pelanggaran['nama_pelanggaran'] . " (" . $pelanggaran['poin'] . " poin)" ?>
-                        </option>
-                        <!-- Pastikan menampilkan daftar pelanggaran lainnya jika ada -->
-                        <?php
-                        // Query untuk mengambil semua pelanggaran
-                        $stmt_pelanggaran = $db->query("SELECT * FROM pelanggaran");
-                        while ($p = $stmt_pelanggaran->fetch()) {
-                            echo "<option value='" . $p['id'] . "'>" . $p['nama_pelanggaran'] . " (" . $p['poin'] . " poin)" . "</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
                 <!-- <div class="container d-flex-justify-content-end"> -->
                 <button type="submit" class="btn btn-primary mt-2" name="submit">Simpan</button>
                 <!-- </div> -->
