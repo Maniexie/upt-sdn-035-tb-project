@@ -38,10 +38,31 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
                 </h2>
             </div>
             <div class="mb-3 row">
+                <label for="nik" class="col-sm-2 col-form-label">NIK </label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="nik"
+                        value=": <?= htmlspecialchars($dataSiswa['nik']) ?>">
+                </div>
+            </div>
+            <div class="mb-3 row">
                 <label for="nisn" class="col-sm-2 col-form-label">NISN </label>
                 <div class="col-sm-10">
                     <input type="text" readonly class="form-control-plaintext" id="nisn"
                         value=": <?= htmlspecialchars($dataSiswa['nisn']) ?>">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="email" class="col-sm-2 col-form-label">Email </label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="email"
+                        value=": <?= htmlspecialchars($dataSiswa['email']) ?>">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="username" class="col-sm-2 col-form-label">Username </label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="username"
+                        value=": <?= htmlspecialchars($dataSiswa['username']) ?>">
                 </div>
             </div>
 
@@ -68,6 +89,13 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
                 <div class="col-sm-10">
                     <input type="text" readonly class="form-control-plaintext" id="ttl"
                         value=": <?= htmlspecialchars($dataSiswa['tempat_lahir']) ?>, <?= htmlspecialchars($dataSiswa['tanggal_lahir']) ?>">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="nomor_hp" class="col-sm-2 col-form-label">Nomor HP</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="nomor_hp"
+                        value=": <?= htmlspecialchars($dataSiswa['nomor_hp']) ?>">
                 </div>
             </div>
             <div class="mb-3 row">
@@ -106,7 +134,7 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
 <script>
     function confirmDelete() {
         Swal.fire({
-            title: 'Anda yakin ingin menghapus siswa ini?',
+            title: 'Anda yakin ingin menghapus <span class="text-danger fw-bold"><?= $dataSiswa['nama'] ?></span>  kelas <span class="text-danger fw-bold"><?= $dataSiswa['kelas'] ?></span>  ?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -117,14 +145,13 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
             if (result.isConfirmed) {
                 Swal.fire({
                     title: 'Terhapus!',
-                    text: 'Data siswa berhasil dihapus.',
+                    html: 'Data <span class="text-danger fw-bold"><?= $dataSiswa['nama'] ?></span>  kelas <span class="text-danger fw-bold"><?= $dataSiswa['kelas'] ?></span> berhasil dihapus.',
                     icon: 'success',
-                    timer: 6000,
+                    timer: 60000,
                     timerProgressBar: true,
                     willClose: () => {
-                        // window.location.href = 'index.php?page=hapus_data_siswa&id=<?= $dataSiswa['id'] ?>';
-                        window.close();
-                    }
+                        window.location.href = 'index.php?page=hapus_data_siswa&id=<?= $dataSiswa['id'] ?>';
+                    },
                 })
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire(

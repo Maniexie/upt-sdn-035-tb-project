@@ -2,7 +2,7 @@
 require_once(__DIR__ . '/../../layouts/header.php');
 require_once(__DIR__ . '/../../../koneksi.php');
 
-$dataSiswa = $db->query('SELECT * FROM users WHERE role_id = 3 ORDER BY kelas ASC');
+$dataSiswa = $db->query('SELECT * FROM users WHERE role_id = 3  ORDER BY kelas ASC, nama ASC');
 
 $dataSiswaArray = $dataSiswa->fetchAll(PDO::FETCH_ASSOC);
 
@@ -21,7 +21,7 @@ foreach ($dataSiswaArray as $siswa) {
     <section>
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="mb-4">Daftar Siswa SDN 035 TARAIBANGUN</h2>
-            <a href="index.php?page=input_siswa" class="btn btn-primary">Tambah Siswa</a>
+            <a href="index.php?page=input_data_siswa" class="btn btn-primary">Tambah Siswa</a>
         </div>
 
     </section>

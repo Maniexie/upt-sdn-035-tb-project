@@ -5,7 +5,7 @@ require_once __DIR__ . "/../../layouts/header.php";
 
 
 // ambil data siswa sebagai value
-$dataSiswa = $db->prepare("SELECT id , nisn , nama , kelas, tempat_lahir, tanggal_lahir, alamat  FROM users  WHERE users.id = :id");
+$dataSiswa = $db->prepare("SELECT *  FROM users  WHERE users.id = :id");
 $dataSiswa->execute(['id' => $_GET['id']]);
 $dataSiswa = $dataSiswa->fetch();
 
@@ -19,22 +19,30 @@ if ($dataSiswa == false || $dataSiswa == 0) {
 // merubah data siswa
 if (isset($_POST["submit"])) {
     $id = $_GET["id"];
+    $nik = $_POST["nik"];
     $nisn = $_POST["nisn"];
+    $email = $_POST["email"];
+    $username = $_POST["username"];
     $nama = $_POST["nama"];
     $kelas = $_POST["kelas"];
     $tempat_lahir = $_POST["tempat_lahir"];
     $tanggal_lahir = $_POST["tanggal_lahir"];
+    $nomor_hp = $_POST["nomor_hp"];
     $alamat = $_POST["alamat"];
 
-    $updateQuery = "UPDATE users SET nisn = :nisn, nama = :nama, kelas = :kelas, tempat_lahir = :tempat_lahir, tanggal_lahir = :tanggal_lahir, alamat = :alamat WHERE id = :id";
+    $updateQuery = "UPDATE users SET nik = :nik, nisn = :nisn,email = :email, username = :username, nama = :nama, kelas = :kelas, tempat_lahir = :tempat_lahir, tanggal_lahir = :tanggal_lahir, nomor_hp = :nomor_hp, alamat = :alamat WHERE id = :id";
 
     $stmt = $db->prepare($updateQuery);
+    $stmt->bindParam(':nik', $nik);
     $stmt->bindParam(':nisn', $nisn);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':username', $username);
     $stmt->bindParam(':nama', $nama);
     $stmt->bindParam(':kelas', $kelas);
     $stmt->bindParam(':tempat_lahir', $tempat_lahir);
     $stmt->bindParam(':tanggal_lahir', $tanggal_lahir);
     $stmt->bindParam(':alamat', $alamat);
+    $stmt->bindParam(':nomor_hp', $nomor_hp);
     $stmt->bindParam(':id', $id);
     $stmt->execute();
 
@@ -88,9 +96,24 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
                 <!-- <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $dataSiswa["id"]; ?>"> -->
 
                 <div class="form-group">
+                    <label for="nik">NIK</label>
+                    <input type="text" class="form-control" id="nik" name="nik"
+                        value="<?php echo $dataSiswa["nik"]; ?>">
+                </div>
+                <div class="form-group">
                     <label for="nisn">NISN</label>
                     <input type="text" class="form-control" id="nisn" name="nisn"
                         value="<?php echo $dataSiswa["nisn"]; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" name="email"
+                        value="<?php echo $dataSiswa["email"]; ?>">
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username"
+                        value="<?php echo $dataSiswa["username"]; ?>">
                 </div>
                 <div class="form-group">
                     <label for="nama">Nama Siswa</label>
@@ -136,6 +159,11 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
                         value="<?php echo $dataSiswa["tanggal_lahir"]; ?>">
                 </div>
 
+                <div class="form-group">
+                    <label for="nomor_hp">Nomor HP</label>
+                    <input type="text" class="form-control" id="nomor_hp" name="nomor_hp"
+                        value="<?php echo $dataSiswa["nomor_hp"]; ?>">
+                </div>
                 <div class="form-group">
                     <label for="alamat">Alamat</label>
                     <input type="text" class="form-control" id="alamat" name="alamat"

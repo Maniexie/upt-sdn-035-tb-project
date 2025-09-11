@@ -25,6 +25,7 @@ function checkRoleAccess($page)
             'detail_siswa_for_admin',
             'edit_data_siswa',
             'hapus_data_siswa',
+            'input_data_siswa',
 
         ],
         2 => [ // guru

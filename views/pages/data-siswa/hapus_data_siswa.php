@@ -1,19 +1,33 @@
 <?php
 require_once __DIR__ . '/../../../koneksi.php';
-$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
+$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 if (!$id) {
-    echo "<div class='alert alert-danger'>ID tidak valid.</div>";
+    echo "<script>alert('ID tidak valid.'); window.close();</script>";
     exit;
-} else if (isset($_GET["id"])) {
-    $deleteQuery = "DELETE FROM users WHERE id = ?";
-    $stmt = $db->prepare($deleteQuery);
-    $stmt->execute([$id]);
 }
 
-
-header("Location: index.php?page=daftar_siswa_for_admin");
-exit();
-
-
+$deleteQuery = "DELETE FROM users WHERE id = ?";
+$stmt = $db->prepare($deleteQuery);
+$stmt->execute([$id]);
 ?>
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Menghapus...</title>
+    <script>
+        // Tunggu sebentar lalu tutup jendela
+        setTimeout(() => {
+            window.close();
+        }, 1); // 1 detik
+    </script>
+</head>
+
+<body>
+    <!-- <p>Data berhasil dihapus. Menutup halaman...</p> -->
+</body>
+
+</html>
