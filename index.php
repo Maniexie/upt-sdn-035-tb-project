@@ -60,6 +60,7 @@ $allowedPages = [
     'edit_data_siswa' => 'views/pages/data-siswa/edit_data_siswa.php',
     'hapus_data_siswa' => 'views/pages/data-siswa/hapus_data_siswa.php',
     'input_data_siswa' => 'views/pages/data-siswa/input_data_siswa.php',
+    'edit_profile' => 'views/pages/profile/edit_profile.php',
 ];
 
 // cek apakah halaman ada
