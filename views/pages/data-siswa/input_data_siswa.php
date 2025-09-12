@@ -3,13 +3,9 @@ ob_start();
 require_once __DIR__ . "/../../../koneksi.php";
 require_once __DIR__ . "/../../layouts/header.php";
 
-
-// check nisn unik , nik , username
-
-
-
 // menambah data siswa
 if (isset($_POST["submit"])) {
+
     $nik = $_POST["nik"];
     $nisn = $_POST["nisn"];
     $email = $_POST["email"];
@@ -22,75 +18,139 @@ if (isset($_POST["submit"])) {
     $alamat = $_POST["alamat"];
     $role_id = $_POST["role_id"];
 
+    // == CEK DUPLIKAT ==
+    // cek duplikat username
+    $query = "SELECT * FROM users WHERE username = :username ";
+    $stmt = $db->prepare($query);
+    $stmt->execute([':username' => $username]);
 
-
-
-    $getCheckData = $db->prepare("SELECT * FROM users WHERE username = :username OR nik = :nik OR nisn = :nisn");
-    $getCheckData->bindParam(':username', $username);
-    $getCheckData->bindParam(':nik', $nik);
-    $getCheckData->bindParam(':nisn', $nisn);
-    $getCheckData->execute();
-    $getCheckData = $getCheckData->fetchAll();
-
-    if ($getCheckData->num_rows > 0) {
+    if ($stmt->fetchColumn() > 0) {
+        // $error_message = "Username sudah digunakan.";
         echo "
-     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                 Swal.fire({
-                    icon: 'info',
-                    title: 'Gagal!',
-                    html: 'Data <b>$nik</b> atau <b>$username</b> atau <b>$nisn</b> sudah terdaftar.',
-                    confirmButtonColor: '#e9b635ff',
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Gagal Username!',
+                    html: 'Data <b>$nama</b> kelas <b>$kelas</b> gagal ditambahkan.',
+                    confirmButtonColor: '#c53d3dff',
                     timer: 6000,
                     timerProgressBar: true,
-                        willClose: () => {
-                        window.location.href = 'index.php?page=input_data_siswa';
+                    willClose: () => {
+                        window.location.href = 'index.php?page=daftar_siswa_for_admin';
                     }
                 });
             });
         </script>
-    ";
-
-        $insertData = "INSERT INTO users (nik, nisn,email, username, nama, kelas, tempat_lahir, tanggal_lahir,nomor_hp, alamat , role_id) VALUES (:nik, :nisn, :email, :username, :nama, :kelas, :tempat_lahir, :tanggal_lahir,:nomor_hp ,:alamat , :role_id)";
-
-        $stmt = $db->prepare($insertData);
-        $stmt->bindParam(':nik', $nik);
-        $stmt->bindParam(':nisn', $nisn);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':nama', $nama);
-        $stmt->bindParam(':kelas', $kelas);
-        $stmt->bindParam(':tempat_lahir', $tempat_lahir);
-        $stmt->bindParam(':tanggal_lahir', $tanggal_lahir);
-        $stmt->bindParam(':alamat', $alamat);
-        $stmt->bindParam(':nomor_hp', $nomor_hp);
-        $stmt->bindParam(':role_id', $role_id);
-        $stmt->execute();
-
-        echo "
-     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        ";
+        exit;
+    } else if ($stmt = $db->prepare("SELECT COUNT(*) FROM users WHERE nik = :nik")) {
+        if ($stmt->execute([':nik' => $nik])) {
+            if ($stmt->fetchColumn() > 0) {
+                // $error_message = "Nik Sudah digunakan";
+                echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                 Swal.fire({
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Gagal NIK',
+                    html: 'Data <b>$nama</b> kelas <b>$kelas</b> gagal ditambahkan.',
+                    confirmButtonColor: '#c53d3dff',
+                    timer: 6000,
+                    timerProgressBar: true,
+                    willClose: () => {
+                        window.location.href = 'index.php?page=daftar_siswa_for_admin';
+                    }
+                });
+            });
+        </script>
+        ";
+                exit;
+            }
+        }
+    } else if ($stmt = $db->prepare("SELECT COUNT(*) FROM users WHERE nisn = :nisn")) {
+        if ($stmt->execute([':nisn' => $nisn])) {
+            if ($stmt->fetchColumn() > 0) {
+                // $error_message = "NISN Sudah digunakan";
+                echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Gagal NISN',
+                    html: 'Data <b>$nama</b> kelas <b>$kelas</b> gagal ditambahkan.',
+                    confirmButtonColor: '#c53d3dff',
+                    timer: 6000,
+                    timerProgressBar: true,
+                    willClose: () => {
+                        window.location.href = 'index.php?page=daftar_siswa_for_admin';
+                    }
+                });
+            });
+        </script>
+        ";
+                exit;
+            }
+        }
+    }
+
+
+
+
+
+
+
+    try {
+        $insertData = "INSERT INTO users (nik, nisn, email, username, nama, kelas, tempat_lahir, tanggal_lahir, nomor_hp, alamat, role_id)
+                       VALUES (:nik, :nisn, :email, :username, :nama, :kelas, :tempat_lahir, :tanggal_lahir, :nomor_hp, :alamat, :role_id)";
+
+        $stmt = $db->prepare($insertData);
+        $stmt->execute([
+            ':nik' => $nik,
+            ':nisn' => $nisn,
+            ':email' => $email,
+            ':username' => $username,
+            ':nama' => $nama,
+            ':kelas' => $kelas,
+            ':tempat_lahir' => $tempat_lahir,
+            ':tanggal_lahir' => $tanggal_lahir,
+            ':nomor_hp' => $nomor_hp,
+            ':alamat' => $alamat,
+            ':role_id' => $role_id
+        ]);
+
+        echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
                     icon: 'success',
                     title: 'Berhasil!',
                     html: 'Data <b>$nama</b> kelas <b>$kelas</b> berhasil ditambahkan.',
                     confirmButtonColor: '#3085d6',
                     timer: 6000,
                     timerProgressBar: true,
-                        willClose: () => {
+                    willClose: () => {
                         window.location.href = 'index.php?page=daftar_siswa_for_admin';
                     }
                 });
             });
         </script>
-    ";
-
-        // header("Location: index.php?page=detail_siswa_for_admin&id=" . $id);
+        ";
         exit;
+    } catch (PDOException $error) {
+        if ($error->getCode() === "23000") {
+            echo "<script>alert('Gagal menyimpan data. Duplikasi data terdeteksi.'); window.history.back();</script>";
+        } else {
+            echo "Error: " . $error->getMessage();
+        }
     }
 }
+
+
 
 ?>
 <div class="container w-auto">
@@ -102,6 +162,12 @@ if (isset($_POST["submit"])) {
         </div>
         <div class="container-md">
             <h1 class="text-center">Halaman Edit Data Siswa </h1>
+            <?php if (!empty($error_message)): ?>
+                <div class="alert alert-danger">
+                    <?= htmlspecialchars($error_message) ?>
+                </div>
+            <?php endif; ?>
+
             <form action="" method="POST" class="border rounded p-3">
 
                 <div class="form-group">

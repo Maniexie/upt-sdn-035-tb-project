@@ -1,6 +1,10 @@
 <?php
 require_once __DIR__ . '/../../layouts/header.php';
 require_once __DIR__ . '/../../../koneksi.php';
+
+
+// $sql = "select * from users where id = $_SESSION['id']";
+// $result = $db->query($sql)
 ?>
 
 <div class="container w-auto">
@@ -22,6 +26,13 @@ require_once __DIR__ . '/../../../koneksi.php';
             <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="nama"
                     value="<?= htmlspecialchars($_SESSION['user_name']); ?>">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="kelas" class="col-sm-2 col-form-label">kelas :</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="kelas"
+                    value="<?= htmlspecialchars($_SESSION['user_kelas']); ?>">
             </div>
         </div>
     </div>
