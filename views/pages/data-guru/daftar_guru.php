@@ -5,10 +5,18 @@ require_once __DIR__ . '/../../../koneksi.php';
 // Ambil data semua guru (role_id = 2)
 $dataGuru = $db->query("
     SELECT 
-        u.id AS id, 
+        u.id AS id,
+        u.nik AS nik,
+        u.nip AS nip,
+        u.username AS username,
         u.nama AS nama,
         u.email AS email,
-        u.kelas AS kelas 
+        u.kelas AS kelas, 
+        u.tempat_lahir AS tempat_lahir,
+        u.tanggal_lahir AS tanggal_lahir,
+        u.alamat AS alamat,
+        u.nomor_hp AS nomor_hp,
+        u.role_id AS role_id
     FROM users u 
     WHERE u.role_id = 2 
     ORDER BY u.kelas ASC
@@ -38,16 +46,38 @@ $dataGuru = $db->query("
                     </h2>
                     <div id="<?= $collapseId ?>" class="accordion-collapse collapse <?= $showClass ?>"
                         aria-labelledby="<?= $headingId ?>" data-bs-parent="#accordionGuru">
-                        <div class="accordion-body">
-                            <p><strong>Nama:</strong> <?= htmlspecialchars($guru['nama']) ?></p>
-                            <p><strong>Email:</strong> <?= htmlspecialchars($guru['email']) ?></p>
-                            <p><strong>Kelas:</strong> <?= htmlspecialchars($guru['kelas']) ?></p>
+                        <div class="accordion-body ">
+                            <ul class="list-group">
+                                <li class="list-group-item"><strong>NIK:</strong>
+                                    <?= htmlspecialchars($guru['nik']) ?></li>
+                                <li class="list-group-item"><strong>NIP:</strong> <?= htmlspecialchars($guru['nip']) ?></li>
+                                <li class="list-group-item"><strong>Nama:</strong> <?= htmlspecialchars($guru['nama']) ?>
+                                </li>
+                                <li class="list-group-item"><strong>Email:</strong> <?= htmlspecialchars($guru['email']) ?>
+                                </li>
+                                <li class="list-group-item"><strong>Kelas:</strong> <?= htmlspecialchars($guru['kelas']) ?>
+                                </li>
+                                <li class="list-group-item"><strong>TTL:</strong>
+                                    <?= htmlspecialchars($guru['tempat_lahir']) ?>,
+                                    <?= htmlspecialchars(date('d-m-Y', strtotime($guru['tanggal_lahir']))) ?>
+                                </li>
+                                <li class="list-group-item"><strong>Nomor HP:</strong>
+                                    <?= htmlspecialchars($guru['nomor_hp']) ?></li>
+                                <li class="list-group-item"><strong>Alamat:</strong>
+                                    <?= htmlspecialchars($guru['alamat']) ?></li>
+                            </ul>
+                            <div class="d-flex justify-content-end mt-2">
+                                <a href="index.php?page=edit_guru&id=<?= $guru['id'] ?>"
+                                    class="btn btn-primary me-2">Edit</a>
+                                <a href="index.php?page=hapus_guru&id=<?= $guru['id'] ?>" class="btn btn-danger">Hapus</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
-        </div>
-    </section>
+            </div>
+        <?php endforeach; ?>
+</div>
+</section>
 </div>
 
 <?php require_once __DIR__ . '/../../layouts/footer.php'; ?>

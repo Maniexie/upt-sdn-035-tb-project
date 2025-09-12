@@ -23,8 +23,8 @@ $dataGuru = $stmt->fetch();
                     Profile : <?= htmlspecialchars($result['nama']); ?>
                 </h2>
             </div>
-            <div class="container">
 
+            <div class="container">
                 <div class="mb-3 row">
                     <label for="nik" class="col-sm-2 col-form-label">NIK </label>
                     <div class="col-sm-10">
@@ -32,13 +32,27 @@ $dataGuru = $stmt->fetch();
                             value=": <?= htmlspecialchars($result['nik']); ?>">
                     </div>
                 </div>
-                <div class="mb-3 row">
-                    <label for="nip" class="col-sm-2 col-form-label">NIP </label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="nip"
-                            value=": <?= htmlspecialchars($result['nip']); ?>">
+
+                <?php if ($result['role_id'] === 1 || $result['role_id'] === 2): ?>
+                    <div class="mb-3 row">
+                        <label for="nip" class="col-sm-2 col-form-label">NIP </label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="nip"
+                                value=": <?= htmlspecialchars($result['nip']); ?>">
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
+
+                <?php if ($result['role_id'] === 3): ?>
+                    <div class="mb-3 row">
+                        <label for="nisn" class="col-sm-2 col-form-label">NISN </label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="nisn"
+                                value=": <?= htmlspecialchars($result['nisn']); ?>">
+                        </div>
+                    </div>
+                <?php endif; ?>
+
                 <div class="mb-3 row">
                     <label for="email" class="col-sm-2 col-form-label">Email </label>
                     <div class="col-sm-10">
@@ -46,6 +60,7 @@ $dataGuru = $stmt->fetch();
                             value=": <?= htmlspecialchars($result['email']); ?>">
                     </div>
                 </div>
+
                 <div class="mb-3 row">
                     <label for="username" class="col-sm-2 col-form-label">Username </label>
                     <div class="col-sm-10">
@@ -53,13 +68,27 @@ $dataGuru = $stmt->fetch();
                             value=": <?= htmlspecialchars($result['username']); ?>">
                     </div>
                 </div>
-                <div class="mb-3 row">
-                    <label for="nama" class="col-sm-2 col-form-label">Nama </label>
-                    <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="nama"
-                            value=": <?= htmlspecialchars($result['nama']); ?>">
+
+                <?php if ($result['role_id'] === 3): ?>
+                    <div class="mb-3 row">
+                        <label for="nama" class="col-sm-2 col-form-label">Nama Siswa </label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="nama"
+                                value=": <?= htmlspecialchars($result['nama']); ?>">
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
+
+                <?php if ($result['role_id'] === 1 || $result['role_id'] === 2): ?>
+                    <div class="mb-3 row">
+                        <label for="nama" class="col-sm-2 col-form-label">Nama </label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="nama"
+                                value=": <?= htmlspecialchars($result['nama']); ?>">
+                        </div>
+                    </div>
+                <?php endif; ?>
+
                 <div class="mb-3 row">
                     <label for="kelas" class="col-sm-2 col-form-label">Kelas </label>
                     <div class="col-sm-10">
@@ -67,6 +96,17 @@ $dataGuru = $stmt->fetch();
                             value=": <?= htmlspecialchars($result['kelas']); ?>">
                     </div>
                 </div>
+
+                <?php if ($result['role_id'] === 1 || $result['role_id'] === 2): ?>
+                    <div class="mb-3 row">
+                        <label for="jabatan" class="col-sm-2 col-form-label">Jabatan </label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="jabatan"
+                                value=": <?= htmlspecialchars($result['jabatan']); ?>">
+                        </div>
+                    </div>
+                <?php endif; ?>
+
                 <div class="mb-3 row">
                     <label for="ttl" class="col-sm-2 col-form-label">Tempat / Tanggal Lahir </label>
                     <div class="col-sm-10">
@@ -74,6 +114,7 @@ $dataGuru = $stmt->fetch();
                             value=": <?= htmlspecialchars($result['tempat_lahir']) ?>, <?= htmlspecialchars(date('d-m-Y', strtotime($result['tanggal_lahir']))) ?>">
                     </div>
                 </div>
+
                 <div class="mb-3 row">
                     <label for="nomor_hp" class="col-sm-2 col-form-label">Nomor HP </label>
                     <div class="col-sm-10">
@@ -81,6 +122,7 @@ $dataGuru = $stmt->fetch();
                             value=": <?= htmlspecialchars($result['nomor_hp']); ?>">
                     </div>
                 </div>
+
                 <div class="mb-3 row">
                     <label for="alamat" class="col-sm-2 col-form-label">Alamat </label>
                     <div class="col-sm-10">
@@ -88,6 +130,7 @@ $dataGuru = $stmt->fetch();
                             value=": <?= htmlspecialchars($result['alamat']); ?>">
                     </div>
                 </div>
+
                 <?php if ($result['role_id'] === 3): ?>
                     <div class="mb-3 row">
                         <label for="wali_kelas" class="col-sm-2 col-form-label">Wali Kelas </label>
@@ -97,6 +140,7 @@ $dataGuru = $stmt->fetch();
                         </div>
                     </div>
                 <?php endif; ?>
+
             </div>
         </div>
 

@@ -61,6 +61,12 @@ $allowedPages = [
     'hapus_data_siswa' => 'views/pages/data-siswa/hapus_data_siswa.php',
     'input_data_siswa' => 'views/pages/data-siswa/input_data_siswa.php',
     'edit_profile' => 'views/pages/profile/edit_profile.php',
+    'edit_guru' => 'views/pages/data-guru/edit_guru.php',
+    'daftar_user' => 'views/pages/data-user/daftar_user.php',
+    'detail_user' => 'views/pages/data-user/detail_user.php',
+    'edit_user' => 'views/pages/data-user/edit_user.php',
+    'hapus_user' => 'views/pages/data-user/hapus_user.php',
+    'password_user' => 'views/pages/data-user/password_user.php',
 ];
 
 // cek apakah halaman ada

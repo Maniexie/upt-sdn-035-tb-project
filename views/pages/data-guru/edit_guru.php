@@ -19,7 +19,7 @@ function tanggal_indo_intl($tanggal)
 
 // Ambil data user dari database berdasarkan session
 $stmt = $db->prepare("SELECT * FROM users WHERE id = :id");
-$stmt->execute(['id' => $_SESSION['user_id']]);
+$stmt->execute(['id' => $_GET['id']]);
 $result = $stmt->fetch();
 
 
@@ -32,8 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt = $db->prepare('UPDATE users SET 
     nik = :nik, 
-    nip = :nip,
-    nisn = :nisn, 
+    nip = :nip, 
     email = :email, 
     username = :username, 
     nama = :nama, 
@@ -41,13 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     tempat_lahir = :tempat_lahir, 
     tanggal_lahir = :tanggal_lahir, 
     nomor_hp = :nomor_hp, 
-    alamat = :alamat 
+    alamat = :alamat,
+    role_id = :role_id 
 WHERE id = :id');
 
     $stmt->execute([
         ':id' => $result['id'],
         ':nik' => $_POST['nik'],
-        ':nisn' => $_POST['nisn'],
         ':nip' => $_POST['nip'],
         ':email' => $_POST['email'],
         ':username' => $_POST['username'],
@@ -56,7 +55,8 @@ WHERE id = :id');
         ':tempat_lahir' => $_POST['tempat_lahir'],
         ':tanggal_lahir' => $_POST['tanggal_lahir'],
         ':nomor_hp' => $_POST['nomor_hp'],
-        ':alamat' => $_POST['alamat']
+        ':alamat' => $_POST['alamat'],
+        ':role_id' => $_POST['role_id'],
     ]);
 
     echo "
@@ -66,12 +66,12 @@ WHERE id = :id');
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil!',
-                html: 'Profile berhasil diubah.',
+                html: 'Profil Guru berhasil diubah.',
                 confirmButtonColor: '#3085d6',
                 timer: 6000,
                 timerProgressBar: true,
                     willClose: () => {
-                    window.location.href = 'index.php?page=profile';
+                    window.location.href = 'index.php?page=daftar_guru';
                 }
             });
         });
@@ -102,32 +102,13 @@ WHERE id = :id');
                             value="<?= htmlspecialchars($result['nik']); ?>">
                     </div>
                 </div>
-
-                <?php if ($result['role_id'] === 1 || $result['role_id'] === 2): ?>
-                    <div class="mb-3 row">
-                        <label for="nip" class="col-sm-2 col-form-label">NIP </label>
-                        <div class="col-sm-10">
-                            <input type="text" name="nip" class="form-control" id="nip"
-                                value="<?= htmlspecialchars($result['nip']); ?>">
-                        </div>
+                <div class="mb-3 row">
+                    <label for="nip" class="col-sm-2 col-form-label">NIP </label>
+                    <div class="col-sm-10">
+                        <input type="text" name="nip" class="form-control" id="nip"
+                            value="<?= htmlspecialchars($result['nip']); ?>">
                     </div>
-                <?php endif; ?>
-
-                <?php if ($result['role_id'] === 1 || $result['role_id'] === 2): ?>
-                    <input type="hidden" name="nisn" class="form-control" id="nisn"
-                        value="<?= htmlspecialchars($result['nisn']); ?>">
-                <?php endif; ?>
-
-                <?php if ($result['role_id'] === 3): ?>
-                    <div class="mb-3 row">
-                        <label for="nisn" class="col-sm-2 col-form-label">NISN</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="nisn" class="form-control" id="nisn"
-                                value="<?= htmlspecialchars($result['nisn']); ?>">
-                        </div>
-                    </div>
-                <?php endif; ?>
-
+                </div>
                 <div class="mb-3 row">
                     <label for="email" class="col-sm-2 col-form-label">Email </label>
                     <div class="col-sm-10">
@@ -135,7 +116,6 @@ WHERE id = :id');
                             value="<?= htmlspecialchars($result['email']); ?>">
                     </div>
                 </div>
-
                 <div class="mb-3 row">
                     <label for="username" class="col-sm-2 col-form-label">Username </label>
                     <div class="col-sm-10">
@@ -143,7 +123,6 @@ WHERE id = :id');
                             value="<?= htmlspecialchars($result['username']); ?>">
                     </div>
                 </div>
-
                 <div class="mb-3 row">
                     <label for="nama" class="col-sm-2 col-form-label">Nama </label>
                     <div class="col-sm-10">
@@ -151,7 +130,6 @@ WHERE id = :id');
                             value="<?= htmlspecialchars($result['nama']); ?>">
                     </div>
                 </div>
-
                 <div class="mb-3 row">
                     <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
                     <div class="col-sm-10">
@@ -167,16 +145,6 @@ WHERE id = :id');
                         </select>
                     </div>
                 </div>
-
-
-                <div class="mb-3 row">
-                    <label for="jabatan" class="col-sm-2 col-form-label">Jabatan </label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="jabatan"
-                            value="<?= htmlspecialchars($result['jabatan']) ?>">
-                    </div>
-                </div>
-
                 <div class="mb-3 row">
                     <label for="tempat_lahir" class="col-sm-2 col-form-label">Tempat Lahir </label>
                     <div class="col-sm-10">
@@ -184,7 +152,6 @@ WHERE id = :id');
                             value="<?= htmlspecialchars($result['tempat_lahir']) ?>">
                     </div>
                 </div>
-
                 <div class="mb-3 row">
                     <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
                     <div class="col-sm-10">
@@ -192,7 +159,6 @@ WHERE id = :id');
                             value="<?= htmlspecialchars(date('Y-m-d', strtotime($result['tanggal_lahir']))) ?>">
                     </div>
                 </div>
-
                 <div class="mb-3 row">
                     <label for="nomor_hp" class="col-sm-2 col-form-label">Nomor HP </label>
                     <div class="col-sm-10">
@@ -200,7 +166,6 @@ WHERE id = :id');
                             value="<?= htmlspecialchars($result['nomor_hp']); ?>">
                     </div>
                 </div>
-
                 <div class="mb-3 row">
                     <label for="alamat" class="col-sm-2 col-form-label">Alamat </label>
                     <div class="col-sm-10">
@@ -208,7 +173,25 @@ WHERE id = :id');
                             value="<?= htmlspecialchars($result['alamat']); ?>">
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label for="role_id" class="col-sm-2 col-form-label">Status</label>
+                    <div class="col-sm-10">
+                        <?php
+                        $stmt = $db->prepare("SELECT id AS id_role, role_name FROM roles");
+                        $stmt->execute();
+                        $allRoles = $stmt->fetchAll();
+                        ?>
+                        <select name="role_id" class="form-select text-capitalize" id="role_id" required>
+                            <?php foreach ($allRoles as $role): ?>
+                                <option class="text-capitalize" value="<?= $role['id_role']; ?>"
+                                    <?= $role['id_role'] == $result['role_id'] ? 'selected' : ''; ?>>
 
+                                    <span class="text-capitalize"> <?= htmlspecialchars($role['role_name']); ?></span>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
                 <?php if ($result['role_id'] === 3): ?>
                     <div class="mb-3 row">
                         <label for="wali_kelas" class="col-sm-2 col-form-label">Wali Kelas </label>
@@ -222,7 +205,7 @@ WHERE id = :id');
         </div>
 
         <div class="container d-flex justify-content-between">
-            <a href="index.php?page=profile&id=<?= $result['id']; ?>" class="btn btn-secondary mt-3"><- Kembali</a>
+            <a href="index.php?page=daftar_guru&id=<?= $result['id']; ?>" class="btn btn-secondary mt-3"><- Kembali</a>
                     <button type="submit" class="btn btn-primary mt-3" name="submit">Simpan</button>
         </div>
         </form>

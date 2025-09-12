@@ -27,6 +27,12 @@ function checkRoleAccess($page)
             'hapus_data_siswa',
             'input_data_siswa',
             'edit_profile',
+            'edit_guru',
+            'daftar_user',
+            'detail_user',
+            'edit_user',
+            'hapus_user',
+            'password_user',
 
         ],
         2 => [ // guru

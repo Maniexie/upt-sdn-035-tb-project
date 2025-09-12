@@ -57,6 +57,28 @@
                         </li>
                     <?php endif; ?>
 
+                    <!-- DATA USER for admin -->
+                    <?php if ($_SESSION['role_id'] == 1): ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" href="#data_user" role="button" aria-expanded="false"
+                                aria-controls="data_user">
+                                <span>Data User</span>
+                                <i class="fa fa-chevron-down"></i>
+                            </a>
+
+                            <div class="collapse ps-3 mt-1" id="data_user">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="index.php?page=daftar_user">
+                                            </i> Daftar User
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    <?php endif; ?>
+
                     <!-- DATA GURU -->
                     <?php if ($_SESSION['role_id'] == 1): ?>
                         <li class="nav-item">
