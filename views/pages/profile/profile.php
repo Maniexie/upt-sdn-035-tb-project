@@ -4,9 +4,9 @@ require_once __DIR__ . '/../../layouts/header.php';
 require_once __DIR__ . '/../../../koneksi.php';
 
 // Ambil data user dari database berdasarkan session
-$stmt = $db->prepare("SELECT * FROM users WHERE id = :id");
+$stmt = $db->prepare("SELECT u.*, r.role_name, j.nama_jabatan FROM users u JOIN roles r ON u.role_id = r.id JOIN jabatan j ON u.jabatan_id = j.id WHERE u.id = :id");
 $stmt->execute(['id' => $_SESSION['user_id']]);
-$result = $stmt->fetch();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 // ambil data guru wali kelas
@@ -97,15 +97,13 @@ $dataGuru = $stmt->fetch();
                     </div>
                 </div>
 
-                <?php if ($result['role_id'] === 1 || $result['role_id'] === 2): ?>
-                    <div class="mb-3 row">
-                        <label for="jabatan" class="col-sm-2 col-form-label">Jabatan </label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="jabatan"
-                                value=": <?= htmlspecialchars($result['jabatan']); ?>">
-                        </div>
+                <div class="mb-3 row">
+                    <label for="jabatan" class="col-sm-2 col-form-label">Jabatan </label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="jabatan"
+                            value=": <?= htmlspecialchars($result['nama_jabatan']); ?>">
                     </div>
-                <?php endif; ?>
+                </div>
 
                 <div class="mb-3 row">
                     <label for="ttl" class="col-sm-2 col-form-label">Tempat / Tanggal Lahir </label>

@@ -2,23 +2,33 @@
 require_once __DIR__ . '../../../layouts/header.php';
 require_once __DIR__ . '/../../../koneksi.php';
 
-$getAllUserStmt = $db->prepare('SELECT * FROM users ORDER BY kelas ASC , role_id ASC');
+$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+
+$getAllUserStmt = $db->prepare('
+    SELECT 
+        users.*, 
+        roles.role_name, 
+        jabatan.nama_jabatan 
+    FROM users
+    LEFT JOIN roles ON roles.id = users.role_id
+    LEFT JOIN jabatan ON jabatan.id = users.jabatan_id
+    ORDER BY users.kelas ASC, users.role_id ASC
+');
 $getAllUserStmt->execute();
+$getAllUserStmt->fetch();
 $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$getRoles = $db->prepare('SELECT * FROM roles');
-$getRoles->execute();
-$getAllRoles = $getRoles->fetchAll(PDO::FETCH_ASSOC);
+
+// var_dump($getJabatanUser);
 
 ?>
 <div class="container">
     <h1 class="text-center me-5">Daftar User</h1>
     <section class="d-flex justify-content-between align-items-center mb-2">
-        <a href="index.php?tambah_user" class="btn btn-primary">Tambah User</a>
+        <a href="index.php?page=tambah_user" class="btn btn-primary">Tambah User</a>
 
         <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
         </form>
     </section>
 
@@ -37,25 +47,29 @@ $getAllRoles = $getRoles->fetchAll(PDO::FETCH_ASSOC);
                 </thead>
                 <tbody class="table-group-divider">
                     <?php foreach ($getAllUser as $i => $item): ?>
-                        <tr>
+                        <tr id="row-<?= $item['id'] ?>">
                             <th scope="row"><?= $i + 1 ?></th>
                             <td><?= $item['nama'] ?></td>
                             <td><?= $item['kelas'] ?></td>
                             <td class="text-capitalize">
-                                <?php foreach ($getAllRoles as $role): ?>
-                                    <?php if ($role['id'] === $item['role_id']): ?>
-                                        <?= $role['role_name'] ?>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
+                                <?= $item['role_name'] ?>
                             </td>
-                            <td><?= $item['jabatan'] ?></td>
+
+                            <td>
+                                <?= $item['nama_jabatan'] ?>
+                            </td>
+
                             <td class="container justify-content-center d-flex gap-2">
-                                <a href="index.php?detail_user&id=<?= $item['id'] ?>"
+                                <a href="index.php?page=detail_user&id=<?= $item['id'] ?>"
                                     class="btn btn-sm btn-primary">Detail</a>
-                                <a href="index.php?password_user&id=<?= $item['id'] ?>"
+                                <a href="index.php?page=password_user&id=<?= $item['id'] ?>"
                                     class="btn btn-sm btn-warning text-white">
                                     Password</a>
-                                <a href="index.php?hapus_user&id=<?= $item['id'] ?>" class="btn btn-sm btn-danger">Hapus</a>
+                                <button type="button" class="btn btn-danger btn-sm"
+                                    onclick="confirmDelete(<?= $item['id'] ?>, '<?= addslashes($item['nama']) ?>', '<?= addslashes($item['kelas']) ?>')">
+                                    Hapus
+                                </button>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -65,5 +79,61 @@ $getAllRoles = $getRoles->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmDelete(id, nama, kelas) {
+        Swal.fire({
+            title: `Anda yakin ingin menghapus <span class="text-danger fw-bold">${nama}</span> kelas <span class="text-danger fw-bold">${kelas}</span>?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Terhapus!',
+                    html: `Data <span class="text-danger fw-bold">${nama}</span> kelas <span class="text-danger fw-bold">${kelas}</span> berhasil dihapus.`,
+                    icon: 'success',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    willClose: () => {
+                        window.location.href = `index.php?page=hapus_user&id=${id}`;
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Dibatalkan',
+                    'Data user tidak jadi dihapus.',
+                    'error'
+                );
+            }
+        });
+    }
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const rows = document.querySelectorAll("tbody tr");
+
+        searchInput.addEventListener("keyup", function () {
+            const keyword = this.value.toLowerCase();
+
+            rows.forEach(row => {
+                const rowText = row.innerText.toLowerCase();
+                if (rowText.includes(keyword)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+    });
+</script>
+
+
 
 <?php require_once __DIR__ . '/../../layouts/footer.php'; ?>
