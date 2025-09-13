@@ -12,7 +12,7 @@ $getAllUserStmt = $db->prepare('
     FROM users
     LEFT JOIN roles ON roles.id = users.role_id
     LEFT JOIN jabatan ON jabatan.id = users.jabatan_id
-    ORDER BY users.kelas ASC, users.role_id ASC
+    ORDER BY users.role_id ASC , users.jabatan_id ASC ,users.kelas ASC , users.nama ASC
 ');
 $getAllUserStmt->execute();
 $getAllUserStmt->fetch();

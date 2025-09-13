@@ -3,25 +3,28 @@ require_once __DIR__ . '/../../layouts/header.php';
 require_once __DIR__ . '/../../../koneksi.php';
 
 
-// untuk tabel kiri //
 
-// Ambil data kelas unik
-// $kelasList = $db->query("SELECT DISTINCT kelas FROM users ORDER BY kelas DESC")->fetchAll();
+
+
+// FORM INPUT ATAU TABEL KIRI //
+
+// 1. Ambil data kelas unik
 $kelasList = $db->query("SELECT DISTINCT kelas 
 FROM users 
 ORDER BY 
   CAST(SUBSTRING(kelas, 1, LENGTH(kelas) - 1) AS UNSIGNED),
   RIGHT(kelas, 1)")->fetchAll();
-// Jika kelas dipilih, ambil siswa berdasarkan kelas
+
+// 2. Jika kelas dipilih, ambil siswa berdasarkan kelas
 $selectedKelas = $_GET['kelas'] ?? '';
 $siswaList = [];
 if ($selectedKelas) {
-    $stmt = $db->prepare("SELECT * FROM users WHERE kelas = ?");
+    $stmt = $db->prepare("SELECT id, nama ,role_id FROM users WHERE kelas = ? AND role_id = 3 ORDER BY nama ASC");
     $stmt->execute([$selectedKelas]);
     $siswaList = $stmt->fetchAll();
 }
 
-// Ambil semua jenis pelanggaran
+// 3. Ambil semua jenis pelanggaran
 $pelanggaranList = $db->query("SELECT * FROM pelanggaran")->fetchAll();
 
 
@@ -40,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Mengambil data pelanggaran siswa Untuk Sweetalert
 
     // Ambil nama siswa
-    $stmt = $db->prepare("SELECT nama FROM users WHERE id = ?");
+    $stmt = $db->prepare("SELECT nama FROM users WHERE id = ? AND role_id = 3");
     $stmt->execute([$siswaId]);
     $siswa = $stmt->fetchColumn(); // hasil: nama siswa
 
@@ -69,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 
+<!-- TABEL KANAN -->
 <?php
 // Menampilkan data pelanggaran siswa untuk tabel kanan
 $dataPelanggaran = $db->query("
@@ -110,19 +114,23 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
                     <select class="form-select" id="kelas" name="kelas" required>
                         <option value="" selected disabled>Pilih kelas</option>
                         <?php foreach ($kelasList as $kelas): ?>
-                            <option value="<?= $kelas['kelas'] ?>" <?= $selectedKelas == $kelas['kelas'] ? 'selected' : '' ?>>
+                            <option value="<?= $kelas['kelas'] ?>" <?= $selectedKelas == $kelas['kelas'] ?>>
                                 <?= $kelas['kelas'] ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
+
+
                 <div class="mb-3">
                     <label for="siswa_id">Nama Siswa:</label>
                     <select name="siswa_id" class="form-select" required>
                         <option value="">Pilih Siswa</option>
                         <?php if (!empty($siswaList)): ?>
                             <?php foreach ($siswaList as $siswa): ?>
-                                <option value="<?= $siswa['id'] ?>"><?= $siswa['nama'] ?></option>
+                                <option value="<?= $siswa['id'] ?>">
+                                    <?= htmlspecialchars($siswa['nama']) ?> (<?= htmlspecialchars($siswa['username']) ?>)
+                                </option>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </select>
@@ -204,6 +212,8 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
     document.getElementById('kelas').addEventListener('change', function () {
         var kelas = this.value;
 
+
+
         fetch(`views/ajax/get_siswa_by_kelas.php?kelas=${encodeURIComponent(kelas)}`)
             .then(response => response.text())
             .then(data => {
@@ -213,7 +223,6 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
                 console.error('Error:', error);
             });
     });
-
 
     // Fungsi untuk memformat tanggal
     function tampilkanTanggal() {

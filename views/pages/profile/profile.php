@@ -98,6 +98,13 @@ $dataGuru = $stmt->fetch();
                 </div>
 
                 <div class="mb-3 row">
+                    <label for="role_id" class="col-sm-2 col-form-label">Status</label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext text-capitalize" id="role_id"
+                            value=": <?= htmlspecialchars($result['role_name']); ?>">
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label for="jabatan" class="col-sm-2 col-form-label">Jabatan </label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="jabatan"

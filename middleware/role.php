@@ -33,6 +33,7 @@ function checkRoleAccess($page)
             'edit_user',
             'hapus_user',
             'password_user',
+            'tambah_user',
 
         ],
         2 => [ // guru

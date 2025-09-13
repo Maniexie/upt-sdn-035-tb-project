@@ -40,6 +40,10 @@ if (isset($_POST['submit'])) {
 <div class="container">
     <div class="row mt-2">
         <div class="col-md-12">
+            <div class="container mt-1 mb-2">
+                <a href="index.php?page=daftar_user" class="btn btn-danger">
+                    <= Kembali </a>
+            </div>
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Ubah Password</h4>
@@ -57,10 +61,13 @@ if (isset($_POST['submit'])) {
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" name="submit">Ubah Password</button>
+                        <div class="container d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary " name="submit">Submit</button>
+                        </div>
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

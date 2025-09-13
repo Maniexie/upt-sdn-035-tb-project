@@ -67,6 +67,7 @@ $allowedPages = [
     'edit_user' => 'views/pages/data-user/edit_user.php',
     'hapus_user' => 'views/pages/data-user/hapus_user.php',
     'password_user' => 'views/pages/data-user/password_user.php',
+    'tambah_user' => 'views/pages/data-user/tambah_user.php',
 ];
 
 // cek apakah halaman ada

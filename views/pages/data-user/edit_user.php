@@ -6,6 +6,8 @@ $stmt = $db->prepare('SELECT users.* , roles.role_name , jabatan.nama_jabatan FR
 $stmt->execute(['id' => $_GET['id']]);
 $result = $stmt->fetchAll();
 
+
+
 if (isset($_POST['submit'])) {
     $stmt = $db->prepare('UPDATE users SET nisn = :nisn, nip = :nip, nik = :nik, nama = :nama, 
     username = :username, email = :email, kelas = :kelas, jabatan_id = :jabatan_id, role_id = :role_id , 
@@ -28,6 +30,8 @@ if (isset($_POST['submit'])) {
     ]);
 
 
+    $nama = htmlspecialchars($_POST['nama']);
+
 
     echo "
     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
@@ -36,7 +40,7 @@ if (isset($_POST['submit'])) {
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil!',
-                html: 'Profil Guru berhasil diubah.',
+                html: 'Profil <strong>{$nama}</strong> berhasil diubah',
                 confirmButtonColor: '#3085d6',
                 timer: 6000,
                 timerProgressBar: true,
@@ -61,7 +65,8 @@ if (isset($_POST['submit'])) {
 
                     <div class="card-header" style="background-color: darkgoldenrod; color: aliceblue;">
                         <h4 class="card-title">Halaman <span class="fw-semibold">Edit</span> User : <?= $row['nama']; ?> -
-                            <?= $row['username']; ?></h4>
+                            <?= $row['username']; ?>
+                        </h4>
                     </div>
                     <div class="card-body">
                         <form action="" method="post">

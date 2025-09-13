@@ -18,15 +18,15 @@ function tanggal_indo_intl($tanggal)
 
 
 // Ambil data user dari database berdasarkan session
-$stmt = $db->prepare("SELECT * FROM users WHERE id = :id");
+$stmt = $db->prepare("SELECT users.* , roles.role_name , jabatan.nama_jabatan FROM users JOIN roles ON roles.id = users.role_id JOIN jabatan ON jabatan.id = users.jabatan_id WHERE users.id = :id");
 $stmt->execute(['id' => $_SESSION['user_id']]);
-$result = $stmt->fetch();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 // ambil data guru wali kelas
-$stmt = $db->prepare('SELECT nama, nip FROM users WHERE role_id = 2 AND kelas = :kelas');
-$stmt->execute(['kelas' => $result['kelas']]);
-$dataGuru = $stmt->fetch();
+// $stmt = $db->prepare('SELECT nama, nip FROM users WHERE role_id = 2 AND users.kelas = :kelas');
+// $stmt->execute(['kelas' => $result['kelas']]);
+// $dataGuru = $stmt->fetch();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     nip = :nip,
     nisn = :nisn, 
     email = :email, 
-    username = :username, 
+    -- username = :username, 
     nama = :nama, 
     kelas = :kelas, 
     tempat_lahir = :tempat_lahir, 
@@ -50,7 +50,7 @@ WHERE id = :id');
         ':nisn' => $_POST['nisn'],
         ':nip' => $_POST['nip'],
         ':email' => $_POST['email'],
-        ':username' => $_POST['username'],
+        // ':username' => $_POST['username'],
         ':nama' => $_POST['nama'],
         ':kelas' => $_POST['kelas'],
         ':tempat_lahir' => $_POST['tempat_lahir'],
@@ -139,8 +139,8 @@ WHERE id = :id');
                 <div class="mb-3 row">
                     <label for="username" class="col-sm-2 col-form-label">Username </label>
                     <div class="col-sm-10">
-                        <input type="text" name="username" class="form-control" id="username"
-                            value="<?= htmlspecialchars($result['username']); ?>">
+                        <input type="text" class="form-control" id="username"
+                            value="<?= htmlspecialchars($result['username']); ?>" readonly disabled>
                     </div>
                 </div>
 
@@ -173,7 +173,7 @@ WHERE id = :id');
                     <label for="jabatan" class="col-sm-2 col-form-label">Jabatan </label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="jabatan"
-                            value="<?= htmlspecialchars($result['jabatan']) ?>">
+                            value="<?= htmlspecialchars($result['nama_jabatan']) ?>" disabled>
                     </div>
                 </div>
 

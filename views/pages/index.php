@@ -74,12 +74,13 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
 
 
 <script>
+
     window.onload = function () {
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             theme: "dark2",
             title: {
-                text: "Top 10 Siswa dengan Poin Pelanggaran Terbanyak"
+                text: "Siswa dengan Poin Pelanggaran Terbanyak"
             },
             axisY: {
                 title: "Total Poin"
