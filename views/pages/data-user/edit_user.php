@@ -2,7 +2,7 @@
 require_once __DIR__ . "/../../../koneksi.php";
 require_once __DIR__ . '/../../layouts/header.php';
 
-$stmt = $db->prepare('SELECT users.* , roles.role_name , jabatan.nama_jabatan FROM users JOIN roles ON roles.id = users.role_id JOIN jabatan ON jabatan.id = users.jabatan_id WHERE users.id =:id');
+$stmt = $db->prepare('SELECT users.* , roles.role_name , jabatan.nama_jabatan , jabatan.status_kelas FROM users JOIN roles ON roles.id = users.role_id JOIN jabatan ON jabatan.id = users.jabatan_id WHERE users.id =:id');
 $stmt->execute(['id' => $_GET['id']]);
 $result = $stmt->fetchAll();
 
@@ -122,6 +122,7 @@ if (isset($_POST['submit'])) {
                                     <select name="kelas" class="form-select" id="kelas" required>
                                         <option value="<?= $row['kelas']; ?>"><?= $row['kelas']; ?>
                                         </option>
+                                        <option value="-">-</option>
                                         <?php
                                         for ($i = 1; $i <= 6; $i++) {
                                             for ($j = 'A'; $j <= 'C'; $j++) {
@@ -158,7 +159,7 @@ if (isset($_POST['submit'])) {
                                 <label for="nama_jabatan" class="col-sm-2 col-form-label">Jabatan</label>
                                 <div class="col-sm-10">
                                     <?php
-                                    $stmt = $db->prepare("SELECT id AS id_jabatan, nama_jabatan AS jabatan_nama FROM jabatan");
+                                    $stmt = $db->prepare("SELECT id AS id_jabatan, nama_jabatan AS jabatan_nama , status_kelas FROM jabatan");
                                     $stmt->execute();
                                     $alljabatan = $stmt->fetchAll();
                                     ?>
@@ -168,7 +169,8 @@ if (isset($_POST['submit'])) {
                                                 <?= $jbtn['id_jabatan'] == $row['jabatan_id'] ? 'selected' : ''; ?>>
 
                                                 <span class="text-capitalize">
-                                                    <?= htmlspecialchars($jbtn['jabatan_nama']); ?></span>
+                                                    <?= htmlspecialchars($jbtn['jabatan_nama']); ?>
+                                                    (<?= htmlspecialchars($jbtn['status_kelas']); ?>)</span>
                                             </option>
                                         <?php endforeach; ?>
                                     </select>

@@ -38,6 +38,12 @@ function checkRoleAccess($page)
             'daftar_jabatan',
             'edit_jabatan',
             'tambah_jabatan',
+            'hapus_jabatan',
+            'tambah_jadwal_piket_guru',
+            'edit_jadwal_piket_guru',
+            'edit_jenis_pelanggaran',
+            'hapus_jenis_pelanggaran',
+            'edit_input_pelanggaran',
 
         ],
         2 => [ // guru
@@ -55,6 +61,7 @@ function checkRoleAccess($page)
             'data_siswa_pelanggaran_siswa',
             'daftar_siswa',
             'jadwal_piket_guru',
+            'edit_input_pelanggaran',
         ],
         3 => [ // siswa
             'dashboard',

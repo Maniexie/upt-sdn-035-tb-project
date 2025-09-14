@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <form action="" method="post">
         <div class="mb-3">
             <label for="nama_pelanggaran" class="form-label">Nama Pelanggaran</label>
-            <input type="text" class="form-control" id="nama_pelanggaran" name="nama_pelanggaran" required>
+            <input type="text" class="form-control" id="nama_pelanggaran" name="nama_pelanggaran" required autofocus>
         </div>
         <div class="mb-3">
             <label for="poin" class="form-label">Poin</label>

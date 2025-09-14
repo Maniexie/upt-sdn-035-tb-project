@@ -3,12 +3,29 @@ require_once __DIR__ . "/../../../koneksi.php";
 require_once __DIR__ . '/../../layouts/header.php';
 
 
+$stmt = $db->prepare('SELECT 
+u.id AS u_id , 
+u.nama ,
+jp.id AS jp_id ,
+jp.hari_piket ,
+j.nama_jabatan ,
+j.status_kelas , 
+j.id AS j_id
+FROM users u
+JOIN jabatan j ON u.jabatan_id = j.id
+JOIN jadwal_piket jp ON u.jadwal_piket_id = jp.id
+ORDER BY u.nama ASC , jp.hari_piket ASC
+');
+
+$stmt->execute();
+$result = $stmt->fetchAll();
+
+
 if (isset($_POST['submit'])) {
     $stmt = $db->prepare('INSERT INTO users SET nisn = :nisn, nip = :nip, nik = :nik, nama = :nama, 
-    username = :username, password = :password, email = :email, kelas = :kelas, jabatan_id = :jabatan_id, jadwal_piket_id = :jadwal_piket_id, role_id = :role_id , 
+    username = :username, password = :password, email = :email, kelas = :kelas, jabatan_id = :jabatan_id, role_id = :role_id , 
     tempat_lahir = :tempat_lahir, tanggal_lahir = :tanggal_lahir, alamat = :alamat, nomor_hp = :nomor_hp ');
     $stmt->execute([
-        ':nisn' => $_POST['nisn'],
         ':nip' => $_POST['nip'],
         ':nik' => $_POST['nik'],
         ':email' => $_POST['email'],
@@ -17,7 +34,6 @@ if (isset($_POST['submit'])) {
         ':password' => password_hash(($_POST['password']), PASSWORD_DEFAULT),
         ':kelas' => $_POST['kelas'],
         ':jabatan_id' => $_POST['jabatan_id'],
-        ':jadwal_piket_id' => $_POST['jadwal_piket_id'],
         ':role_id' => $_POST['role_id'],
         ':tempat_lahir' => $_POST['tempat_lahir'],
         ':tanggal_lahir' => $_POST['tanggal_lahir'],
@@ -69,52 +85,11 @@ if (isset($_POST['submit'])) {
 
                 <div class="card-header" style="background-color: darkgoldenrod; color: aliceblue;">
                     <h4 class="card-title">Halaman <span class="fw-semibold">
-                            Tambah</span> User
+                            Tambah Piket Guru </span>
                     </h4>
                 </div>
                 <div class="card-body">
                     <form action="" method="post">
-                        <div class="mb-3 row">
-
-                            <label for="nisn" class="col-sm-2 col-form-label">NISN</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nisn" id="nisn">
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="nip" class="col-sm-2 col-form-label">NIP</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nip" id="nip ">
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label for="nik" class="col-sm-2 col-form-label">NIK</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nik" id="nik">
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="email" id="staticEmail">
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label for="username" class="col-sm-2 col-form-label">Username</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="username" id="username">
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label for="password" class="col-sm-2 col-form-label">Password</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="password" id="password">
-                            </div>
-                        </div>
 
 
                         <div class="mb-3 row">
@@ -123,37 +98,24 @@ if (isset($_POST['submit'])) {
                                 <input type="text" class="form-control" name="nama" id="nama">
                             </div>
                         </div>
-
                         <div class="mb-3 row">
                             <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
                             <div class="col-sm-10">
-                                <select name="kelas" class="form-select" id="kelas" required>
-                                    <option value="-">-</option>
-                                    <?php
-                                    for ($i = 1; $i <= 6; $i++) {
-                                        for ($j = 'A'; $j <= 'C'; $j++) {
-                                            echo "<option value=\"{$i}{$j}\">{$i}{$j}</option>";
-                                        }
-                                    }
-                                    ?>
+                                <?php
+                                $stmt = $db->prepare("SELECT id AS id_jabatan, nama_jabatan AS jabatan_nama FROM jabatan");
+                                $stmt->execute();
+                                $alljabatan = $stmt->fetchAll();
+                                ?>
+                                <select name="jabatan_id" class="form-select text-capitalize" id="nama_jabatan">
+                                    <?php foreach ($alljabatan as $jbtn): ?>
+                                        <option class="text-capitalize" value="<?= $jbtn['id_jabatan']; ?>">
+                                            <span class="text-capitalize">
+                                                <?= htmlspecialchars($jbtn['jabatan_nama']); ?></span>
+                                        </option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
-                        </div>
 
-                        <div class="mb-3 row">
-                            <label for="nama" class="col-sm-2 col-form-label">Jadwal Piket</label>
-                            <div class="col-sm-10">
-                                <select name="jadwal_piket_id" class="form-select" id="">
-                                    <?php
-                                    $stmt = $db->prepare("SELECT * FROM jadwal_piket");
-                                    $stmt->execute();
-                                    $allJadwalPiket = $stmt->fetchAll();
-                                    foreach ($allJadwalPiket as $jp) {
-                                        echo "<option value=\"{$jp['id']}\">{$jp['hari_piket']}</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
                         </div>
 
                         <div class="mb-3 row">
@@ -178,7 +140,7 @@ if (isset($_POST['submit'])) {
                             <label for="nama_jabatan" class="col-sm-2 col-form-label">Jabatan</label>
                             <div class="col-sm-10">
                                 <?php
-                                $stmt = $db->prepare("SELECT id AS id_jabatan, nama_jabatan AS jabatan_nama , status_kelas FROM jabatan");
+                                $stmt = $db->prepare("SELECT id AS id_jabatan, nama_jabatan AS jabatan_nama FROM jabatan");
                                 $stmt->execute();
                                 $alljabatan = $stmt->fetchAll();
                                 ?>
@@ -186,8 +148,7 @@ if (isset($_POST['submit'])) {
                                     <?php foreach ($alljabatan as $jbtn): ?>
                                         <option class="text-capitalize" value="<?= $jbtn['id_jabatan']; ?>">
                                             <span class="text-capitalize">
-                                                <?= htmlspecialchars($jbtn['jabatan_nama']); ?>
-                                                <?php echo " (" . $jbtn['status_kelas'] . ")"; ?></span>
+                                                <?= htmlspecialchars($jbtn['jabatan_nama']); ?></span>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>

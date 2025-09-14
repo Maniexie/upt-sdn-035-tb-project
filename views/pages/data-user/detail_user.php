@@ -2,7 +2,7 @@
 require_once __DIR__ . "/../../../koneksi.php";
 require_once __DIR__ . '/../../layouts/header.php';
 
-$stmt = $db->prepare('SELECT users.* , roles.role_name , jabatan.nama_jabatan ,jadwal_piket.hari_piket 
+$stmt = $db->prepare('SELECT users.* , roles.role_name , jabatan.nama_jabatan ,jadwal_piket.hari_piket , jadwal_piket.id AS jp_id
 FROM users 
 JOIN roles ON roles.id = users.role_id 
 JOIN jabatan ON jabatan.id = users.jabatan_id 

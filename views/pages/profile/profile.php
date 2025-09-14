@@ -1,22 +1,39 @@
 <?php
-ob_start();
+// session_start();
 require_once __DIR__ . '/../../layouts/header.php';
 require_once __DIR__ . '/../../../koneksi.php';
 
-// Ambil data user dari database berdasarkan session
-$stmt = $db->prepare("SELECT u.*, r.role_name, j.nama_jabatan , jp.hari_piket FROM users u 
-JOIN roles r ON u.role_id = r.id 
-JOIN jabatan j ON u.jabatan_id = j.id 
-JOIN jadwal_piket jp ON u.jadwal_piket_id = jp.id 
-WHERE u.id = :id");
-$stmt->execute(['id' => $_SESSION['user_id']]);
+// Pastikan ambil data user dari database berdasarkan session user_id
+$stmt = $db->prepare("
+    SELECT u.*, r.role_name, j.nama_jabatan, jp.hari_piket 
+    FROM users u 
+    JOIN roles r ON u.role_id = r.id 
+    JOIN jabatan j ON u.jabatan_id = j.id 
+    JOIN jadwal_piket jp ON u.jadwal_piket_id = jp.id 
+    WHERE u.id = :user_id
+");
+$stmt->execute([
+    'user_id' => $_SESSION['user_id']
+]);
+
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// Debug jika tidak ada hasil
+if (!$result) {
+    echo "<pre>Debug Session:\n";
+    var_dump($_SESSION);
+    echo "</pre>";
+    echo "<div class='alert alert-danger'>Data pengguna tidak ditemukan di database.</div>";
+    require_once __DIR__ . '/../../layouts/footer.php';
+    exit;
+}
+?>
+<?php
 
-// ambil data guru wali kelas
+// Ambil data guru wali kelas (jika diperlukan)
 $stmt = $db->prepare('SELECT nama, nip FROM users WHERE role_id = 2 AND kelas = :kelas');
 $stmt->execute(['kelas' => $result['kelas']]);
-$dataGuru = $stmt->fetch();
+$dataGuru = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <div class="container w-auto">
@@ -37,7 +54,7 @@ $dataGuru = $stmt->fetch();
                     </div>
                 </div>
 
-                <?php if ($result['role_id'] === 1 || $result['role_id'] === 2): ?>
+                <?php if ($_SESSION['role_id'] === 1 || $_SESSION['role_id'] === 2): ?>
                     <div class="mb-3 row">
                         <label for="nip" class="col-sm-2 col-form-label">NIP </label>
                         <div class="col-sm-10">
@@ -47,7 +64,7 @@ $dataGuru = $stmt->fetch();
                     </div>
                 <?php endif; ?>
 
-                <?php if ($result['role_id'] === 3): ?>
+                <?php if ($_SESSION['role_id'] === 3): ?>
                     <div class="mb-3 row">
                         <label for="nisn" class="col-sm-2 col-form-label">NISN </label>
                         <div class="col-sm-10">
@@ -73,7 +90,7 @@ $dataGuru = $stmt->fetch();
                     </div>
                 </div>
 
-                <?php if ($result['role_id'] === 3): ?>
+                <?php if ($_SESSION['role_id'] === 3): ?>
                     <div class="mb-3 row">
                         <label for="nama" class="col-sm-2 col-form-label">Nama Siswa </label>
                         <div class="col-sm-10">
@@ -83,7 +100,7 @@ $dataGuru = $stmt->fetch();
                     </div>
                 <?php endif; ?>
 
-                <?php if ($result['role_id'] === 1 || $result['role_id'] === 2): ?>
+                <?php if ($_SESSION['role_id'] === 1 || $_SESSION['role_id'] === 2): ?>
                     <div class="mb-3 row">
                         <label for="nama" class="col-sm-2 col-form-label">Nama </label>
                         <div class="col-sm-10">
@@ -116,6 +133,7 @@ $dataGuru = $stmt->fetch();
                             value=": <?= htmlspecialchars($result['role_name']); ?>">
                     </div>
                 </div>
+
                 <div class="mb-3 row">
                     <label for="jabatan" class="col-sm-2 col-form-label">Jabatan </label>
                     <div class="col-sm-10">
@@ -148,25 +166,22 @@ $dataGuru = $stmt->fetch();
                     </div>
                 </div>
 
-                <?php if ($result['role_id'] === 3): ?>
+                <?php if ($_SESSION['role_id'] === 3): ?>
                     <div class="mb-3 row">
                         <label for="wali_kelas" class="col-sm-2 col-form-label">Wali Kelas </label>
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control-plaintext" id="wali_kelas"
-                                value=": <?= htmlspecialchars($dataGuru['nama']); ?> (  <?= htmlspecialchars($dataGuru['nip']); ?> )">
+                                value=": <?= htmlspecialchars($dataGuru['nama'] ?? ''); ?> (<?= htmlspecialchars($dataGuru['nip'] ?? ''); ?>)">
                         </div>
                     </div>
                 <?php endif; ?>
-
             </div>
+
         </div>
-
-
         <div class="container d-flex justify-content-end">
             <a href="index.php?page=edit_profile" class="btn btn-primary mt-3">Edit Profile</a>
         </div>
     </section>
-
 </div>
 
 <?php require_once __DIR__ . '/../../layouts/footer.php'; ?>

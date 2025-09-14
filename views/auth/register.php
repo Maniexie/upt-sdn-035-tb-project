@@ -59,16 +59,6 @@ require_once __DIR__ . '/header.php';
 
     <input type="hidden" name="role_id" value="3">
 
-    <!-- <div class="form-outline mb-4">
-        <label class="form-label" for="password">Role</label>
-        <select name="role_id" class="form-select" aria-label="Default select example" required>
-            <option selected>== Role ==</option>
-            <option value="1">Admin</option>
-            <option value="2">Guru</option>
-            <option value="3">Siswa</option>
-        </select>
-    </div> -->
-
     <div class="pt-1 mb-4">
         <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block"
             type="submit">Submit</button>

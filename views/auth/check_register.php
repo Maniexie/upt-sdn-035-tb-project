@@ -75,6 +75,7 @@ if ($check_username->num_rows > 0) {
 }
 $check_username->close();
 
+$role_id = 3;
 // Insert data baru
 $stmt = $conn->prepare("INSERT INTO users (nama, kelas, username, password, role_id) VALUES (?, ?, ?, ?, ?)");
 $stmt->bind_param("ssssi", $nama, $kelas, $username, $password, $role_id);

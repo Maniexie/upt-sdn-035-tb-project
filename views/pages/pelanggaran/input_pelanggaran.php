@@ -152,7 +152,10 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
 
         <!-- Tabel Daftar Siswa (Kanan) -->
         <div class="col-md-7 border-start">
-            <h3 class="mb-3">Daftar Siswa yang Melanggar <span class="fw-bold" id="tanggal"></span></h3>
+            <div class="container d-flex justify-content-between">
+                <h3 class="mb-3">Daftar Siswa yang Melanggar <span class="fw-bold" id="tanggal"></span></h3>
+                <a href="index.php?edit_input_pelanggaran" class="btn btn-sm btn-primary mb-3">Edit Pelanggaran</a>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover text-center">
                     <thead class="table-primary">
@@ -175,7 +178,11 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
                             <?php foreach ($items as $i => $siswa): ?>
                                 <tr>
                                     <td><?= $start + $i + 1 ?></td>
-                                    <td><?= htmlspecialchars($siswa['nama_siswa']) ?></td>
+                                    <td> <a target="_blank" class="text-decoration-none text-dark" style="cursor: pointer;"
+                                            href="index.php?page=edit_input_pelanggaran&id=<?= $siswa['id'] ?>">
+                                            <?= htmlspecialchars($siswa['nama_siswa']) ?>
+                                        </a>
+                                    </td>
                                     <td><?= htmlspecialchars($siswa['kelas']) ?></td>
                                     <td><?= htmlspecialchars($siswa['nama_pelanggaran']) ?></td>
                                     <td><?= $siswa['poin'] ?></td>

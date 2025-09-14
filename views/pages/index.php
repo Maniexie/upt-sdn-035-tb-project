@@ -104,9 +104,9 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
             <h4>Siswa Bermasalah hari ini <span class="fw-bold" id="tanggal"></span></h4>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="table-responsive" style=" height: 500px;">
-                        <table class="table table-bordered table-hover">
-                            <thead class="table-dark sticky-top">
+                    <div class="table-responsive " style="max-height: 400px; overflow-y: auto;">
+                        <table class="table table-hover">
+                            <thead class="table-primary sticky-top bg-primary text-white" style="z-index: auto;">
                                 <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">Foto</th>

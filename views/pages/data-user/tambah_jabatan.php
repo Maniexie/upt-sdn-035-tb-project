@@ -6,11 +6,24 @@ require_once __DIR__ . '/../../layouts/header.php';
 // $stmt->execute(['id' => $_GET['id']]);
 // $result = $stmt->fetchAll();
 
+$stmt = $db->query("SELECT kode_jabatan FROM jabatan ORDER BY kode_jabatan DESC LIMIT 1");
+$lastKodeJabatan = $stmt->fetchColumn();
 
+if ($lastKodeJabatan) {
+    $number = (int) substr($lastKodeJabatan, 3);
+    $newNumber = $number + 1;
+} else {
+    $newNumber = 1;
+}
 
+$kode_jabatan = 'KJ-' . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
 if (isset($_POST['submit'])) {
-    $stmt = $db->prepare('INSERT INTO jabatan (nama_jabatan , status_kelas) VALUES (:nama_jabatan ,:status_kelas)');
+
+
+
+    $stmt = $db->prepare('INSERT INTO jabatan (kode_jabatan, nama_jabatan , status_kelas) VALUES ( :kode_jabatan,:nama_jabatan ,:status_kelas)');
     $stmt->execute([
+        ':kode_jabatan' => $kode_jabatan,
         ':nama_jabatan' => $_POST['nama_jabatan'],
         ':status_kelas' => $_POST['status_kelas']
     ]);
@@ -54,24 +67,56 @@ if (isset($_POST['submit'])) {
                     <form action="" method="post">
                         <div class="mb-3 row">
 
+                            <div class="mb-3 row">
+                                <label for="kode_jabatan" class="col-sm-2 col-form-label">Kode Jabatan</label>
+                                <div class="col-sm-10">
+                                    <input type="hidden" class="form-control" name="kode_jabatan" id="kode_jabatan"
+                                        value="<?= $kode_jabatan ?>">
+                                    <input type="text" class="form-control" id="kode_jabatan"
+                                        value="<?= $kode_jabatan ?>" readonly disabled>
+                                </div>
+                            </div>
 
                             <div class="mb-3 row">
-                                <label for="nama_jabatan" class="col-sm-2 col-form-label">nama_jabatan</label>
+                                <label for="nama_jabatan" class="col-sm-2 col-form-label">Jabatan</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="nama_jabatan" id="nama_jabatan">
+                                    <!-- <input type="text" class="form-control" name="nama_jabatan" id="nama_jabatan"> -->
+                                    <select name="nama_jabatan" id="nama_jabatan" class="form-control form-select">
+                                        <option value="Kepala Sekolah">Kepala Sekolah</option>
+                                        <option value="Wakil Kepala Sekolah">Wakil Kepala Sekolah</option>
+                                        <option value="Guru Kelas">Guru Kelas</option>
+                                        <option value="Guru PJOK">Guru PJOK</option>
+                                        <option value="Guru BMR">Guru BMR</option>
+                                        <option value="Guru PAI">Guru PAI</option>
+                                        <option value="Guru BDR">Guru BDR</option>
+                                        <option value="Operator Sekolah">Operator Sekolah</option>
+                                        <option value="Pengelola Pustaka">Pengelola Pustaka</option>
+                                        <option value="Tata Usaha">Tata Usaha</option>
+                                        <option value="Tenaga Kebersihan">Tenaga Kebersihan</option>
+                                        <option value="Ketua Kelas">Ketua Kelas</option>
+                                        <option value="Anggota Kelas">Anggota Kelas</option>
+                                        <option value="Siswa">Siswa</option>
+                                    </select>
                                 </div>
                             </div>
 
 
                             <div class="mb-3 row">
-                                <label for="status_kelas" class="col-sm-2 col-form-label">status_kelas</label>
+                                <label for="status_kelas" class="col-sm-2 col-form-label">Wali Kelas</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="status_kelas" id="status_kelas">
+                                    <select name="status_kelas" id="status_kelas" class="form-select">
+                                        <option value="-">-</option>
+                                        <?php for ($i = 1; $i <= 6; $i++) { ?>
+                                            <?php for ($j = 'A'; $j <= 'C'; $j++) { ?>
+                                                <option value="<?php echo $i . $j; ?>"><?php echo $i . $j; ?></option>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="container mb-3 d-flex justify-content-between">
-                                <a href="index.php?page=detail_user&id=<?= $row['id'] ?>" class="btn btn-secondary">
+                                <a href="index.php?page=daftar_jabatan" class="btn btn-secondary">
                                     <= Kembali</a>
                                         <button type="submit" name="submit" class="btn btn-primary">
                                             Submit

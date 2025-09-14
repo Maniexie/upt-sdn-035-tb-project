@@ -8,14 +8,16 @@ $getAllUserStmt = $db->prepare('
     SELECT 
         users.*, 
         roles.role_name, 
-        jabatan.nama_jabatan 
+        jabatan.nama_jabatan,
+        jabatan.status_kelas,
+        jabatan.id, 
+        users.id AS u_id
     FROM users
     LEFT JOIN roles ON roles.id = users.role_id
     LEFT JOIN jabatan ON jabatan.id = users.jabatan_id
-    ORDER BY users.role_id ASC , users.jabatan_id ASC ,users.kelas ASC , users.nama ASC
+    ORDER BY users.role_id ASC , users.kelas ASC , users.nama ASC
 ');
 $getAllUserStmt->execute();
-$getAllUserStmt->fetch();
 $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
 
 
@@ -23,19 +25,18 @@ $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <div class="container">
-    <h1 class="text-center me-5">Daftar User</h1>
-    <section class="d-flex justify-content-between align-items-center mb-2">
-        <a href="index.php?page=tambah_user" class="btn btn-primary">Tambah User</a>
-
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+    <h1 class="text-center me-5 mb-2">Daftar User</h1>
+    <section class="d-flex justify-content-between mb-0">
+        <a href="index.php?page=tambah_user" class="btn  btn-primary mb-3">Tambah User</a>
+        <form role="search">
+            <input class="form-control " type="search" placeholder="Search" aria-label="Search" id="searchInput">
         </form>
     </section>
 
     <section class="text-center">
         <div class="table-responsive" style="max-height: 700px; overflow-y: auto;">
             <table class="table table-hover">
-                <thead class="table-primary sticky-top bg-primary text-white">
+                <thead class="table-primary sticky-top bg-primary text-white text-center">
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama</th>
@@ -45,7 +46,7 @@ $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="table-group-divider">
+                <tbody class="table-group-divider text-center">
                     <?php foreach ($getAllUser as $i => $item): ?>
                         <tr id="row-<?= $item['id'] ?>">
                             <th scope="row"><?= $i + 1 ?></th>
@@ -60,13 +61,13 @@ $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
                             </td>
 
                             <td class="container justify-content-center d-flex gap-2">
-                                <a href="index.php?page=detail_user&id=<?= $item['id'] ?>"
+                                <a href="index.php?page=detail_user&id=<?= $item['u_id'] ?>"
                                     class="btn btn-sm btn-primary">Detail</a>
-                                <a href="index.php?page=password_user&id=<?= $item['id'] ?>"
+                                <a href="index.php?page=password_user&id=<?= $item['u_id'] ?>"
                                     class="btn btn-sm btn-warning text-white">
                                     Password</a>
                                 <button type="button" class="btn btn-danger btn-sm"
-                                    onclick="confirmDelete(<?= $item['id'] ?>, '<?= addslashes($item['nama']) ?>', '<?= addslashes($item['kelas']) ?>')">
+                                    onclick="confirmDelete(<?= $item['u_id'] ?>, '<?= addslashes($item['nama']) ?>', '<?= addslashes($item['kelas']) ?>')">
                                     Hapus
                                 </button>
 

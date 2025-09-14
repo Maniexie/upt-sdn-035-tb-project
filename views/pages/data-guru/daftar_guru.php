@@ -36,6 +36,7 @@ $dataGuru = $db->query("
                 $collapsedClass = $index === 0 ? '' : 'collapsed';
                 $ariaExpanded = $index === 0 ? 'true' : 'false';
                 ?>
+
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="<?= $headingId ?>">
                         <button class="accordion-button <?= $collapsedClass ?>" type="button" data-bs-toggle="collapse"
@@ -44,40 +45,35 @@ $dataGuru = $db->query("
                             <?= htmlspecialchars($guru['nama']) ?> (Kelas: <?= htmlspecialchars($guru['kelas']) ?>)
                         </button>
                     </h2>
-                    <div id="<?= $collapseId ?>" class="accordion-collapse collapse <?= $showClass ?>"
-                        aria-labelledby="<?= $headingId ?>" data-bs-parent="#accordionGuru">
-                        <div class="accordion-body ">
-                            <ul class="list-group">
-                                <li class="list-group-item"><strong>NIK:</strong>
-                                    <?= htmlspecialchars($guru['nik']) ?></li>
-                                <li class="list-group-item"><strong>NIP:</strong> <?= htmlspecialchars($guru['nip']) ?></li>
-                                <li class="list-group-item"><strong>Nama:</strong> <?= htmlspecialchars($guru['nama']) ?>
-                                </li>
-                                <li class="list-group-item"><strong>Email:</strong> <?= htmlspecialchars($guru['email']) ?>
-                                </li>
-                                <li class="list-group-item"><strong>Kelas:</strong> <?= htmlspecialchars($guru['kelas']) ?>
-                                </li>
-                                <li class="list-group-item"><strong>TTL:</strong>
-                                    <?= htmlspecialchars($guru['tempat_lahir']) ?>,
-                                    <?= htmlspecialchars(date('d-m-Y', strtotime($guru['tanggal_lahir']))) ?>
-                                </li>
-                                <li class="list-group-item"><strong>Nomor HP:</strong>
-                                    <?= htmlspecialchars($guru['nomor_hp']) ?></li>
-                                <li class="list-group-item"><strong>Alamat:</strong>
-                                    <?= htmlspecialchars($guru['alamat']) ?></li>
-                            </ul>
-                            <div class="d-flex justify-content-end mt-2">
-                                <a href="index.php?page=edit_guru&id=<?= $guru['id'] ?>"
-                                    class="btn btn-primary me-2">Edit</a>
-                                <a href="index.php?page=hapus_guru&id=<?= $guru['id'] ?>" class="btn btn-danger">Hapus</a>
-                            </div>
-                        </div>
+                </div>
+
+                <div id="<?= $collapseId ?>" class="accordion-collapse collapse <?= $showClass ?>"
+                    aria-labelledby="<?= $headingId ?>" data-bs-parent="#accordionGuru">
+                    <div class="accordion-body">
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong>NIK:</strong>
+                                <?= htmlspecialchars($guru['nik']) ?></li>
+                            <li class="list-group-item"><strong>NIP:</strong> <?= htmlspecialchars($guru['nip']) ?></li>
+                            <li class="list-group-item"><strong>Nama:</strong> <?= htmlspecialchars($guru['nama']) ?>
+                            </li>
+                            <li class="list-group-item"><strong>Email:</strong> <?= htmlspecialchars($guru['email']) ?>
+                            </li>
+                            <li class="list-group-item"><strong>Kelas:</strong> <?= htmlspecialchars($guru['kelas']) ?>
+                            </li>
+                            <li class="list-group-item"><strong>TTL:</strong>
+                                <?= htmlspecialchars($guru['tempat_lahir']) ?>,
+                                <?= htmlspecialchars(date('d-m-Y', strtotime($guru['tanggal_lahir']))) ?>
+                            </li>
+                            <li class="list-group-item"><strong>Nomor HP:</strong>
+                                <?= htmlspecialchars($guru['nomor_hp']) ?></li>
+                            <li class="list-group-item"><strong>Alamat:</strong>
+                                <?= htmlspecialchars($guru['alamat']) ?></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
-</div>
-</section>
+            <?php endforeach; ?>
+        </div>
+    </section>
 </div>
 
 <?php require_once __DIR__ . '/../../layouts/footer.php'; ?>
