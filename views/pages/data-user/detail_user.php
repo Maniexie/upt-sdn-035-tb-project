@@ -2,7 +2,13 @@
 require_once __DIR__ . "/../../../koneksi.php";
 require_once __DIR__ . '/../../layouts/header.php';
 
-$stmt = $db->prepare('SELECT users.* , roles.role_name , jabatan.nama_jabatan FROM users JOIN roles ON roles.id = users.role_id JOIN jabatan ON jabatan.id = users.jabatan_id WHERE users.id =:id');
+$stmt = $db->prepare('SELECT users.* , roles.role_name , jabatan.nama_jabatan ,jadwal_piket.hari_piket 
+FROM users 
+JOIN roles ON roles.id = users.role_id 
+JOIN jabatan ON jabatan.id = users.jabatan_id 
+JOIN jadwal_piket ON jadwal_piket.id = users.jadwal_piket_id 
+WHERE users.id =:id'
+);
 $stmt->execute(['id' => $_GET['id']]);
 $result = $stmt->fetchAll();
 
@@ -66,6 +72,14 @@ $result = $stmt->fetchAll();
                                     <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="kelas" value="<?= $row['kelas'] ?>"
+                                            disabled>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="hari_piket" class="col-sm-2 col-form-label">Jadwal Piket</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="hari_piket" value="<?= $row['hari_piket'] ?>"
                                             disabled>
                                     </div>
                                 </div>

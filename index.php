@@ -68,6 +68,10 @@ $allowedPages = [
     'hapus_user' => 'views/pages/data-user/hapus_user.php',
     'password_user' => 'views/pages/data-user/password_user.php',
     'tambah_user' => 'views/pages/data-user/tambah_user.php',
+    'jadwal_piket_guru' => 'views/pages/data-guru/jadwal_piket_guru.php',
+    'daftar_jabatan' => 'views/pages/data-user/daftar_jabatan.php',
+    'edit_jabatan' => 'views/pages/data-user/edit_jabatan.php',
+    'tambah_jabatan' => 'views/pages/data-user/tambah_jabatan.php',
 ];
 
 // cek apakah halaman ada

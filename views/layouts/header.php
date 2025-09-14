@@ -1,6 +1,29 @@
 <?php
 // require_once '../../index.php';
 
+require_once __DIR__ . '/../../koneksi.php';
+
+$getHariPiket = $db->prepare('SELECT users.jadwal_piket_id, jadwal_piket.hari_piket FROM users JOIN jadwal_piket ON users.jadwal_piket_id = jadwal_piket.id WHERE users.id = :user_id');
+$getHariPiket->execute(['user_id' => $_SESSION['user_id']]);
+$hariPiket = $getHariPiket->fetch();
+
+$hariModeEnglish = date('l');
+
+$hariMapping = [
+    'Monday' => 'Senin',
+    'Tuesday' => 'Selasa',
+    'Wednesday' => 'Rabu',
+    'Thursday' => 'Kamis',
+    'Friday' => 'Jumat',
+    'Saturday' => 'Sabtu',
+    'Sunday' => 'Minggu'
+];
+
+$hariSaatIni = $hariMapping[$hariModeEnglish] ?? '';
+
+$guruBolehInput = ($hariSaatIni === $hariPiket['hari_piket']);
+
+echo 'hari piket ' . $hariPiket['hari_piket'] . 'adalah';
 
 ?>
 <!DOCTYPE html>
@@ -74,13 +97,18 @@
                                             </i> Daftar User
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="index.php?page=daftar_jabatan">
+                                            </i> Daftar Jabatan
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
                     <?php endif; ?>
 
                     <!-- DATA GURU -->
-                    <?php if ($_SESSION['role_id'] == 1): ?>
+                    <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
                         <li class="nav-item">
                             <a class="nav-link text-white d-flex justify-content-between align-items-center"
                                 data-bs-toggle="collapse" href="#data_guru" role="button" aria-expanded="false"
@@ -95,6 +123,12 @@
                                         <a class="nav-link text-white" href="index.php?page=daftar_guru">
                                             <!-- <i class="fa fa-bolt me-2 text-danger"></i>  -->
                                             Daftar Guru
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="index.php?page=jadwal_piket_guru">
+                                            <!-- <i class="fa fa-bolt me-2 text-danger"></i>  -->
+                                            Jadwal Piket Guru
                                         </a>
                                     </li>
                                     <!-- <li class="nav-item">
@@ -178,16 +212,31 @@
 
                 <div class="collapse ps-3 mt-1" id="pelanggaran">
                     <ul class="nav flex-column">
-                        <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                        <?php if ($_SESSION['role_id'] == 1): ?>
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="index.php?page=input_pelanggaran">
-                                    Input Pelanggaran
+                                    Input Pelanggaran (Aktif)
                                 </a>
                             </li>
                         <?php endif; ?>
 
-                        <?php if ($_SESSION['role_id'] == 1): ?>
+                        <?php if (($_SESSION['role_id'] == 2) && $guruBolehInput): ?>
                             <li class="nav-item">
+                                <a class="nav-link text-white" href="index.php?page=input_pelanggaran">
+                                    Input Pelanggaran (Aktif)
+                                </a>
+                            </li>
+                        <?php elseif ($_SESSION['role_id'] == 2): ?>
+                            <li class="nav-item">
+                                <a class="nav-link text-white">
+                                    Input Pelanggaran (Non Aktif)
+                                </a>
+                            </li>
+
+                        <?php endif; ?>
+
+                        <?php if ($_SESSION['role_id'] == 1): ?>
+                            <li class=" nav-item">
                                 <a class="nav-link text-white" href="index.php?page=rekap_pelanggaran">
                                     Rekap Pelanggaran
                                 </a>

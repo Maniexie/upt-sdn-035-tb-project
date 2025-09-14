@@ -34,6 +34,10 @@ function checkRoleAccess($page)
             'hapus_user',
             'password_user',
             'tambah_user',
+            'jadwal_piket_guru',
+            'daftar_jabatan',
+            'edit_jabatan',
+            'tambah_jabatan',
 
         ],
         2 => [ // guru
@@ -50,6 +54,7 @@ function checkRoleAccess($page)
             'history_pelanggaran',
             'data_siswa_pelanggaran_siswa',
             'daftar_siswa',
+            'jadwal_piket_guru',
         ],
         3 => [ // siswa
             'dashboard',

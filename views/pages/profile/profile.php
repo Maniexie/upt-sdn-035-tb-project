@@ -4,7 +4,11 @@ require_once __DIR__ . '/../../layouts/header.php';
 require_once __DIR__ . '/../../../koneksi.php';
 
 // Ambil data user dari database berdasarkan session
-$stmt = $db->prepare("SELECT u.*, r.role_name, j.nama_jabatan FROM users u JOIN roles r ON u.role_id = r.id JOIN jabatan j ON u.jabatan_id = j.id WHERE u.id = :id");
+$stmt = $db->prepare("SELECT u.*, r.role_name, j.nama_jabatan , jp.hari_piket FROM users u 
+JOIN roles r ON u.role_id = r.id 
+JOIN jabatan j ON u.jabatan_id = j.id 
+JOIN jadwal_piket jp ON u.jadwal_piket_id = jp.id 
+WHERE u.id = :id");
 $stmt->execute(['id' => $_SESSION['user_id']]);
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -94,6 +98,14 @@ $dataGuru = $stmt->fetch();
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="kelas"
                             value=": <?= htmlspecialchars($result['kelas']); ?>">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="hari_piket" class="col-sm-2 col-form-label">Jadwal Piket </label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="hari_piket"
+                            value=": <?= htmlspecialchars($result['hari_piket']); ?>">
                     </div>
                 </div>
 
