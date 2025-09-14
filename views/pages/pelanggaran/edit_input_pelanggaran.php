@@ -5,8 +5,7 @@ require_once __DIR__ . '/../../layouts/header.php';
 $id = (int) $_GET['id'];
 
 // Ambil data pelanggaran siswa (termasuk pelanggaran_id saat ini)
-$query = "SELECT pelanggaran_id FROM pelanggaran_siswa WHERE id = :id";
-$stmt = $db->prepare($query);
+$stmt = $db->prepare("SELECT ps.pelanggaran_id, ps.siswa_id, u.nama AS nama_siswa FROM pelanggaran_siswa ps JOIN users u ON ps.siswa_id = u.id WHERE ps.id = :id");
 $stmt->execute([':id' => $id]);
 $currentData = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -22,15 +21,33 @@ $currentPelanggaranId = $currentData['pelanggaran_id'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pelanggaran_id'])) {
     $pelanggaran_id = $_POST['pelanggaran_id'];
 
-    $updateQuery = "UPDATE pelanggaran_siswa SET pelanggaran_id = :pelanggaran_id WHERE id = :id";
+    $updateQuery = "UPDATE pelanggaran_siswa SET pelanggaran_id = :pelanggaran_id ,siswa_id = :siswa_id WHERE id = :id";
     $stmt = $db->prepare($updateQuery);
     $stmt->execute([
         ':id' => $id,
         ':pelanggaran_id' => $pelanggaran_id,
     ]);
 
-    echo "<script>alert('Pelanggaran berhasil diperbarui'); window.location.href='index.php?page=daftar_pelanggaran_siswa';</script>";
-    exit;
+    // $nama_pelanggaran = htmlspecialchars($_POST['nama_pelanggaran']);
+    echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                html: 'Pelanggaran dari siswa berhasil diubah',
+                confirmButtonColor: '#3085d6',
+                timer: 6000,
+                timerProgressBar: true,
+                    willClose: () => {
+                    window.location.href = `index.php?page=input_pelanggaran`;
+                }
+            });
+        });
+    </script>
+    ";
+    exit();
 }
 
 // Ambil semua pelanggaran untuk dropdown
@@ -46,6 +63,13 @@ $allPelanggaran = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <h2>Edit Pelanggaran Hari Ini</h2>
             <form action="" method="POST">
                 <div class="form-group mb-3">
+                    <label for="siswa">Nama Siswa:</label>
+                    <input type="text" class="form-control" id="siswa" name="siswa" readonly
+                        value="<?php echo htmlspecialchars($currentData['nama_siswa']) ?>">
+                </div>
+
+
+                <div class="form-group mb-3">
                     <label for="pelanggaran">Jenis Pelanggaran:</label>
                     <select name="pelanggaran_id" class="form-select" required>
                         <?php foreach ($allPelanggaran as $pelanggaran): ?>
@@ -57,7 +81,7 @@ $allPelanggaran = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="index.php?page=daftar_pelanggaran_siswa" class="btn btn-secondary">Kembali</a>
+                <a href="index.php?page=input_pelanggaran" class="btn btn-secondary">Kembali</a>
             </form>
         </div>
     </div>

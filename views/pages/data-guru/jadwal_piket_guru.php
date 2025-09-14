@@ -29,7 +29,9 @@ $jadwalPiket = $getAllJadwalPiket->fetchAll(PDO::FETCH_ASSOC);
                         <th scope="col">Wali Kelas</th>
                         <th scope="col">Jadwal Piket</th>
                         <th scope="col">Jabatan</th>
-                        <th scope="col">Aksi</th>
+                        <?php if ($_SESSION['role_id'] == 1): ?>
+                            <th scope="col">Aksi</th>
+                        <?php endif; ?>
 
                     </tr>
                 </thead>

@@ -178,7 +178,7 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
                             <?php foreach ($items as $i => $siswa): ?>
                                 <tr>
                                     <td><?= $start + $i + 1 ?></td>
-                                    <td> <a target="_blank" class="text-decoration-none text-dark" style="cursor: pointer;"
+                                    <td> <a class="text-decoration-none text-dark" style="cursor: pointer;"
                                             href="index.php?page=edit_input_pelanggaran&id=<?= $siswa['id'] ?>">
                                             <?= htmlspecialchars($siswa['nama_siswa']) ?>
                                         </a>
