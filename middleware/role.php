@@ -76,6 +76,9 @@ function checkRoleAccess($page)
         ],
     ];
 
+
+
+
     if (!$role || !isset($rolePages[$role]) || !in_array($page, $rolePages[$role])) {
         http_response_code(403);
         require_once __DIR__ . '/../views/pages/errors/403.php';

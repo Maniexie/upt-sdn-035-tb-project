@@ -10,8 +10,9 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 
 // Ambil user + role
-$sql = "SELECT u.*, r.role_name 
+$sql = "SELECT u.*, r.role_name , u.jadwal_piket_id
         FROM users u
+        JOIN jadwal_piket jp ON u.jadwal_piket_id = jp.id
         JOIN roles r ON u.role_id = r.id
         WHERE u.username = ? LIMIT 1";
 $stmt = $conn->prepare($sql);
@@ -28,6 +29,7 @@ if ($user = $result->fetch_assoc()) {
         $_SESSION['role_name'] = $user['role_name'];
         $_SESSION['user_username'] = $user['username'];
         $_SESSION['user_kelas'] = $user['kelas'];
+        $_SESSION['user_jadwal_piket'] = $user['jadwal_piket_id'];
 
         // Redirect sesuai role
         switch ($user['role_name']) {
@@ -35,10 +37,10 @@ if ($user = $result->fetch_assoc()) {
                 header("Location: index.php?page=dashboard");
                 break;
             case 'guru':
-                header("Location: index.php?page=input_pelanggaran");
+                header("Location: index.php?page=dashboard");
                 break;
             case 'siswa':
-                header("Location: index.php?page=history_pelanggaran");
+                header("Location: index.php?page=dashboard");
                 break;
             default:
                 header("Location: index.php?page=dashboard");

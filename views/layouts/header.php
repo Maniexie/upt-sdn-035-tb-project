@@ -3,30 +3,38 @@
 
 require_once __DIR__ . '/../../koneksi.php';
 
-if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2):
 
-    $getHariPiket = $db->prepare('SELECT users.jadwal_piket_id, jadwal_piket.hari_piket FROM users JOIN jadwal_piket ON users.jadwal_piket_id = jadwal_piket.id WHERE users.id = :user_id');
-    $getHariPiket->execute(['user_id' => $_SESSION['user_id']]);
-    $hariPiket = $getHariPiket->fetch();
 
-    $hariModeEnglish = date('l');
+$hariMapping = [
+    'Monday' => 'senin',
+    'Tuesday' => 'selasa',
+    'Wednesday' => 'rabu',
+    'Thursday' => 'kamis',
+    'Friday' => 'jumat',
+    'Saturday' => 'sabtu',
+    'Sunday' => 'minggu'
+];
 
-    $hariMapping = [
-        'Monday' => 'Senin',
-        'Tuesday' => 'Selasa',
-        'Wednesday' => 'Rabu',
-        'Thursday' => 'Kamis',
-        'Friday' => 'Jumat',
-        'Saturday' => 'Sabtu',
-        'Sunday' => 'Minggu'
-    ];
+// Hari sekarang
+$hariSaatIni = $hariMapping[date('l')] ?? '';
+// echo 'cek hari sekarang: ' . $hariSaatIni . '<br>';
+// var_dump($hariSaatIni);
 
-    $hariSaatIni = $hariMapping[$hariModeEnglish] ?? '';
+// Ambil jadwal piket user dari DB langsung
+$stmt = $db->prepare("SELECT jp.hari_piket 
+    FROM users u 
+    JOIN jadwal_piket jp ON u.jadwal_piket_id = jp.id 
+    WHERE u.id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+$userHariPiket = $stmt->fetchColumn() ?? '';
 
-    $guruBolehInput = ($hariSaatIni === $hariPiket['hari_piket']);
+// echo '<br>cek hari piket user: ' . $userHariPiket . ' ~ cek hari saat ini: ' . $hariSaatIni . '<br>';
 
-// echo 'hari piket ' . $hariPiket['hari_piket'] . 'adalah';
-endif;
+// Cek apakah user boleh input
+// if ($userHariPiket !== $hariSaatIni) {
+//     header("Location: index.php?page=dashboard");
+//     exit();
+// }
 
 ?>
 <!DOCTYPE html>
@@ -82,6 +90,8 @@ endif;
                             </a>
                         </li>
                     <?php endif; ?>
+
+
 
                     <!-- DATA USER for admin -->
                     <?php if ($_SESSION['role_id'] == 1): ?>
@@ -156,200 +166,154 @@ endif;
                                         <i class="fa fa-question-circle me-2 text-light"></i> Something Else
                                     </a>
                                 </li> -->
-                </ul>
-            </div>
-            </li>
-        <?php endif; ?>
-        <!-- DATA SISWA for guru -->
-        <?php if ($_SESSION['role_id'] == 2): ?>
+                    </ul>
+                </div>
+                </li>
+            <?php endif; ?>
+            <!-- DATA SISWA for guru -->
+            <?php if ($_SESSION['role_id'] == 2): ?>
+                <li class="nav-item">
+                    <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                        data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
+                        aria-controls="data_siswa">
+                        <span>Data Siswa</span>
+                        <i class="fa fa-chevron-down"></i>
+                    </a>
+
+                    <div class="collapse ps-3 mt-1" id="data_siswa">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="index.php?page=daftar_siswa">
+                                    </i> Daftar Siswa
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="index.php?page=data_siswa_pelanggaran_siswa">
+                                    </i> Pelanggaran Siswa
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            <?php endif; ?>
+            <!-- DATA SISWA for admin -->
+            <?php if ($_SESSION['role_id'] == 1): ?>
+                <li class="nav-item">
+                    <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                        data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
+                        aria-controls="data_siswa">
+                        <span>Data Siswa</span>
+                        <i class="fa fa-chevron-down"></i>
+                    </a>
+
+                    <div class="collapse ps-3 mt-1" id="data_siswa">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="index.php?page=daftar_siswa_for_admin">
+                                    </i> Daftar Siswa
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            <?php endif; ?>
+            <!-- PELANGGARAN -->
             <li class="nav-item">
                 <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                    data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
-                    aria-controls="data_siswa">
-                    <span>Data Siswa</span>
+                    data-bs-toggle="collapse" href="#pelanggaran" role="button" aria-expanded="false"
+                    aria-controls="pelanggaran">
+                    <span>Pelanggaran</span>
                     <i class="fa fa-chevron-down"></i>
                 </a>
 
-                <div class="collapse ps-3 mt-1" id="data_siswa">
+                <div class="collapse ps-3 mt-1" id="pelanggaran">
                     <ul class="nav flex-column">
+                        <li>
+                            <?php if (($_SESSION['role_id'] == 2 && $userHariPiket !== $hariSaatIni) || ($_SESSION['role_id'] == 1 && $userHariPiket !== $hariSaatIni)): ?>
+                                <a class="nav-link text-white" style="cursor: not-allowed;">
+                                    Input Pelanggaran (Non Aktif)
+                                </a>
+                            </li>
+                        <?php elseif (($_SESSION['role_id'] == 2 || $_SESSION['role_id'] == 1)): ?>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="index.php?page=input_pelanggaran">
+                                    Input Pelanggaran (Aktif)
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
+
+                        <?php if ($_SESSION['role_id'] == 1): ?>
+                            <li class=" nav-item">
+                                <a class="nav-link text-white" href="index.php?page=rekap_pelanggaran">
+                                    Rekap Pelanggaran
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
+                        <?php if ($_SESSION['role_id'] == 3): ?>
+                            <li class="nav-item">
+                                <a class="nav-link text-white"
+                                    href="index.php?page=pelanggaran_siswa&id=<?= $_SESSION['user_id'] ?>">
+                                    Pelanggaran Siswa
+                                </a>
+                            </li>
+                        <?php endif ?>
+
+                        <li>
+                            <hr class="dropdown-divider bg-light">
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="index.php?page=daftar_siswa">
-                                </i> Daftar Siswa
+                            <a class="nav-link text-white" href="index.php?page=jenis_pelanggaran">
+                                Jenis Pelanggaran
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="index.php?page=data_siswa_pelanggaran_siswa">
-                                </i> Pelanggaran Siswa
+                            <a class="nav-link text-white" href="index.php?page=history_pelanggaran">
+                                History Pelanggaran
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
-        <?php endif; ?>
-        <!-- DATA SISWA for admin -->
-        <?php if ($_SESSION['role_id'] == 1): ?>
+            <!-- PENGATURAN -->
             <li class="nav-item">
                 <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                    data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
-                    aria-controls="data_siswa">
-                    <span>Data Siswa</span>
+                    data-bs-toggle="collapse" href="#pengaturan" role="button" aria-expanded="false"
+                    aria-controls="pengaturan">
+                    <span>Pengaturan</span>
                     <i class="fa fa-chevron-down"></i>
                 </a>
 
-                <div class="collapse ps-3 mt-1" id="data_siswa">
+                <div class="collapse ps-3 mt-1" id="pengaturan">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="index.php?page=daftar_siswa_for_admin">
-                                </i> Daftar Siswa
+                            <a class="nav-link text-white" href="#">
+                                <i class="fa fa-bolt me-2 text-warning"></i> Action
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fa fa-cogs me-2 text-info"></i> Another Action
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider bg-light">
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fa fa-question-circle me-2 text-light"></i> Something Else
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
-        <?php endif; ?>
-        <!-- PELANGGARAN -->
-        <li class="nav-item">
-            <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                data-bs-toggle="collapse" href="#pelanggaran" role="button" aria-expanded="false"
-                aria-controls="pelanggaran">
-                <span>Pelanggaran</span>
-                <i class="fa fa-chevron-down"></i>
-            </a>
-
-            <div class="collapse ps-3 mt-1" id="pelanggaran">
-                <ul class="nav flex-column">
-                    <?php if ($_SESSION['role_id'] == 1): ?>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="index.php?page=input_pelanggaran">
-                                Input Pelanggaran (Aktif)
-                            </a>
-                        </li>
-                    <?php endif; ?>
-
-                    <?php if (($_SESSION['role_id'] == 2) && $guruBolehInput): ?>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="index.php?page=input_pelanggaran">
-                                Input Pelanggaran (Aktif)
-                            </a>
-                        </li>
-                    <?php elseif ($_SESSION['role_id'] == 2): ?>
-                        <li class="nav-item">
-                            <a class="nav-link text-white">
-                                Input Pelanggaran (Non Aktif)
-                            </a>
-                        </li>
-
-                    <?php endif; ?>
-
-                    <?php if ($_SESSION['role_id'] == 1): ?>
-                        <li class=" nav-item">
-                            <a class="nav-link text-white" href="index.php?page=rekap_pelanggaran">
-                                Rekap Pelanggaran
-                            </a>
-                        </li>
-                    <?php endif; ?>
-
-                    <?php if ($_SESSION['role_id'] == 3): ?>
-                        <li class="nav-item">
-                            <a class="nav-link text-white"
-                                href="index.php?page=pelanggaran_siswa&id=<?= $_SESSION['user_id'] ?>">
-                                Pelanggaran Siswa
-                            </a>
-                        </li>
-                    <?php endif ?>
-
-                    <li>
-                        <hr class="dropdown-divider bg-light">
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="index.php?page=jenis_pelanggaran">
-                            Jenis Pelanggaran
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="index.php?page=history_pelanggaran">
-                            History Pelanggaran
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <!-- PENGATURAN -->
-        <li class="nav-item">
-            <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                data-bs-toggle="collapse" href="#pengaturan" role="button" aria-expanded="false"
-                aria-controls="pengaturan">
-                <span>Pengaturan</span>
-                <i class="fa fa-chevron-down"></i>
-            </a>
-
-            <div class="collapse ps-3 mt-1" id="pengaturan">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">
-                            <i class="fa fa-bolt me-2 text-warning"></i> Action
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">
-                            <i class="fa fa-cogs me-2 text-info"></i> Another Action
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider bg-light">
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">
-                            <i class="fa fa-question-circle me-2 text-light"></i> Something Else
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
-        <!-- template sidebar dropdown -->
-        <!-- <li class="nav-item">
-                        <a
-                            class="nav-link text-white d-flex justify-content-between align-items-center"
-                            data-bs-toggle="collapse"
-                            href="#sidebarDropdown"
-                            role="button"
-                            aria-expanded="false"
-                            aria-controls="sidebarDropdown">
-                            <span> Dropdown Menu</span>
-                            <i class="fa fa-chevron-down"></i>
-                        </a>
-
-                        <div class="collapse ps-3 mt-1" id="sidebarDropdown">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="#">
-                                        <i class="fa fa-bolt me-2 text-warning"></i> Action
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="#">
-                                        <i class="fa fa-cogs me-2 text-info"></i> Another Action
-                                    </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider bg-light">
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="#">
-                                        <i class="fa fa-question-circle me-2 text-light"></i> Something Else
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li> -->
-
-        <li class="nav-item">
-            <a class="nav-link text-white" href="index.php?page=logout">
-                Logout
-            </a>
-        </li>
-        </ul>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="index.php?page=logout">
+                    Logout
+                </a>
+            </li>
+            </ul>
         </div>
 
         <!-- Main Content -->

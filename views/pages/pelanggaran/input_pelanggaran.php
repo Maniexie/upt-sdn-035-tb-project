@@ -1,10 +1,83 @@
 <?php
+ob_start();
 require_once __DIR__ . '/../../layouts/header.php';
 require_once __DIR__ . '/../../../koneksi.php';
 
+// $jadwalPiketCek = $_SESSION['user_jadwal_piket'];
+
+
+// $hariModeEnglish = date('l');
+
+// $hariMapping = [
+//     'Monday' => 1,
+//     'Tuesday' => 2,
+//     'Wednesday' => 3,
+//     'Thursday' => 4,
+//     'Friday' => 5,
+//     'Saturday' => 6,
+//     'Sunday' => 7,
+// ];
+
+// $hariSaatIni = $hariMapping[$hariModeEnglish] ?? '';
+
+
+// $guruBolehInput = ($hariSaatIni === $hariPiket['hari_piket']);
 
 
 
+// if ($_SESSION['user_jadwal_piket'] !== $hariSaatIni) {
+//     header('Location: index.php?page=dashboard', true, 302);
+//     exit;
+// }
+
+// Mapping hari
+$hariMapping = [
+    'Monday' => 'senin',
+    'Tuesday' => 'selasa',
+    'Wednesday' => 'rabu',
+    'Thursday' => 'kamis',
+    'Friday' => 'jumat',
+    'Saturday' => 'sabtu',
+    'Sunday' => 'minggu'
+];
+
+// Hari sekarang
+$hariSaatIni = $hariMapping[date('l')] ?? '';
+// echo 'cek hari sekarang: ' . $hariSaatIni . '<br>';
+// var_dump($hariSaatIni);
+
+// Ambil jadwal piket user dari DB langsung
+$stmt = $db->prepare("SELECT jp.hari_piket 
+    FROM users u 
+    JOIN jadwal_piket jp ON u.jadwal_piket_id = jp.id 
+    WHERE u.id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+$userHariPiket = $stmt->fetchColumn();
+// echo '<br>cek hari piket user: ' . $userHariPiket . ' ~ cek hari saat ini: ' . $hariSaatIni . '<br>';
+
+// Cek apakah user boleh input
+if (($userHariPiket !== $hariSaatIni)) {
+    echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                html: 'Anda Bukan Guru Piket Hari Ini!',
+                confirmButtonColor: '#d63030ff',
+                timer: 6000,
+                timerProgressBar: true,
+                    willClose: () => {
+                    window.location.href = `index.php?page=dashboard`;
+                }
+            });
+        });
+    </script>
+    ";
+
+    exit();
+}
 
 // FORM INPUT ATAU TABEL KIRI //
 
@@ -33,6 +106,7 @@ $pelanggaranList = $db->query("SELECT * FROM pelanggaran")->fetchAll();
 
 // Handle form submit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     $siswaId = $_POST['siswa_id'];
     $pelanggaranId = $_POST['pelanggaran_id'];
     $guruPiket = $_SESSION['user_name'];
@@ -107,7 +181,6 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
         <!-- Form Input (Kiri) -->
         <div class="col-md-5 border-end">
             <h3 class="mb-3">Form Input Pelanggaran Siswa</h3>
-            <!-- <form action="" method="post"> -->
             <form action="" method="post" id="pelanggaran-form" class="position-relative border rounded p-3">
                 <div class="mb-3">
                     <label for="kelas" class="form-label">Kelas</label>
@@ -175,19 +248,21 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
                             </tr>
                         <?php else: ?>
                             <?php foreach ($items as $i => $siswa): ?>
-                                <tr>
-                                    <td><?= $start + $i + 1 ?></td>
-                                    <td> <a class="text-decoration-none text-dark" style="cursor: pointer;"
-                                            href="index.php?page=edit_input_pelanggaran&id=<?= $siswa['id'] ?>">
-                                            <?= htmlspecialchars($siswa['nama_siswa']) ?>
-                                        </a>
-                                    </td>
-                                    <td><?= htmlspecialchars($siswa['kelas']) ?></td>
-                                    <td><?= htmlspecialchars($siswa['nama_pelanggaran']) ?></td>
-                                    <td><?= $siswa['poin'] ?></td>
-                                    <td><?= $_SESSION['user_name'] ?></td>
-                                    <!-- <td><?= $siswa['tanggal'] ?></td> -->
-                                </tr>
+                                <?php if (!$guruBolehInput): ?>
+                                    <tr>
+                                        <td><?= $start + $i + 1 ?></td>
+                                        <td> <a class="text-decoration-none text-dark" style="cursor: pointer;"
+                                                href="index.php?page=edit_input_pelanggaran&id=<?= $siswa['id'] ?>">
+                                                <?= htmlspecialchars($siswa['nama_siswa']) ?>
+                                            </a>
+                                        </td>
+                                        <td><?= htmlspecialchars($siswa['kelas']) ?></td>
+                                        <td><?= htmlspecialchars($siswa['nama_pelanggaran']) ?></td>
+                                        <td><?= $siswa['poin'] ?></td>
+                                        <td><?= $_SESSION['user_name'] ?></td>
+                                        <!-- <td><?= $siswa['tanggal'] ?></td> -->
+                                    </tr>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </tbody>
@@ -215,7 +290,7 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
 
 
 <script>
-    document.getElementById('kelas').addEventListener('change', function() {
+    document.getElementById('kelas').addEventListener('change', function () {
         var kelas = this.value;
 
 
