@@ -277,7 +277,7 @@ $userHariPiket = $stmt->fetchColumn() ?? '';
                 </div>
             </li>
             <!-- PENGATURAN -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link text-white d-flex justify-content-between align-items-center"
                     data-bs-toggle="collapse" href="#pengaturan" role="button" aria-expanded="false"
                     aria-controls="pengaturan">
@@ -307,7 +307,7 @@ $userHariPiket = $stmt->fetchColumn() ?? '';
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link text-white" href="index.php?page=logout">
                     Logout
@@ -497,7 +497,7 @@ $userHariPiket = $stmt->fetchColumn() ?? '';
                             </div>
                         </li>
                         <!-- PENGATURAN -->
-                        <li class="nav-item nav-test">
+                        <!-- <li class="nav-item nav-test">
                             <a class="nav-link text-white d-flex justify-content-between align-items-center"
                                 data-bs-toggle="collapse" href="#pengaturan" role="button" aria-expanded="false"
                                 aria-controls="pengaturan">
@@ -527,7 +527,7 @@ $userHariPiket = $stmt->fetchColumn() ?? '';
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> -->
                         <li class="nav-item nav-test">
                             <a class="nav-link text-white" href="index.php?page=logout">
                                 Logout

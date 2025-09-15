@@ -21,21 +21,21 @@ require_once __DIR__ . '/header.php';
                                             account</h5> -->
 
     <div data-mdb-input-init class="form-outline mb-4">
-        <label class="form-label" for="username">Username</label>
-        <input id="username" type="text" name="username" class="form-control" required>
+        <label class="form-label" for="username">ID</label>
+        <input id="username" type="text" name="username" class="form-control" required autofocus checked
+            placeholder="NIK / NIP / NISN / Username" value="<?= htmlspecialchars($_POST['username'] ?? '') ?>" />
     </div>
 
     <div data-mdb-input-init class="form-outline mb-4">
         <label class="form-label" for="password">Password</label>
-        <input id="password" type="password" name="password" class="form-control form-control-lg" required />
+        <input id="password" type="password" name="password" class="form-control form-control" required />
     </div>
 
     <div class="pt-1 mb-4">
-        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block"
-            type="submit">Submit</button>
+        <button class="btn btn-dark btn-block" type="submit">Submit</button>
     </div>
 
-    <a class="small text-muted" href="#!">Lupa password?</a>
+    <!-- <a class="small text-muted" href="#!">Lupa password?</a> -->
     <p class="mb-5 pb-lg-2" style="color: #393f81;">Belum punya akun?? <a href="index.php?page=register"
             style="color: #393f81;">Daftar
             disini</a></p>

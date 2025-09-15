@@ -14,9 +14,14 @@ $sql = "SELECT u.*, r.role_name , u.jadwal_piket_id
         FROM users u
         JOIN jadwal_piket jp ON u.jadwal_piket_id = jp.id
         JOIN roles r ON u.role_id = r.id
-        WHERE u.username = ? LIMIT 1";
+        WHERE u.username = ? 
+            OR u.email = ?
+            OR u.nisn = ?
+            OR u.nip = ?
+            OR u.nik = ?
+        LIMIT 1";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $username);
+$stmt->bind_param("sssss", $username, $username, $username, $username, $username);
 $stmt->execute();
 $result = $stmt->get_result();
 
