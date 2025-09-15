@@ -75,7 +75,7 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
 
 
 <script>
-    window.onload = function() {
+    window.onload = function () {
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             theme: "dark2",
@@ -130,7 +130,7 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
                                                     srcset=""></td> -->
                                             <td><img src="<?= BASE_URL ?>assets/img/default.png"
                                                     alt="<?= htmlspecialchars($item['user_nama']) ?>" style="width: 40px;"></td>
-                                            <td> <a href="index.php?page=edit_input_pelanggaran&id=<?= $item['ps_id'] ?>"><?= htmlspecialchars($item['user_nama']) ?> </a></td>
+                                            <td><?= htmlspecialchars($item['user_nama']) ?></td>
                                             <td><?= htmlspecialchars($item['user_kelas']) ?></td>
                                             <td><?= htmlspecialchars($item['pelanggaran_nama']) ?></td>
                                             <td><?= htmlspecialchars($item['pelanggaran_poin']) ?></td>

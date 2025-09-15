@@ -21,7 +21,7 @@ $currentPelanggaranId = $currentData['pelanggaran_id'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pelanggaran_id'])) {
     $pelanggaran_id = $_POST['pelanggaran_id'];
 
-    $updateQuery = "UPDATE pelanggaran_siswa SET pelanggaran_id = :pelanggaran_id ,siswa_id = :siswa_id WHERE id = :id";
+    $updateQuery = "UPDATE pelanggaran_siswa SET pelanggaran_id = :pelanggaran_id  WHERE id = :id";
     $stmt = $db->prepare($updateQuery);
     $stmt->execute([
         ':id' => $id,
