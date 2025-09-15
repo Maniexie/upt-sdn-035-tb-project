@@ -40,7 +40,7 @@ $dataGuru = $stmt->fetch(PDO::FETCH_ASSOC);
     <section>
         <div class="card mt-4">
             <div class="card-header">
-                <h2 class="card-title text-capitalize">
+                <h2 class="card-title text-capitalize text-nowrap text-truncate">
                     Profile : <?= htmlspecialchars($result['nama']); ?>
                 </h2>
             </div>
@@ -121,7 +121,7 @@ $dataGuru = $stmt->fetch(PDO::FETCH_ASSOC);
                 <div class="mb-3 row">
                     <label for="hari_piket" class="col-sm-2 col-form-label">Jadwal Piket </label>
                     <div class="col-sm-10">
-                        <input type="text" readonly class="form-control-plaintext" id="hari_piket"
+                        <input type="text" readonly class="form-control-plaintext text-capitalize" id="hari_piket"
                             value=": <?= htmlspecialchars($result['hari_piket']); ?>">
                     </div>
                 </div>

@@ -51,45 +51,48 @@ if (empty($pelanggaranSiswa)) {
             <h5>Kelas: <?= htmlspecialchars($pelanggaranSiswa[0]['kelas']) ?></h5>
             <h5> <?= htmlspecialchars($pelanggaranSiswa[0]['siswa_id']) ?></h5>
         </div>
-        <div class="card-body" style="height: 600px; overflow-y: auto;">
-            <!-- <h5>Daftar Pelanggaran:</h5> -->
-            <table class="table table-bordered table-hover">
-                <thead class="table-primary">
-                    <tr>
-                        <th>No</th>
-                        <th>Jenis Pelanggaran</th>
-                        <th>Poin</th>
-                        <th>Guru Piket</th>
-                        <th>Tanggal</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    <?php foreach ($pelanggaranSiswa as $index => $pelanggaran): ?>
-                        <tr>
-                            <td><?= $index + 1 ?></td>
-                            <td><?= htmlspecialchars($pelanggaran['nama_pelanggaran']) ?></td>
-                            <td><?= $pelanggaran['poin'] ?></td>
-                            <td><?= $pelanggaran['guru_piket'] ?></td>
-                            <td><?= date('d-F-Y', strtotime($pelanggaran['tanggal'])) ?></td>
-                            <td>
-                                <a href="index.php?page=edit_pelanggaran&id=<?= $pelanggaran['siswa_id'] ?>&pelanggaran_siswa_id=<?= $pelanggaran['pelanggaran_siswa_id'] ?>"
-                                    class="btn btn-primary">
-                                    Edit
-                                </a>
-                                <?php if ($_SESSION['role_id'] == 1): ?>
-                                    <button type="button" class="btn btn-danger"
-                                        onclick="konfirmasiHapus(<?= $pelanggaran['siswa_id'] ?>, <?= $pelanggaran['pelanggaran_siswa_id'] ?>)">
-                                        Hapus
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                <?php endif; ?>
-                            </td>
+        <div class="container">
+            <div class="table-responsive mt-1" style="max-height: 300px; overflow-y: auto;">
+                <!-- <h5>Daftar Pelanggaran:</h5> -->
 
+                <table class="table table-bordered table-hover">
+                    <thead class="table-primary sticky-top">
+                        <tr>
+                            <th>No</th>
+                            <th>Jenis Pelanggaran</th>
+                            <th>Poin</th>
+                            <th>Guru Piket</th>
+                            <th>Tanggal</th>
+                            <th>Aksi</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <?php foreach ($pelanggaranSiswa as $index => $pelanggaran): ?>
+                            <tr>
+                                <td><?= $index + 1 ?></td>
+                                <td><?= htmlspecialchars($pelanggaran['nama_pelanggaran']) ?></td>
+                                <td><?= $pelanggaran['poin'] ?></td>
+                                <td><?= $pelanggaran['guru_piket'] ?></td>
+                                <td><?= date('d-F-Y', strtotime($pelanggaran['tanggal'])) ?></td>
+                                <td>
+                                    <a href="index.php?page=edit_pelanggaran&id=<?= $pelanggaran['siswa_id'] ?>&pelanggaran_siswa_id=<?= $pelanggaran['pelanggaran_siswa_id'] ?>"
+                                        class="btn btn-primary">
+                                        Edit
+                                    </a>
+                                    <?php if ($_SESSION['role_id'] == 1): ?>
+                                        <button type="button" class="btn btn-danger"
+                                            onclick="konfirmasiHapus(<?= $pelanggaran['siswa_id'] ?>, <?= $pelanggaran['pelanggaran_siswa_id'] ?>)">
+                                            Hapus
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    <?php endif; ?>
+                                </td>
+
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="container d-flex justify-content-between">

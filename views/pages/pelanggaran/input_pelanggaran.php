@@ -154,7 +154,6 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
         <div class="col-md-7 border-start">
             <div class="container d-flex justify-content-between">
                 <h3 class="mb-3">Daftar Siswa yang Melanggar <span class="fw-bold" id="tanggal"></span></h3>
-                <a href="index.php?edit_input_pelanggaran" class="btn btn-sm btn-primary mb-3">Edit Pelanggaran</a>
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover text-center">
@@ -216,7 +215,7 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
 
 
 <script>
-    document.getElementById('kelas').addEventListener('change', function () {
+    document.getElementById('kelas').addEventListener('change', function() {
         var kelas = this.value;
 
 
@@ -237,9 +236,9 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
 
         // Opsi format lokal
         const opsiFormat = {
-            weekday: 'long',     // Hari (misal: Senin)
+            weekday: 'long', // Hari (misal: Senin)
             year: 'numeric',
-            month: 'long',       // Bulan (misal: September)
+            month: 'long', // Bulan (misal: September)
             day: 'numeric'
         };
 

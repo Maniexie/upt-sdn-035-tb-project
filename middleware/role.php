@@ -62,6 +62,7 @@ function checkRoleAccess($page)
             'daftar_siswa',
             'jadwal_piket_guru',
             'edit_input_pelanggaran',
+            'edit_profile',
         ],
         3 => [ // siswa
             'dashboard',
@@ -70,7 +71,8 @@ function checkRoleAccess($page)
             'jenis_pelanggaran',
             'profile',
             'pelanggaran_siswa',
-            'cetak_rekap_siswa'
+            'cetak_rekap_siswa',
+            'edit_profile'
         ],
     ];
 

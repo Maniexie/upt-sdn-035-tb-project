@@ -24,42 +24,41 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 // ambil data guru wali kelas
-// $stmt = $db->prepare('SELECT nama, nip FROM users WHERE role_id = 2 AND users.kelas = :kelas');
-// $stmt->execute(['kelas' => $result['kelas']]);
-// $dataGuru = $stmt->fetch();
+$stmt = $db->prepare('SELECT nama, nip FROM users WHERE role_id = 2 AND users.kelas = :kelas');
+$stmt->execute(['kelas' => $result['kelas']]);
+$dataGuru = $stmt->fetch();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $stmt = $db->prepare('UPDATE users SET 
-    nik = :nik, 
-    nip = :nip,
-    nisn = :nisn, 
-    email = :email, 
-    -- username = :username, 
-    nama = :nama, 
-    kelas = :kelas, 
-    tempat_lahir = :tempat_lahir, 
-    tanggal_lahir = :tanggal_lahir, 
-    nomor_hp = :nomor_hp, 
-    alamat = :alamat 
-WHERE id = :id');
+    if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2):
 
-    $stmt->execute([
-        ':id' => $result['id'],
-        ':nik' => $_POST['nik'],
-        ':nisn' => $_POST['nisn'],
-        ':nip' => $_POST['nip'],
-        ':email' => $_POST['email'],
-        // ':username' => $_POST['username'],
-        ':nama' => $_POST['nama'],
-        ':kelas' => $_POST['kelas'],
-        ':tempat_lahir' => $_POST['tempat_lahir'],
-        ':tanggal_lahir' => $_POST['tanggal_lahir'],
-        ':nomor_hp' => $_POST['nomor_hp'],
-        ':alamat' => $_POST['alamat']
-    ]);
+        $stmt = $db->prepare('UPDATE users SET 
+        nik = :nik, 
+        nip = :nip,
+        kelas = :kelas, 
+        email = :email, 
+        nama = :nama, 
+        tempat_lahir = :tempat_lahir, 
+        tanggal_lahir = :tanggal_lahir, 
+        nomor_hp = :nomor_hp, 
+        alamat = :alamat 
+        WHERE id = :id');
 
-    echo "
+        $stmt->execute([
+            ':id' => $result['id'],
+            ':nik' => $_POST['nik'],
+            ':nip' => $_POST['nip'],
+            ':kelas' => $_POST['kelas'],
+            ':email' => $_POST['email'],
+            ':nama' => $_POST['nama'],
+            ':kelas' => $_POST['kelas'],
+            ':tempat_lahir' => $_POST['tempat_lahir'],
+            ':tanggal_lahir' => $_POST['tanggal_lahir'],
+            ':nomor_hp' => $_POST['nomor_hp'],
+            ':alamat' => $_POST['alamat']
+        ]);
+
+        echo "
     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -78,8 +77,63 @@ WHERE id = :id');
     </script>
     ";
 
-    exit;
+        exit();
+
+    endif;
+
+    if ($_SESSION['role_id'] == 3):
+        $stmt = $db->prepare('UPDATE users SET 
+        nik = :nik, 
+        nisn = :nisn, 
+        email = :email, 
+        nama = :nama, 
+        tempat_lahir = :tempat_lahir, 
+        tanggal_lahir = :tanggal_lahir, 
+        nomor_hp = :nomor_hp, 
+        alamat = :alamat 
+        WHERE id = :id');
+
+        $stmt->execute([
+            ':id' => $result['id'],
+            ':nik' => $_POST['nik'],
+            ':nisn' => $_POST['nisn'],
+            ':email' => $_POST['email'],
+            ':nama' => $_POST['nama'],
+            ':tempat_lahir' => $_POST['tempat_lahir'],
+            ':tanggal_lahir' => $_POST['tanggal_lahir'],
+            ':nomor_hp' => $_POST['nomor_hp'],
+            ':alamat' => $_POST['alamat']
+        ]);
+
+        var_dump($stmt);
+
+        echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                html: 'Profile berhasil diubah.',
+                confirmButtonColor: '#3085d6',
+                timer: 6000,
+                timerProgressBar: true,
+                    willClose: () => {
+                    window.location.href = 'index.php?page=profile';
+                }
+            });
+        });
+    </script>
+    ";
+
+        exit();
+
+    endif;
+
+    var_dump($stmt);
 }
+
+
 
 
 ?>
@@ -88,7 +142,7 @@ WHERE id = :id');
     <section class="mx-2">
         <div class="card mt-4">
             <div class="card-header">
-                <h2 class="card-title text-capitalize">
+                <h2 class="card-title text-capitalize text-nowrap text-truncate">
                     Edit Profile : <?= htmlspecialchars($result['nama']); ?>
                 </h2>
             </div>
@@ -113,10 +167,6 @@ WHERE id = :id');
                     </div>
                 <?php endif; ?>
 
-                <?php if ($result['role_id'] === 1 || $result['role_id'] === 2): ?>
-                    <input type="hidden" name="nisn" class="form-control" id="nisn"
-                        value="<?= htmlspecialchars($result['nisn']); ?>">
-                <?php endif; ?>
 
                 <?php if ($result['role_id'] === 3): ?>
                     <div class="mb-3 row">
@@ -152,21 +202,23 @@ WHERE id = :id');
                     </div>
                 </div>
 
-                <div class="mb-3 row">
-                    <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
-                    <div class="col-sm-10">
-                        <select name="kelas" class="form-select" id="kelas" required>
-                            <option value="<?= $result['kelas']; ?>"><?= $result['kelas']; ?></option>
-                            <?php
-                            for ($i = 1; $i <= 6; $i++) {
-                                for ($j = 'A'; $j <= 'C'; $j++) {
-                                    echo "<option value=\"{$i}{$j}\">{$i}{$j}</option>";
+                <?php if ($result['role_id'] === 1 || $result['role_id'] === 2): ?>
+                    <div class="mb-3 row">
+                        <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
+                        <div class="col-sm-10">
+                            <select name="kelas" class="form-select" id="kelas" required>
+                                <option value="<?= $result['kelas']; ?>"><?= $result['kelas']; ?></option>
+                                <?php
+                                for ($i = 1; $i <= 6; $i++) {
+                                    for ($j = 'A'; $j <= 'C'; $j++) {
+                                        echo "<option value=\"{$i}{$j}\">{$i}{$j}</option>";
+                                    }
                                 }
-                            }
-                            ?>
-                        </select>
+                                ?>
+                            </select>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
 
 
                 <div class="mb-3 row">

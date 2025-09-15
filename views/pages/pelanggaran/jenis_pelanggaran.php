@@ -3,25 +3,26 @@ require_once __DIR__ . '../../../layouts/header.php';
 require_once __DIR__ . '/../../../koneksi.php';
 
 $getNamaPelanggaran = $db->query('SELECT * FROM pelanggaran')->fetchAll();
-
-
-
 ?>
 <div class="container">
     <h1 class="text-center me-5">Jenis Pelanggaran Beserta Poin</h1>
-    <div class="container mb-2">
-        <a href="index.php?page=input_jenis_pelanggaran" class="btn btn-primary" target="_blank"> + Input Jenis
-            Pelanggaran</a>
-    </div>
+    <?php if ($_SESSION['role_id'] == 1): ?>
+        <div class="container mb-2">
+            <a href="index.php?page=input_jenis_pelanggaran" class="btn btn-primary" target="_blank"> + Input Jenis
+                Pelanggaran</a>
+        </div>
+    <?php endif; ?>
     <section class="container">
-        <div class="table-responsive " style="max-height: 700px; overflow-y: auto;">
+        <div class="table-responsive " style="max-height: 400px; overflow-y: auto;">
             <table class="table table-hover">
                 <thead class="table-primary sticky-top bg-primary text-white" style="z-index: auto;">
                     <tr class="text-center">
                         <th scope="col">No</th>
                         <th scope="col">Jenis Pelanggaran</th>
                         <th scope="col">Poin</th>
-                        <th scope="col">Aksi</th>
+                        <?php if ($_SESSION['role_id'] == 1): ?>
+                            <th scope="col">Aksi</th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody class="text-center">
@@ -30,14 +31,17 @@ $getNamaPelanggaran = $db->query('SELECT * FROM pelanggaran')->fetchAll();
                             <th scope="row"><?= $i + 1 ?></th>
                             <td><?= $item['nama_pelanggaran'] ?></td>
                             <td><?= $item['poin'] ?></td>
-                            <td>
-                                <a href="index.php?page=edit_jenis_pelanggaran&id=<?= $item['id'] ?>"
-                                    class="btn btn-sm btn-primary">Edit</a>
-                                <button type="button" class="btn btn-danger btn-sm"
-                                    onclick="confirmDelete(<?= $item['id'] ?>, '<?= htmlspecialchars(addslashes($item['nama_pelanggaran'])) ?>')">
-                                    Hapus
-                                </button>
-                            </td>
+
+                            <?php if ($_SESSION['role_id'] == 1): ?>
+                                <td>
+                                    <a href="index.php?page=edit_jenis_pelanggaran&id=<?= $item['id'] ?>"
+                                        class="btn btn-sm btn-primary">Edit</a>
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                        onclick="confirmDelete(<?= $item['id'] ?>, '<?= htmlspecialchars(addslashes($item['nama_pelanggaran'])) ?>')">
+                                        Hapus
+                                    </button>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

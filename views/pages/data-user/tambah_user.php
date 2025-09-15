@@ -143,7 +143,7 @@ if (isset($_POST['submit'])) {
                         <div class="mb-3 row">
                             <label for="nama" class="col-sm-2 col-form-label">Jadwal Piket</label>
                             <div class="col-sm-10">
-                                <select name="jadwal_piket_id" class="form-select" id="">
+                                <select name="jadwal_piket_id" class="form-select" id="" required autofocus>
                                     <?php
                                     $stmt = $db->prepare("SELECT * FROM jadwal_piket");
                                     $stmt->execute();
