@@ -63,6 +63,7 @@ function checkRoleAccess($page)
             'jadwal_piket_guru',
             'edit_input_pelanggaran',
             'edit_profile',
+            'detail_siswa_for_guru',
         ],
         3 => [ // siswa
             'dashboard',

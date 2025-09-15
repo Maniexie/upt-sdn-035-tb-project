@@ -86,6 +86,10 @@ $allowedPages = [
     'input_data_siswa' => 'views/pages/data-siswa/input_data_siswa.php',
 
 
+    //data-siswa-for-guru
+    'detail_siswa_for_guru' => 'views/pages/data-siswa/detail_siswa_for_guru.php',
+
+
     //pelanggaran
     'edit_jenis_pelanggaran' => 'views/pages/pelanggaran/edit_jenis_pelanggaran.php',
     'hapus_jenis_pelanggaran' => 'views/pages/pelanggaran/hapus_jenis_pelanggaran.php',

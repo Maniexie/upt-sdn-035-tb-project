@@ -79,7 +79,13 @@ $totalPoin = array_sum(array_column($dataPelanggaran, 'poin'));
     </div>
 
     <div class="container d-flex justify-content-between">
-        <a href="index.php?page=rekap_pelanggaran" class="btn btn-secondary mt-3">← Kembali</a>
+        <?php if ($_SESSION['role_id'] == 1): ?>
+            <a href="index.php?page=rekap_pelanggaran" class="btn btn-secondary mt-3">← Kembali</a>
+        <?php endif; ?>
+
+        <?php if ($_SESSION['role_id'] == 2): ?>
+            <a href="index.php?page=data_siswa_pelanggaran_siswa" class="btn btn-secondary mt-3">← Kembali</a>
+        <?php endif; ?>
 
         <a href="index.php?page=cetak_rekap_siswa&id=<?= $siswa_id ?>" class="btn btn-danger mt-3" target="_blank">
             Cetak PDF

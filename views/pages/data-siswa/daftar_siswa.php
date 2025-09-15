@@ -11,11 +11,11 @@ $query = $db->prepare("SELECT
     u.nama, 
     u.nisn,
     u.kelas, 
-    SUM(p.poin) as total_poin 
+    COALESCE(SUM(p.poin), 0) as total_poin 
     FROM users u 
-    JOIN pelanggaran_siswa ps ON u.id = ps.siswa_id 
-    JOIN pelanggaran p ON ps.pelanggaran_id = p.id 
-    WHERE u.kelas = :kelas 
+    LEFT JOIN pelanggaran_siswa ps ON u.id = ps.siswa_id
+    LEFT JOIN pelanggaran p ON ps.pelanggaran_id = p.id 
+    WHERE u.kelas = :kelas AND u.role_id = 3
     GROUP BY u.id 
     ORDER BY u.nama ASC");
 
@@ -23,40 +23,44 @@ $query->execute(['kelas' => $kelasWali]);
 $dataSiswa = $query->fetchAll();
 
 ?>
-<div class="container">
-    <table class="table border border-dark border-2 mt-2" style="text-align: center; max-height: 400px;">
-        <h3 style="text-align: center;">Daftar Siswa kelas <?= $kelasWali ?></h3>
-        <thead class="table-info">
-            <tr>
-                <th>No</th>
-                <th>NISN</th>
-                <th>Nama</th>
-                <th>Kelas</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php $i = 1; ?>
-            <?php foreach ($dataSiswa as $siswa) { ?>
+
+<section class="container">
+    <h1 class="text-center me-5">Daftar Siswa kelas <?= htmlspecialchars($kelasWali) ?></h1>
+    <div class="table-responsive overflow-y-auto" style="max-height: 500px;">
+        <table class="table table-hover">
+            <thead class="table-primary sticky-top bg-primary text-white" style="z-index: auto;">
                 <tr>
-                    <td><?= $i++ ?></td>
-                    <td><?= htmlspecialchars($siswa['nisn']) ?></td>
-                    <td><?= htmlspecialchars($siswa['nama']) ?></td>
-                    <td><?= htmlspecialchars($siswa['kelas']) ?></td>
-                    <td>
-                        <a href="#" class="btn btn-primary btn-sm">Detail</a>
-                        <!-- <a href="index.php?page=detail_pelanggaran&id=<?= $siswa['id'] ?>"
-                            class="btn btn-primary btn-sm">Detail</a> -->
-                        <!-- <a href="index.php?page=rekap_pelanggaran_siswa&id=<?= $siswa['id'] ?>"
+                    <th>No</th>
+                    <th>NISN</th>
+                    <th>Nama</th>
+                    <th>Kelas</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $i = 1; ?>
+                <?php foreach ($dataSiswa as $siswa) { ?>
+                    <tr>
+                        <td><?= $i++ ?></td>
+                        <td><?= htmlspecialchars($siswa['nisn']) ?></td>
+                        <td><?= htmlspecialchars($siswa['nama']) ?></td>
+                        <td><?= htmlspecialchars($siswa['kelas']) ?></td>
+                        <td>
+                            <!-- <a href="#" class="btn btn-primary btn-sm">Detail</a> -->
+                            <a href="index.php?page=detail_siswa_for_guru&id=<?= $siswa['id'] ?>"
+                                class="btn btn-primary btn-sm">Detail</a>
+                            <!-- <a href="index.php?page=rekap_pelanggaran_siswa&id=<?= $siswa['id'] ?>"
                             class="btn btn-success btn-sm">
                             Rekap <i class="fa-solid fa-file-pdf"></i>
                         </a> -->
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-</div>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</section>
+
 
 <?php
 require_once __DIR__ . "/../../layouts/footer.php";

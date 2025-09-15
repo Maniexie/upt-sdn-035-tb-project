@@ -49,7 +49,7 @@ if (empty($pelanggaranSiswa)) {
         <div class="card-header">
             <h4>Nama Siswa: <?= htmlspecialchars($pelanggaranSiswa[0]['nama_siswa']) ?></h4>
             <h5>Kelas: <?= htmlspecialchars($pelanggaranSiswa[0]['kelas']) ?></h5>
-            <h5> <?= htmlspecialchars($pelanggaranSiswa[0]['siswa_id']) ?></h5>
+            <!-- <h5> <?= htmlspecialchars($pelanggaranSiswa[0]['siswa_id']) ?></h5> -->
         </div>
         <div class="container">
             <div class="table-responsive mt-1" style="max-height: 300px; overflow-y: auto;">
@@ -96,7 +96,13 @@ if (empty($pelanggaranSiswa)) {
         </div>
     </div>
     <div class="container d-flex justify-content-between">
-        <a href="index.php?page=rekap_pelanggaran" class="btn btn-secondary mt-3">← Kembali</a>
+        <?php if ($_SESSION['role_id'] == 1): ?>
+            <a href="index.php?page=rekap_pelanggaran" class="btn btn-secondary mt-3">← Kembali</a>
+        <?php endif; ?>
+
+        <?php if ($_SESSION['role_id'] == 2): ?>
+            <a href="index.php?page=data_siswa_pelanggaran_siswa" class="btn btn-secondary mt-3">← Kembali</a>
+        <?php endif; ?>
     </div>
 </div>
 
