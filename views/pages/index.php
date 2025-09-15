@@ -46,7 +46,8 @@ $getDataPelanggaranHarian = $conn->query('
         p.nama_pelanggaran AS pelanggaran_nama,
         p.poin AS pelanggaran_poin,
         ps.tanggal AS pelanggaran_tanggal,
-        ps.guru_piket
+        ps.guru_piket,
+        ps.id AS ps_id
     FROM
         users u
         JOIN pelanggaran_siswa ps ON u.id = ps.siswa_id
@@ -74,8 +75,7 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
 
 
 <script>
-
-    window.onload = function () {
+    window.onload = function() {
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             theme: "dark2",
@@ -130,7 +130,7 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
                                                     srcset=""></td> -->
                                             <td><img src="<?= BASE_URL ?>assets/img/default.png"
                                                     alt="<?= htmlspecialchars($item['user_nama']) ?>" style="width: 40px;"></td>
-                                            <td><?= htmlspecialchars($item['user_nama']) ?></td>
+                                            <td> <a href="index.php?page=edit_input_pelanggaran&id=<?= $item['ps_id'] ?>"><?= htmlspecialchars($item['user_nama']) ?> </a></td>
                                             <td><?= htmlspecialchars($item['user_kelas']) ?></td>
                                             <td><?= htmlspecialchars($item['pelanggaran_nama']) ?></td>
                                             <td><?= htmlspecialchars($item['pelanggaran_poin']) ?></td>
