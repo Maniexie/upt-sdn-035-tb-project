@@ -10,6 +10,7 @@ require_once __DIR__ . '/header.php';
 
 ?>
 
+
 <form action="index.php?page=check_login" method="post">
 
     <div class="d-flex align-items-center mb-3 pb-1">
@@ -36,10 +37,12 @@ require_once __DIR__ . '/header.php';
     </div>
 
     <!-- <a class="small text-muted" href="#!">Lupa password?</a> -->
-    <p class="mb-5 pb-lg-2" style="color: #393f81;">Belum punya akun?? <a href="index.php?page=register"
+    <p class="mb-5 pb-lg-2" style="color: #393f81;">Belum punya akun? <a href="index.php?page=register"
             style="color: #393f81;">Daftar
             disini</a></p>
 </form>
+
+
 
 <?php
 require_once __DIR__ . '/footer.php';

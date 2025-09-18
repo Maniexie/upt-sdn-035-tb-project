@@ -4,9 +4,107 @@ require_once __DIR__ . '/../../layouts/header.php';
 
 
 if (isset($_POST['submit'])) {
+
+    // Jika Nisn sudah terdaftar
+    if (!empty($_POST['nisn'])) {
+        $cekNisn = $db->prepare("SELECT nisn FROM users WHERE nisn = :nisn");
+        $cekNisn->execute([':nisn' => $_POST['nisn']]);
+        if ($cekNisn->rowCount() > 0) {
+            echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            Swal.fire({
+                title: 'NISN sudah terdaftar!',
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                timer: 5000,
+                showConfirmButton: true
+            }).then(() => {
+                window.location.href = 'index.php?page=tambah_user';
+            });
+        </script>";
+            exit;
+        }
+    }
+
+    // Jika Nip sudah terdaftar
+    if (!empty($_POST['nip'])) {
+        $cekNip = $db->prepare("SELECT nip FROM users WHERE nip = :nip");
+        $cekNip->execute([':nip' => $_POST['nip']]);
+        if ($cekNip->rowCount() > 0) {
+            echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            Swal.fire({
+                title: 'Nip sudah terdaftar!',  
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                timer: 5000,
+                showConfirmButton: true
+            }).then(() => {
+                window.location.href = 'index.php?page=tambah_user';
+            });
+        </script>";
+            exit;
+        }
+    }
+
+
+    // Jika Nik sudah terdaftar
+    if (!empty($_POST['nik'])) {
+        $cekNik = $db->prepare("SELECT nik FROM users WHERE nik = :nik");
+        $cekNik->execute([':nik' => $_POST['nik']]);
+        if ($cekNik->rowCount() > 0) {
+            echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            Swal.fire({
+                title: 'Nik sudah terdaftar!',  
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                timer: 5000,
+                showConfirmButton: true
+            }).then(() => {
+                window.location.href = 'index.php?page=tambah_user';
+            });
+        </script>";
+            exit;
+        }
+    }
+
+
+
+    // Jika username sudah terdaftar
+    if (!(empty($_POST['username']))) {
+        $cekUsername = $db->prepare("SELECT username FROM users WHERE username = :username");
+        $cekUsername->execute([':username' => $_POST['username']]);
+        if ($cekUsername->rowCount() > 0) {
+            echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            Swal.fire({
+                title: 'Username sudah terdaftar!',
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                timer: 5000,
+                showConfirmButton: true
+            }).then(() => {
+                window.location.href = 'index.php?page=tambah_user';
+            });
+        </script>";
+            exit;
+        }
+    }
+
+
+
+
+
+    // Query untuk menambah data user
     $stmt = $db->prepare('INSERT INTO users SET nisn = :nisn, nip = :nip, nik = :nik, nama = :nama, 
     username = :username, password = :password, email = :email, kelas = :kelas, jabatan_id = :jabatan_id, jadwal_piket_id = :jadwal_piket_id, role_id = :role_id , 
     tempat_lahir = :tempat_lahir, tanggal_lahir = :tanggal_lahir, alamat = :alamat, nomor_hp = :nomor_hp ');
+
     $stmt->execute([
         ':nisn' => $_POST['nisn'],
         ':nip' => $_POST['nip'],
@@ -28,6 +126,7 @@ if (isset($_POST['submit'])) {
     $nama = $_POST['nama'];
     $role = $_POST['role_id'];
 
+    // Tentukan nama role berdasarkan id role
     if ($role == 1) {
         $role = "Admin";
     } elseif ($role == 2) {
@@ -36,8 +135,7 @@ if (isset($_POST['submit'])) {
         $role = "Siswa";
     }
 
-
-
+    // Berikan respon sukses dengan SweetAlert
     echo "
     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
     <script>
@@ -54,12 +152,9 @@ if (isset($_POST['submit'])) {
                 }
             });
         });
-    </script>
-    ";
+    </script>";
     exit();
 }
-
-
 ?>
 
 <div class="container">
@@ -232,9 +327,6 @@ if (isset($_POST['submit'])) {
 
                     </form>
                 </div>
-
-
-
             </div>
         </div>
     </div>

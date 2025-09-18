@@ -15,8 +15,23 @@ $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
 // var_dump($getAllUser);
 
 ?>
+
+<style>
+    @media screen and (max-width : 768px) {
+        .title-header {
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 13px;
+        }
+
+    }
+</style>
+
+
 <div class="container">
-    <h1 class="text-center me-5">Daftar Jabatan UPT SDN 035 TARAIBANGUN</h1>
+    <h1 class="text-center me-5 title-header">Daftar Jabatan UPT SDN 035 TARAIBANGUN</h1>
     <section class="d-flex justify-content-between align-items-center mb-2">
         <a href="index.php?page=tambah_jabatan" class="btn btn-primary">Tambah Jabatan</a>
 
@@ -95,11 +110,11 @@ $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const searchInput = document.getElementById("searchInput");
         const rows = document.querySelectorAll("tbody tr");
 
-        searchInput.addEventListener("keyup", function () {
+        searchInput.addEventListener("keyup", function() {
             const keyword = this.value.toLowerCase();
 
             rows.forEach(row => {

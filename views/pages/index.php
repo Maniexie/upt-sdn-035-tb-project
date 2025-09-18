@@ -75,7 +75,7 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
 
 
 <script>
-    window.onload = function () {
+    window.onload = function() {
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             theme: "dark2",
@@ -93,7 +93,21 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
         chart.render();
     }
 </script>
+<style>
+    @media screen and (max-width: 768px) {
+        .tanggal_pelanggaran {
+            font-size: 14px;
+        }
 
+        table {
+            font-size: 13px;
+        }
+
+        #chartContainer {
+            display: none;
+        }
+    }
+</style>
 
 
 <div class="container ">
@@ -101,7 +115,7 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
     <!-- SISWA_BERMASALAH -->
     <section id="siswa_bermasalah" class="py-2">
         <div class="">
-            <h4>Siswa Bermasalah hari ini <span class="fw-bold" id="tanggal"></span></h4>
+            <h4 class="tanggal_pelanggaran">Siswa Bermasalah hari ini <span class="fw-bold" id="tanggal"></span></h4>
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive " style="max-height: 400px; overflow-y: auto;">
@@ -109,7 +123,7 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
                             <thead class="table-primary sticky-top bg-primary text-white" style="z-index: auto;">
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">Foto</th>
+                                    <!-- <th scope="col">Foto</th> -->
                                     <th scope="col">Nama Siswa</th>
                                     <th scope="col">Kelas</th>
                                     <th scope="col">Pelanggaran</th>
@@ -128,8 +142,8 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
                                             <th scope="row"><?= $i + 1 ?></th>
                                             <!-- <td><img src="<?= BASE_URL ?>assets/img/<?= $item[''] ?>.jpg" alt=""
                                                     srcset=""></td> -->
-                                            <td><img src="<?= BASE_URL ?>assets/img/default.png"
-                                                    alt="<?= htmlspecialchars($item['user_nama']) ?>" style="width: 40px;"></td>
+                                            <!-- <td><img src="<?= BASE_URL ?>assets/img/default.png"
+                                                    alt="<?= htmlspecialchars($item['user_nama']) ?>" style="width: 40px;"></td> -->
                                             <td><?= htmlspecialchars($item['user_nama']) ?></td>
                                             <td><?= htmlspecialchars($item['user_kelas']) ?></td>
                                             <td><?= htmlspecialchars($item['pelanggaran_nama']) ?></td>

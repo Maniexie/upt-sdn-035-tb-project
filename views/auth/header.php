@@ -10,22 +10,55 @@
     <!-- sweet alert -->
     <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.23.0/dist/sweetalert2.min.css " rel="stylesheet">
 
-
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .register_form {
+            margin-top: 10px;
+            height: 500px;
+        }
+
+        .kotak {
+            margin-top: 10px;
+        }
+
+        /* Untuk layar kecil (max-width: 993px) */
+        @media screen and (max-width: 993px) {
+            img {
+                /* display: none; */
+                width: 300px;
+            }
+
+            .register_form {
+                width: auto;
+            }
+
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 
-<body>
-    <section class="vh-100" style="background-color: #9A616D;">
-        <div class="container py-4 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col col-xl-10">
-                    <div class="card" style="border-radius: 1rem;">
+<body class="vh-100" style="background-color: #9A616D;  ">
+    <section class="vh-100">
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col col-xl-10 kotak">
+                    <div class="card" style="border-radius: 1rem; ">
                         <div class="row g-0">
                             <div class="col-md-6 col-lg-5 d-none d-md-block">
                                 <img src="<?= BASE_URL ?>assets/img/logo.jpg" alt="Auth Form"
-                                    class="img-fluid mt-5 ms-5 pb-5 " style="border-radius: 1rem 0 0 1rem;" />
+                                    class="img-fluid mt-5 ms-5 pb-5 " style="border-radius: 1rem 0 0 1rem; " />
                             </div>
                             <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                 <div class="card-body p-4 p-lg-5 text-black">

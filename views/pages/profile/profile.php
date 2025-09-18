@@ -36,7 +36,66 @@ $stmt->execute(['kelas' => $result['kelas']]);
 $dataGuru = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
-<div class="container w-auto">
+<style>
+    .col-sm-2 {
+        /* width: 100%; */
+        /* Membuat label mengambil lebar penuh */
+        /* margin-bottom: 5px; */
+        font-weight: bold;
+        /* Agar label lebih jelas */
+    }
+
+
+    /* Untuk layar kecil (max-width: 767px) */
+    @media screen and (max-width: 768px) {
+        .main_profile {
+            display: block;
+            /* Mengatur container menjadi block */
+            padding: 10px;
+            /* Menambahkan padding */
+        }
+
+        .mb-3.row {
+            display: flex;
+            flex-direction: column;
+            /* Mengatur label dan input menjadi kolom */
+            margin-bottom: 1.5rem;
+        }
+
+        .col-sm-2 {
+            width: 100%;
+            /* Membuat label mengambil lebar penuh */
+            margin-bottom: 5px;
+            font-weight: bold;
+            /* Agar label lebih jelas */
+        }
+
+        .col-sm-10 {
+            width: 100%;
+            /* Membuat input mengambil lebar penuh */
+        }
+
+        /* Untuk tombol edit profile */
+        .container.d-flex {
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+        }
+
+        .col-form-label {
+            font-size: 14px;
+        }
+
+        .form-control-plaintext {
+            font-size: 14px;
+        }
+    }
+</style>
+
+<div class="container w-auto ">
     <section>
         <div class="card mt-4">
             <div class="card-header">
@@ -45,8 +104,8 @@ $dataGuru = $stmt->fetch(PDO::FETCH_ASSOC);
                 </h2>
             </div>
 
-            <div class="container">
-                <div class="mb-3 row">
+            <div class="container main_profile">
+                <div class="mb-3 row ">
                     <label for="nik" class="col-sm-2 col-form-label">NIK </label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="nik"
