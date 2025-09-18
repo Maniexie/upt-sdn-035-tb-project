@@ -29,11 +29,18 @@
             margin-top: 10px;
         }
 
+        img {
+            padding-right: 10px;
+        }
+
         /* Untuk layar kecil (max-width: 993px) */
         @media screen and (max-width: 993px) {
             img {
                 /* display: none; */
                 width: 300px;
+                margin: auto;
+                /* padding: 10px; */
+                padding-right: 20px;
             }
 
             .register_form {
@@ -44,21 +51,30 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                background-color: burlywood;
             }
+
+        }
+
+        /* Untuk layar kecil (max-width:768px) */
+        @media screen and (max-width: 768px) {
+            img {
+                /* display: none; */
+                width: 270px;
+                margin: auto;
+            }
+
         }
     </style>
 </head>
 
-<body class="vh-100" style="background-color: #9A616D;  ">
-    <section class="vh-100">
-        <div class="container">
-            <div class="row d-flex justify-content-center align-items-center">
-                <div class="col col-xl-10 kotak">
-                    <div class="card" style="border-radius: 1rem; ">
-                        <div class="row g-0">
-                            <div class="col-md-6 col-lg-5 d-none d-md-block">
-                                <img src="<?= BASE_URL ?>assets/img/logo.jpg" alt="Auth Form"
-                                    class="img-fluid mt-5 ms-5 pb-5 " style="border-radius: 1rem 0 0 1rem; " />
-                            </div>
-                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
-                                <div class="card-body p-4 p-lg-5 text-black">
+<section class="vh-100 d-flex justify-content-center align-items-center" style="background-color: burlywood;">
+    <div class="register_form">
+        <div class="card">
+            <div class="row g-0">
+                <div class="col-md-6 col-lg-5 d-none d-md-block">
+                    <img src="<?= BASE_URL ?>assets/img/logo.jpg" alt="Auth Form" class="img-fluid mt-5 ms-5 pb-5"
+                        style="border-radius: 1rem 0 0 1rem;" />
+                </div>
+                <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                    <div class="card-body p-4 p-lg-5 text-black">

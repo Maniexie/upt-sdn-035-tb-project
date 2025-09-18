@@ -2,134 +2,109 @@
 require_once __DIR__ . "/../../../koneksi.php";
 require_once __DIR__ . '/../../layouts/header.php';
 
-$stmt = $db->prepare('SELECT users.* , roles.role_name , jabatan.nama_jabatan , jabatan.status_kelas FROM users JOIN roles ON roles.id = users.role_id JOIN jabatan ON jabatan.id = users.jabatan_id WHERE users.id =:id');
+$stmt = $db->prepare('SELECT users.* , roles.role_name , jabatan.nama_jabatan FROM users JOIN roles ON roles.id = users.role_id JOIN jabatan ON jabatan.id = users.jabatan_id WHERE users.id =:id');
 $stmt->execute(['id' => $_GET['id']]);
 $result = $stmt->fetchAll();
 
+
+
 if (isset($_POST['submit'])) {
+    $id = $_POST['id'];
+    $nisn = trim($_POST['nisn']);
+    $nip = trim($_POST['nip']);
+    $nik = trim($_POST['nik']);
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
 
+    // Siapkan array untuk cek duplikat
+    $checks = [];
+    $params = [':id' => $id];
 
-    $row = mysqli_fetch_assoc($result);
-
-    $old_username = $row['username'];
-    $old_nik = $row['nik'];
-    $old_nisn = $row['nisn'];
-    $old_nip = $row['nip'];
-
-    $new_username = $_POST['username'];
-    $new_nik = $_POST['nik'];
-    $new_nisn = $_POST['nisn'];
-    $new_nip = $_POST['nip'];
-    $new_nama = $_POST['nama'];
-    $new_kelas = $_POST['kelas'];
-    $new_email = $_POST['email'];
-    $new_jabatan_id = $_POST['jabatan_id'];
-    $new_role_id = $_POST['role_id'];
-    $new_tempat_lahir = $_POST['tempat_lahir'];
-    $new_tanggal_lahir = $_POST['tanggal_lahir'];
-    $new_alamat = $_POST['alamat'];
-    $new_nomor_hp = $_POST['nomor_hp'];
-
-    $update_query = "UPDATE users SET";
-
-    $update_fields = [];
-
-    if ($new_username != $old_username) {
-        $update_fields[] = "username = '$new_username'";
+    if (!empty($nisn)) {
+        $checks[] = "SELECT 'nisn' AS field FROM users WHERE nisn = :nisn AND id != :id";
+        $params[':nisn'] = $nisn;
     }
-    if ($new_nik != $old_nik) {
-        $update_fields[] = "nik = '$new_nik'";
+    if (!empty($nip)) {
+        $checks[] = "SELECT 'nip' AS field FROM users WHERE nip = :nip AND id != :id";
+        $params[':nip'] = $nip;
     }
-    if ($new_nisn != $old_nisn) {
-        $update_fields[] = "nisn = '$new_nisn'";
+    if (!empty($nik)) {
+        $checks[] = "SELECT 'nik' AS field FROM users WHERE nik = :nik AND id != :id";
+        $params[':nik'] = $nik;
     }
-    if ($new_nip != $old_nip) {
-        $update_fields[] = "nip = '$new_nip'";
+    if (!empty($username)) {
+        $checks[] = "SELECT 'username' AS field FROM users WHERE username = :username AND id != :id";
+        $params[':username'] = $username;
     }
 
-
-
-    if (count($update_fields) > 0) {
-        $update_query .= implode(",", $update_fields);
-        $update_query .= implode("WHERE id = '$id_user'");
-
-        if (mysqli_query($db, $update_query)) {
-            echo "data berhasil di perbarui";
-        } else {
-            echo "Terjadi kesalahan" . mysqli_error($db);
-        }
+    $duplicate = false;
+    if (!empty($checks)) {
+        $sql = implode(" UNION ", $checks);
+        $checkStmt = $db->prepare($sql);
+        $checkStmt->execute($params);
+        $duplicate = $checkStmt->fetch();
     }
 
-    // Persiapkan query update
-    $stmt = mysqli_prepare($db, "UPDATE users SET id = ?, username = ?, email = ?, nama = ?, kelas = ?, email= ? , jabatan_id= ? , role_id= ? , tempat_lahir= ? , tanggal_lahir= ?, alamat= ? , nomor_hp= ? WHERE id= ?");
+    if ($duplicate) {
+        // Ada data duplikat
+        $field = $duplicate['field'];
+        echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: 'Data $field sudah digunakan oleh user lain',
+                    confirmButtonColor: '#d33'
+                });
+            });
+        </script>
+        ";
+    } else {
+        // Lolos validasi → Update data
+        $stmt = $db->prepare('UPDATE users SET nisn = :nisn, nip = :nip, nik = :nik, nama = :nama, 
+        username = :username, email = :email, kelas = :kelas, jabatan_id = :jabatan_id, role_id = :role_id , 
+        tempat_lahir = :tempat_lahir, tanggal_lahir = :tanggal_lahir, alamat = :alamat, nomor_hp = :nomor_hp 
+        WHERE id = :id');
+        $stmt->execute([
+            ':id' => $id,
+            ':nisn' => $nisn,
+            ':nip' => $nip,
+            ':nik' => $nik,
+            ':nama' => $_POST['nama'],
+            ':username' => $username,
+            ':email' => $email,
+            ':kelas' => $_POST['kelas'],
+            ':jabatan_id' => $_POST['jabatan_id'],
+            ':role_id' => $_POST['role_id'],
+            ':tempat_lahir' => $_POST['tempat_lahir'],
+            ':tanggal_lahir' => $_POST['tanggal_lahir'],
+            ':alamat' => $_POST['alamat'],
+            ':nomor_hp' => $_POST['nomor_hp']
+        ]);
 
-    // Binding parameter
-    mysqli_stmt_bind_param(
-        $stmt,
-        "issssssssiissss",
-        $id_user,
-        $new_username,
-        $new_email,
-        $new_nama,
-        $new_kelas,
-        $new_email,
-        $new_jabatan_id,
-        $new_role_id,
-        $new_tempat_lahir,
-        $new_tanggal_lahir,
-        $new_alamat,
-        $new_nomor_hp
-    );
-
-    // Eksekusi query
-    mysqli_stmt_execute($stmt);
-
-    echo "Data berhasil diperbarui.";
-
-
-    // $stmt = $db->prepare('UPDATE users SET nisn = :nisn, nip = :nip, nik = :nik, nama = :nama, 
-    // username = :username, email = :email, kelas = :kelas, jabatan_id = :jabatan_id, role_id = :role_id , 
-    // tempat_lahir = :tempat_lahir, tanggal_lahir = :tanggal_lahir, alamat = :alamat, nomor_hp = :nomor_hp WHERE id = :id');
-    // $stmt->execute([
-    //     ':id' => $_POST['id'],
-    //     ':nisn' => $_POST['nisn'],
-    //     ':nip' => $_POST['nip'],
-    //     ':nik' => $_POST['nik'],
-    //     ':nama' => $_POST['nama'],
-    //     ':username' => $_POST['username'],
-    //     ':email' => $_POST['email'],
-    //     ':kelas' => $_POST['kelas'],
-    //     ':jabatan_id' => $_POST['jabatan_id'],
-    //     ':role_id' => $_POST['role_id'],
-    //     ':tempat_lahir' => $_POST['tempat_lahir'],
-    //     ':tanggal_lahir' => $_POST['tanggal_lahir'],
-    //     ':alamat' => $_POST['alamat'],
-    //     ':nomor_hp' => $_POST['nomor_hp']
-    // ]);
-
-
-    // $nama = htmlspecialchars($_POST['nama']);
-
-
-    // echo "
-    // <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-    // <script>
-    //     document.addEventListener('DOMContentLoaded', function () {
-    //         Swal.fire({
-    //             icon: 'success',
-    //             title: 'Berhasil!',
-    //             html: 'Profil <strong>{$nama}</strong> berhasil diubah',
-    //             confirmButtonColor: '#3085d6',
-    //             timer: 6000,
-    //             timerProgressBar: true,
-    //                 willClose: () => {
-    //                 window.location.href = `index.php?page=edit_user&=$id`;
-    //             }
-    //         });
-    //     });
-    // </script>
-    // ";
-    // exit();
+        $nama = htmlspecialchars($_POST['nama']);
+        echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    html: 'Profil <strong>{$nama}</strong> berhasil diubah',
+                    confirmButtonColor: '#3085d6',
+                    timer: 6000,
+                    timerProgressBar: true,
+                    willClose: () => {
+                        window.location.href = `index.php?page=daftar_user`;
+                    }
+                });
+            });
+        </script>
+        ";
+        exit();
+    }
 }
 
 
@@ -200,7 +175,6 @@ if (isset($_POST['submit'])) {
                                     <select name="kelas" class="form-select" id="kelas" required>
                                         <option value="<?= $row['kelas']; ?>"><?= $row['kelas']; ?>
                                         </option>
-                                        <option value="-">-</option>
                                         <?php
                                         for ($i = 1; $i <= 6; $i++) {
                                             for ($j = 'A'; $j <= 'C'; $j++) {
@@ -237,7 +211,7 @@ if (isset($_POST['submit'])) {
                                 <label for="nama_jabatan" class="col-sm-2 col-form-label">Jabatan</label>
                                 <div class="col-sm-10">
                                     <?php
-                                    $stmt = $db->prepare("SELECT id AS id_jabatan, nama_jabatan AS jabatan_nama , status_kelas FROM jabatan");
+                                    $stmt = $db->prepare("SELECT id AS id_jabatan, nama_jabatan AS jabatan_nama FROM jabatan");
                                     $stmt->execute();
                                     $alljabatan = $stmt->fetchAll();
                                     ?>
@@ -247,8 +221,7 @@ if (isset($_POST['submit'])) {
                                                 <?= $jbtn['id_jabatan'] == $row['jabatan_id'] ? 'selected' : ''; ?>>
 
                                                 <span class="text-capitalize">
-                                                    <?= htmlspecialchars($jbtn['jabatan_nama']); ?>
-                                                    (<?= htmlspecialchars($jbtn['status_kelas']); ?>)</span>
+                                                    <?= htmlspecialchars($jbtn['jabatan_nama']); ?></span>
                                             </option>
                                         <?php endforeach; ?>
                                     </select>

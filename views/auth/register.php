@@ -42,6 +42,7 @@ require_once __DIR__ . '/header.php';
             <label class="form-label" for="password">Kelas</label>
             <select name="kelas" class="form-select" aria-label="Default select example" required>
                 <option selected>== Kelas ==</option>
+                <option value="-">-</option>
                 <option value="1A">1A</option>
                 <option value="1B">1B</option>
                 <option value="1C">1C</option>
