@@ -80,23 +80,9 @@ if (isset($_POST['submit'])) {
                             <div class="mb-3 row">
                                 <label for="nama_jabatan" class="col-sm-2 col-form-label">Jabatan</label>
                                 <div class="col-sm-10">
-                                    <!-- <input type="text" class="form-control" name="nama_jabatan" id="nama_jabatan"> -->
-                                    <select name="nama_jabatan" id="nama_jabatan" class="form-control form-select">
-                                        <option value="Kepala Sekolah">Kepala Sekolah</option>
-                                        <option value="Wakil Kepala Sekolah">Wakil Kepala Sekolah</option>
-                                        <option value="Guru Kelas">Guru Kelas</option>
-                                        <option value="Guru PJOK">Guru PJOK</option>
-                                        <option value="Guru BMR">Guru BMR</option>
-                                        <option value="Guru PAI">Guru PAI</option>
-                                        <option value="Guru BDR">Guru BDR</option>
-                                        <option value="Operator Sekolah">Operator Sekolah</option>
-                                        <option value="Pengelola Pustaka">Pengelola Pustaka</option>
-                                        <option value="Tata Usaha">Tata Usaha</option>
-                                        <option value="Tenaga Kebersihan">Tenaga Kebersihan</option>
-                                        <option value="Ketua Kelas">Ketua Kelas</option>
-                                        <option value="Anggota Kelas">Anggota Kelas</option>
-                                        <option value="Siswa">Siswa</option>
-                                    </select>
+                                    <!-- <input type="hidden" class="form-control" name="kode_jabatan" id="kode_jabatan"
+                                        value="<?= $kode_jabatan ?>"> -->
+                                    <input type="text" class="form-control" name="nama_jabatan" id="nama_jabatan">
                                 </div>
                             </div>
 
@@ -117,10 +103,10 @@ if (isset($_POST['submit'])) {
 
                             <div class="container mb-3 d-flex justify-content-between">
                                 <a href="index.php?page=daftar_jabatan" class="btn btn-secondary">
-                                    <= Kembali</a>
-                                        <button type="submit" name="submit" class="btn btn-primary">
-                                            Submit
-                                        </button>
+                                    ← Kembali</a>
+                                <button type="submit" name="submit" class="btn btn-primary">
+                                    Submit
+                                </button>
                             </div>
 
                     </form>

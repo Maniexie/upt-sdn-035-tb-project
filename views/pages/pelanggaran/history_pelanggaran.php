@@ -44,8 +44,9 @@ $items = array_slice($groupedByDate, $start, $perPage);
                 <label for="bulan">Pilih Bulan & Tahun:</label>
                 <select name="bulan" id="bulan" class="custom-select-enhanced">
                     <?php
+                    $tahunPeriode = date('Y') - 1;
                     // Auto generate dropdown dari tahun 2024 hingga tahun sekarang
-                    for ($year = 2024; $year <= date('Y'); $year++) {
+                    for ($year = $tahunPeriode; $year <= date('Y'); $year++) {
                         for ($month = 1; $month <= 12; $month++) {
                             $value = sprintf('%04d-%02d', $year, $month);
                             $label = date('F Y', strtotime($value . '-01'));

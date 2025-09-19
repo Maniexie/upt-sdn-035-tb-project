@@ -22,10 +22,14 @@ $query = "
         p.poin,
         ps.tanggal,
         p.id AS pelanggaran_id,
-        ps.guru_piket
+        ps.guru_piket,
+        jabatan.status_kelas,
+        jabatan.id AS jabatan_id,
+        jabatan.nama_jabatan
     FROM pelanggaran_siswa ps
     JOIN users u ON ps.siswa_id = u.id
     JOIN pelanggaran p ON ps.pelanggaran_id = p.id
+    JOIN jabatan ON u.jabatan_id = jabatan.id
     WHERE u.id = ?
     ORDER BY ps.tanggal ASC
 ";
@@ -34,12 +38,37 @@ $stmt = $db->prepare($query);
 $stmt->execute([$siswa_id]);
 $pelanggaranSiswa = $stmt->fetchAll();
 
+
 // Jika tidak ada data pelanggaran untuk siswa ini
 if (empty($pelanggaranSiswa)) {
     echo "<div class='alert alert-info'>Tidak ada pelanggaran untuk siswa ini.</div>";
     echo "<div class='text-center'><a href='index.php?page=rekap_pelanggaran' class='btn btn-primary'>Kembali</a></div>";
     exit;
 }
+
+// Ambil kelas siswa
+$kelas_siswa = $pelanggaranSiswa[0]['kelas'];
+
+// Ambil wali kelas berdasarkan kelas siswa
+$waliKelasQuery = "
+    SELECT u.nama AS nama_wali_kelas
+    FROM users u 
+    WHERE u.role_id = 2 AND u.kelas = ?
+";
+
+// Siapkan query untuk wali kelas
+$waliKelasStmt = $db->prepare($waliKelasQuery);
+$waliKelasStmt->execute([$kelas_siswa]);
+
+// Ambil hasilnya
+$waliKelas = $waliKelasStmt->fetch();
+
+// Tampilkan nama wali kelas
+// if ($waliKelas) {
+//     echo "<h5>Wali Kelas: " . htmlspecialchars($waliKelas['nama_wali_kelas']) . "</h5>";
+// } else {
+//     echo "<h5>Wali Kelas tidak ditemukan.</h5>";
+// }
 ?>
 
 <div class="container mt-2">
@@ -49,6 +78,7 @@ if (empty($pelanggaranSiswa)) {
         <div class="card-header">
             <h4>Nama Siswa: <?= htmlspecialchars($pelanggaranSiswa[0]['nama_siswa']) ?></h4>
             <h5>Kelas: <?= htmlspecialchars($pelanggaranSiswa[0]['kelas']) ?></h5>
+            <h5>Wali Kelas: <?= htmlspecialchars($waliKelas['nama_wali_kelas'] ?? '(Bukan Guru Kelas)') ?></h5>
             <!-- <h5> <?= htmlspecialchars($pelanggaranSiswa[0]['siswa_id']) ?></h5> -->
         </div>
         <div class="container">

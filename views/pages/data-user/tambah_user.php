@@ -318,11 +318,11 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <div class="container mb-3 d-flex justify-content-between">
-                            <a href="index.php?page=detail_user&id=<?= $row['id'] ?>" class="btn btn-secondary">
-                                <= Kembali</a>
-                                    <button type="submit" name="submit" class="btn btn-primary">
-                                        Submit
-                                    </button>
+                            <a href="index.php?page=daftar_user" class="btn btn-secondary">
+                                ← Kembali</a>
+                            <button type="submit" name="submit" class="btn btn-primary">
+                                Submit
+                            </button>
                         </div>
 
                     </form>
@@ -331,5 +331,44 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const fields = ["nisn", "nip", "nik", "username"];
+
+        fields.forEach(field => {
+            const input = document.getElementById(field);
+            if (input) {
+                input.addEventListener("blur", function () { // blur = saat pindah dari input
+                    const value = this.value.trim();
+                    if (value !== "") {
+                        fetch("views/ajax/check_unique_input_user.php", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            body: "field=" + encodeURIComponent(field) + "&value=" + encodeURIComponent(value)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.status === "duplicate") {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Duplikat!",
+                                        text: data.message,
+                                        confirmButtonColor: "#d33"
+                                    });
+                                    input.value = ""; // kosongkan input kalau duplicate
+                                    input.focus();
+                                }
+                            });
+                    }
+                });
+            }
+        });
+    });
+</script>
+
 
 <?php require_once __DIR__ . '/../../layouts/header.php'; ?>

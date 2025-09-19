@@ -30,7 +30,8 @@ $dataGuru = $stmt->fetch();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2):
+    // FOR ADMIN
+    if ($_SESSION['role_id'] == 1):
 
         $stmt = $db->prepare('UPDATE users SET 
         nik = :nik, 
@@ -51,7 +52,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':kelas' => $_POST['kelas'],
             ':email' => $_POST['email'],
             ':nama' => $_POST['nama'],
-            ':kelas' => $_POST['kelas'],
+            ':tempat_lahir' => $_POST['tempat_lahir'],
+            ':tanggal_lahir' => $_POST['tanggal_lahir'],
+            ':nomor_hp' => $_POST['nomor_hp'],
+            ':alamat' => $_POST['alamat']
+        ]);
+
+        echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                html: 'Profile berhasil diubah.',
+                confirmButtonColor: '#3085d6',
+                timer: 6000,
+                timerProgressBar: true,
+                    willClose: () => {
+                    window.location.href = 'index.php?page=profile';
+                }
+            });
+        });
+    </script>
+    ";
+
+        exit();
+
+    endif;
+
+    // FOR GURU
+    if ($_SESSION['role_id'] == 2):
+
+        $stmt = $db->prepare('UPDATE users SET 
+        nik = :nik, 
+        nip = :nip,
+        email = :email, 
+        nama = :nama, 
+        tempat_lahir = :tempat_lahir, 
+        tanggal_lahir = :tanggal_lahir, 
+        nomor_hp = :nomor_hp, 
+        alamat = :alamat 
+        WHERE id = :id');
+
+        $stmt->execute([
+            ':id' => $result['id'],
+            ':nik' => $_POST['nik'],
+            ':nip' => $_POST['nip'],
+            ':email' => $_POST['email'],
+            ':nama' => $_POST['nama'],
             ':tempat_lahir' => $_POST['tempat_lahir'],
             ':tanggal_lahir' => $_POST['tanggal_lahir'],
             ':nomor_hp' => $_POST['nomor_hp'],
@@ -202,7 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
 
-                <?php if ($result['role_id'] === 1 || $result['role_id'] === 2): ?>
+                <?php if ($result['role_id'] === 1): ?>
                     <div class="mb-3 row">
                         <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
                         <div class="col-sm-10">

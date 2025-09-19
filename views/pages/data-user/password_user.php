@@ -35,14 +35,30 @@ if (isset($_POST['submit'])) {
     exit;
 }
 
+// Menentukan status berdasarkan role_id
+$roleLabel = '';
+switch ($dataUser["role_id"]) {
+    case 1:
+        $roleLabel = 'Admin'; // Role 1 adalah Admin
+        break;
+    case 2:
+        $roleLabel = 'Guru'; // Role 2 adalah Guru
+        break;
+    case 3:
+        $roleLabel = 'Siswa'; // Role 3 adalah Siswa
+        break;
+    default:
+        $roleLabel = 'Tidak Dikenal';
+        break;
+}
 ?>
 
 <div class="container">
     <div class="row mt-2">
         <div class="col-md-12">
             <div class="container mt-1 mb-2">
-                <a href="index.php?page=daftar_user" class="btn btn-danger">
-                    <= Kembali </a>
+                <a href="index.php?page=daftar_user" class="btn btn-secondary">
+                    ← Kembali </a>
             </div>
             <div class="card">
                 <div class="card-header">
@@ -53,8 +69,23 @@ if (isset($_POST['submit'])) {
                         <input type="hidden" name="id" value="<?= $dataUser['id']; ?>">
 
                         <div class="mb-3">
+                            <label for="nama" class="form-label">Nama:</label>
+                            <input type="text" class="form-control" id="nama" value="<?= $dataUser['nama']; ?>" readonly
+                                disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kelas" class="form-label">Kelas:</label>
+                            <input type="text" class="form-control" id="kelas" value="<?= $dataUser['kelas']; ?>"
+                                readonly disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="role_id" class="form-label">Status:</label>
+                            <input type="text" class="form-control" id="role_id"
+                                value="<?= htmlspecialchars($roleLabel); ?>" readonly disabled>
+                        </div>
+                        <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="nama" class="form-control" id="username" value="<?= $dataUser['username']; ?>"
+                            <input type="text" class="form-control" id="username" value="<?= $dataUser['username']; ?>"
                                 readonly disabled>
                         </div>
                         <div class="mb-3">

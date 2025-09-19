@@ -97,7 +97,7 @@ if (isset($_POST['submit'])) {
                     timer: 6000,
                     timerProgressBar: true,
                     willClose: () => {
-                        window.location.href = `index.php?page=daftar_user`;
+                        window.location.href = `index.php?page=detail_user&id={$id}`;
                     }
                 });
             });
@@ -262,10 +262,10 @@ if (isset($_POST['submit'])) {
 
                             <div class="container mb-3 d-flex justify-content-between">
                                 <a href="index.php?page=detail_user&id=<?= $row['id'] ?>" class="btn btn-secondary">
-                                    <= Kembali</a>
-                                        <button type="submit" name="submit" class="btn btn-primary">
-                                            Submit
-                                        </button>
+                                    ← Kembali</a>
+                                <button type="submit" name="submit" class="btn btn-primary">
+                                    Submit
+                                </button>
                             </div>
 
                         </form>

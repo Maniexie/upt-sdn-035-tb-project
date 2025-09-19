@@ -40,6 +40,10 @@ if (isset($_POST['submit'])) {
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            <div class="d-flex justify-content-start mt-2 mb-2">
+                <a class="btn btn-secondary" href="index.php?page=jenis_pelanggaran">
+                    ← Kembali</a>
+            </div>
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Edit Jenis Pelanggaran</h3>
@@ -57,7 +61,9 @@ if (isset($_POST['submit'])) {
                             <input type="number" class="form-control" id="poin" name="poin"
                                 value="<?= $result['poin'] ?>" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
+                        </div>
                     </form>
                 </div>
             </div>

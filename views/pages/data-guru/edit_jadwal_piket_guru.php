@@ -112,10 +112,10 @@ if (isset($_POST['submit'])) {
 
                         <div class="container mb-3 d-flex justify-content-between">
                             <a href="index.php?page=jadwal_piket_guru" class="btn btn-secondary">
-                                <= Kembali</a>
-                                    <button type="submit" name="submit" class="btn btn-primary">
-                                        Submit
-                                    </button>
+                                ← Kembali</a>
+                            <button type="submit" name="submit" class="btn btn-primary">
+                                Submit
+                            </button>
                         </div>
 
                     </form>

@@ -35,10 +35,9 @@ $totalPoin = array_sum(array_column($dataPelanggaran, 'poin'));
 
 // Ambil data guru wali kelas
 $guru = $db->query("
-    SELECT nama,nip 
-    FROM users 
-    WHERE role_id = 2 
-      AND kelas = '" . $siswa['kelas'] . "'
+    SELECT users.nama,users.nip,jabatan.nama_jabatan,jabatan.status_kelas 
+    FROM users
+    JOIN jabatan ON users.jabatan_id = jabatan.id
     LIMIT 1
 ")->fetch();
 
