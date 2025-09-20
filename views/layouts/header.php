@@ -430,7 +430,7 @@ $userHariPiket = $stmt->fetchColumn() ?? '';
 
                         <!-- DATA SISWA for admin navbar-sm -->
                         <?php if ($_SESSION['role_id'] == 1): ?>
-                            <li class="nav-item">
+                            <li class="nav-item nav-test">
                                 <a class="nav-link text-white d-flex justify-content-between align-items-center"
                                     data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
                                     aria-controls="data_siswa">

@@ -56,28 +56,28 @@ $nipWali = $wali['nip'] ?? '-';
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="nik" class="col-sm-2 col-form-label">nama </label>
+                        <label for="nik" class="col-sm-2 col-form-label">Nama </label>
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control-plaintext" id="nik"
                                 value=": <?= htmlspecialchars($siswa['nama']) ?>">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="nik" class="col-sm-2 col-form-label">kelas </label>
+                        <label for="nik" class="col-sm-2 col-form-label">Kelas </label>
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control-plaintext" id="nik"
                                 value=": <?= htmlspecialchars($siswa['kelas']) ?>">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="nik" class="col-sm-2 col-form-label">total_poin </label>
+                        <label for="nik" class="col-sm-2 col-form-label">Total Poin </label>
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control-plaintext" id="nik"
                                 value=": <?= htmlspecialchars($siswa['total_poin']) ?>">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="nik" class="col-sm-2 col-form-label">wali_kelas </label>
+                        <label for="nik" class="col-sm-2 col-form-label">Wali Kelas </label>
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control-plaintext" id="nik"
                                 value=": <?= htmlspecialchars($namaWali) ?> (<?= htmlspecialchars($nipWali) ?>)">

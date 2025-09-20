@@ -10,6 +10,16 @@ require_once __DIR__ . '/header.php';
 
 ?>
 
+<style>
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: #393f81;
+        background-color: aqua;
+    }
+</style>
 
 <form action="index.php?page=check_login" method="post">
 
@@ -35,15 +45,26 @@ require_once __DIR__ . '/header.php';
     <div class="pt-1 mb-4">
         <button class="btn btn-dark btn-block" type="submit">Submit</button>
     </div>
-
-    <!-- <a class="small text-muted" href="#!">Lupa password?</a> -->
+    <p class="">Lupa password? <button class="btn" href="" onclick="btnLupaPassword(1)">Klik disini</button> </p>
     <p class="mb-5 pb-lg-2" style="color: #393f81;">Belum punya akun? <a href="index.php?page=register"
             style="color: #393f81;">Daftar
             disini</a></p>
 </form>
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function btnLupaPassword(id) {
+        Swal.fire({
+            icon: 'error',
+            title: "Oops...",
+            text: "Silahkan Lapor Admin / Operator!",
+            confirmButtonColor: '#3085d6',
+            timer: 6000,
+            timerProgressBar: true
+        })
+    }
+</script>
 <?php
 require_once __DIR__ . '/footer.php';
 ?>

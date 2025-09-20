@@ -68,7 +68,7 @@
     </style>
 </head>
 
-<section class="vh-100 d-flex justify-content-center align-items-center" style="background-color: burlywood;">
+<section class="vh-100 d-flex justify-content-center align-items-center" style="background-color: #9A616D;">
     <div class="register_form">
         <div class="card">
             <div class="row g-0">

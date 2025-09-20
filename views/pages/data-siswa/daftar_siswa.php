@@ -24,8 +24,26 @@ $dataSiswa = $query->fetchAll();
 
 ?>
 
+<style>
+    /* Untuk layar kecil (max-width: 767px) */
+    @media screen and (max-width: 768px) {
+        .title {
+            font-size: 22px;
+        }
+
+        .table {
+            font-size: 12px;
+        }
+
+        .btn {
+            font-size: 12px;
+            padding: 4px;
+        }
+    }
+</style>
+
 <section class="container">
-    <h1 class="text-center me-5">Daftar Siswa kelas <?= htmlspecialchars($kelasWali) ?></h1>
+    <h1 class="text-center me-5 title">Daftar Siswa kelas <?= htmlspecialchars($kelasWali) ?></h1>
     <div class="table-responsive overflow-y-auto" style="max-height: 500px;">
         <table class="table table-hover">
             <thead class="table-primary sticky-top bg-primary text-white" style="z-index: auto;">
