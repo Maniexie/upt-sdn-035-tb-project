@@ -45,6 +45,24 @@ if (isset($_POST['submit'])) {
 
 ?>
 
+<style>
+    .card-title {
+        font-size: 16px;
+    }
+
+    .form-label-small {
+        font-size: 12px;
+    }
+
+    .form-input-sm {
+        font-size: 10px;
+    }
+
+    .btn {
+        font-size: 10px;
+    }
+</style>
+
 <div class="container">
     <div class="row mt-2">
         <div class="col-md-12">
@@ -58,25 +76,25 @@ if (isset($_POST['submit'])) {
                 <div class="card-body">
                     <form action="" method="post">
                         <div class="mb-3 row">
-                            <label for="id" class="col-sm-2 col-form-label">ID Jabatan</label>
+                            <label for="id" class="col-sm-2 col-form-label  form-label-small">ID Jabatan</label>
                             <div class="col-sm-10">
                                 <input type="hidden" class="form-control" name="id" id="id"
                                     value="<?= $result['id']; ?>">
-                                <input type="text" readonly disabled class="form-control" id="id"
+                                <input type="text" readonly disabled class="form-control form-input-sm" id="id"
                                     value="<?= $result['id']; ?>">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="kode_jabatan" class="col-sm-2 col-form-label">kode_jabatan</label>
+                            <label for="kode_jabatan" class="col-sm-2 col-form-label form-label-small">kode_jabatan</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="kode_jabatan" id="kode_jabatan"
+                                <input type="text" class="form-control form-input-sm" name="kode_jabatan" id="kode_jabatan"
                                     value="<?= $result['kode_jabatan'] ?>">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="nama_jabatan" class="col-sm-2 col-form-label">nama_jabatan</label>
+                            <label for="nama_jabatan" class="col-sm-2 col-form-label form-label-small">nama_jabatan</label>
                             <div class="col-sm-10">
-                                <select name="nama_jabatan" id="nama_jabatan" class="form-control form-select">
+                                <select name="nama_jabatan" id="nama_jabatan" class="form-control form-select form-input-sm">
                                     <?php
                                     $options = [
                                         'Kepala Sekolah',
@@ -107,9 +125,9 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="status_kelas" class="col-sm-2 col-form-label">status_kelas</label>
+                            <label for="status_kelas" class="col-sm-2 col-form-label form-label-small">status_kelas</label>
                             <div class="col-sm-10">
-                                <select name="status_kelas" id="status_kelas" class="form-select">
+                                <select name="status_kelas" id="status_kelas" class="form-select form-input-sm">
                                     <option value="-">-</option>
                                     <?php for ($i = 1; $i <= 6; $i++) { ?>
                                         <?php for ($j = 'A'; $j <= 'C'; $j++) { ?>

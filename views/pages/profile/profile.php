@@ -92,6 +92,11 @@ $dataGuru = $stmt->fetch(PDO::FETCH_ASSOC);
         .form-control-plaintext {
             font-size: 14px;
         }
+
+        .btn {
+            font-size: 12px;
+            padding: 4px;
+        }
     }
 </style>
 

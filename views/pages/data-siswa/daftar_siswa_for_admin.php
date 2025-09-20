@@ -17,11 +17,58 @@ foreach ($dataSiswaArray as $siswa) {
 
 ?>
 
+<style>
+    /* Untuk layar kecil (min-width: 767px) */
+    @media screen and (min-width: 768px) {
+        .title-sm {
+            display: none;
+        }
+    }
+
+    /* Untuk layar kecil (max-width: 767px) */
+    @media screen and (max-width: 768px) {
+        .title-lg {
+            font-size: 14px;
+            text-align: center;
+            display: none;
+        }
+
+        .title-sm {
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .tambah-siswa-lg {
+            display: none;
+        }
+
+        .tambah-siswa-sm {
+            font-size: 12px;
+            margin-top: -20px;
+            margin-bottom: -20px;
+        }
+
+        .accordion-button {
+            font-size: 12px;
+        }
+
+        .accordion-body {
+            font-size: 12px;
+        }
+
+        .btn {
+            font-size: 10px;
+        }
+    }
+</style>
+
 <div class="container-fluid mt-4">
+    <h2 class="mb-4 title-sm">Daftar Siswa SDN 035 TARAIBANGUN</h2>
+    <a href="index.php?page=input_data_siswa" class="btn btn-primary tambah-siswa-sm">Tambah Siswa</a>
     <section>
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="mb-4">Daftar Siswa SDN 035 TARAIBANGUN</h2>
-            <a href="index.php?page=input_data_siswa" class="btn btn-primary">Tambah Siswa</a>
+            <h2 class="mb-4 title-lg">Daftar Siswa SDN 035 TARAIBANGUN</h2>
+            <a href="index.php?page=input_data_siswa" class="btn btn-primary tambah-siswa-lg">Tambah Siswa</a>
         </div>
 
     </section>
@@ -90,7 +137,7 @@ foreach ($dataSiswaArray as $siswa) {
 
 <!-- JavaScript -  -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const urlParams = new URLSearchParams(window.location.search);
         const scrollToId = urlParams.get('scroll_to');
 
@@ -99,7 +146,10 @@ foreach ($dataSiswaArray as $siswa) {
             if (targetElement) {
                 // Tambahkan highlight untuk menonjolkan baris
                 targetElement.classList.add("highlight");
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
 
                 // Hapus highlight setelah beberapa detik
                 setTimeout(() => {

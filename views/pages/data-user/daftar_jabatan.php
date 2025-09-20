@@ -26,6 +26,17 @@ $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
             margin-left: 13px;
         }
 
+        .btn {
+            font-size: x-small;
+            padding: 2px 3px 2px 3px;
+        }
+
+        .table-size {
+            width: 100%;
+            height: 10%;
+            font-size: 12px;
+        }
+
     }
 </style>
 
@@ -39,9 +50,9 @@ $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
 
     <section class="text-center">
         <div class="table-responsive" style="max-height: 700px; overflow-y: auto;">
-            <table class="table table-hover">
-                <thead class="table-primary sticky-top bg-primary text-white">
-                    <tr>
+            <table class="table table-hover table-size">
+                <thead class="table-primary sticky-top bg-primary text-white table-sm">
+                    <tr class="">
                         <th scope="col">No</th>
                         <th scope="col">Kode Jabatan</th>
                         <th scope="col">Jabatan</th>

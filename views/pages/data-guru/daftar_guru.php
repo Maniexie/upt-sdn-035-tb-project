@@ -23,6 +23,19 @@ $dataGuru = $db->query("
 ")->fetchAll();
 ?>
 
+<style>
+    /* Untuk layar kecil (max-width: 767px) */
+    @media screen and (max-width: 768px) {
+        .list-group-item {
+            font-size: 12px;
+        }
+
+        .accordion-button {
+            font-size: 14px;
+        }
+    }
+</style>
+
 <div class="container-fluid mt-4">
     <h2 class="mb-4">Daftar Guru</h2>
 

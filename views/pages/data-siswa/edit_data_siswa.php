@@ -83,6 +83,31 @@ $namaGuru = $guru ? $guru['nama'] : 'Nama Wali Kelas';
 $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
 
 ?>
+
+<style>
+    @media screen and (max-width: 768px) {
+        .btn {
+            font-size: 12px;
+        }
+
+        .title {
+            margin-top: 10px;
+            font-size: 22px;
+        }
+
+        label {
+            font-size: 13px;
+        }
+
+        .form-control {
+            font-size: 12px;
+        }
+
+        .form-select {
+            font-size: 12px;
+        }
+    }
+</style>
 <div class="container w-auto">
     <!-- Halaman edit siswa -->
     <section>
@@ -91,7 +116,7 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
                 Kembali</a>
         </div>
         <div class="container-md">
-            <h1 class="text-center">Halaman Edit Data Siswa </h1>
+            <h1 class="text-center title">Halaman Edit Data Siswa </h1>
             <form action="" method="POST" class="border rounded p-3">
                 <!-- <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $dataSiswa["id"]; ?>"> -->
 

@@ -33,11 +33,32 @@ $start = ($page - 1) * $perPage;
 $items = array_slice($groupedByDate, $start, $perPage);
 ?>
 
+<style>
+    @media screen and (max-width: 768px) {
+        .filter-bulan-tahun {
+            white-space: nowrap;
+            font-size: 13px;
+        }
+
+        .btn {
+            font-size: 12px;
+        }
+
+        .table {
+            font-size: 12px;
+        }
+
+        .title {
+            font-size: 22px;
+        }
+    }
+</style>
+
 <div class="container mt-4">
-    <h2 class="text-center mb-4">History Pelanggaran Siswa</h2>
+    <h2 class="text-center mb-4 title">History Pelanggaran Siswa</h2>
 
     <!-- Filter Bulan -->
-    <section>
+    <section class="filter-bulan-tahun">
         <div class="container d-flex justify-content-end">
             <form method="GET" class="mb-2">
                 <input type="hidden" name="page" value="history_pelanggaran">
@@ -84,7 +105,7 @@ $items = array_slice($groupedByDate, $start, $perPage);
                     // Menampilkan data per hari
                     foreach ($items as $tanggal => $pelanggarans):
                         $no = 1;  // Reset nomor urut per tanggal
-                        ?>
+                    ?>
 
                         <tr class="table-secondary border-bottom border-dark">
                             <td colspan="5"><strong><?= date('l, j F Y', strtotime($tanggal)) ?></strong></td>

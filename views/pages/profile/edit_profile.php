@@ -187,6 +187,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ?>
 
+<style>
+    /* Untuk layar kecil (max-width: 767px) */
+    @media screen and (max-width: 768px) {
+        .card-title {
+            font-size: 18px;
+        }
+
+        .label-name {
+            font-size: 14px;
+        }
+
+        .form-control {
+            font-size: 12px;
+        }
+
+        .btn {
+            font-size: 12px;
+            padding: 4px;
+        }
+    }
+</style>
 <div class="container w-auto">
     <section class="mx-2">
         <div class="card mt-4">
@@ -199,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="hidden" name="id" value="<?= $result['id']; ?>">
 
                 <div class="mb-3 row">
-                    <label for="nik" class="col-sm-2 col-form-label">NIK </label>
+                    <label for="nik" class="col-sm-2 col-form-label label-name">NIK </label>
                     <div class="col-sm-10">
                         <input type="text" name="nik" class="form-control" id="nik"
                             value="<?= htmlspecialchars($result['nik']); ?>">
@@ -208,7 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <?php if ($result['role_id'] === 1 || $result['role_id'] === 2): ?>
                     <div class="mb-3 row">
-                        <label for="nip" class="col-sm-2 col-form-label">NIP </label>
+                        <label for="nip" class="col-sm-2 col-form-label label-name">NIP </label>
                         <div class="col-sm-10">
                             <input type="text" name="nip" class="form-control" id="nip"
                                 value="<?= htmlspecialchars($result['nip']); ?>">
@@ -219,7 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <?php if ($result['role_id'] === 3): ?>
                     <div class="mb-3 row">
-                        <label for="nisn" class="col-sm-2 col-form-label">NISN</label>
+                        <label for="nisn" class="col-sm-2 col-form-label label-name">NISN</label>
                         <div class="col-sm-10">
                             <input type="text" name="nisn" class="form-control" id="nisn"
                                 value="<?= htmlspecialchars($result['nisn']); ?>">
@@ -228,7 +249,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endif; ?>
 
                 <div class="mb-3 row">
-                    <label for="email" class="col-sm-2 col-form-label">Email </label>
+                    <label for="email" class="col-sm-2 col-form-label label-name">Email </label>
                     <div class="col-sm-10">
                         <input type="text" name="email" class="form-control" id="email"
                             value="<?= htmlspecialchars($result['email']); ?>">
@@ -236,7 +257,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="username" class="col-sm-2 col-form-label">Username </label>
+                    <label for="username" class="col-sm-2 col-form-label label-name">Username </label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="username"
                             value="<?= htmlspecialchars($result['username']); ?>" readonly disabled>
@@ -244,7 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="nama" class="col-sm-2 col-form-label">Nama </label>
+                    <label for="nama" class="col-sm-2 col-form-label label-name">Nama </label>
                     <div class="col-sm-10">
                         <input type="text" name="nama" class="form-control" id="nama"
                             value="<?= htmlspecialchars($result['nama']); ?>">
@@ -253,9 +274,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <?php if ($result['role_id'] === 1): ?>
                     <div class="mb-3 row">
-                        <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
+                        <label for="kelas" class="col-sm-2 col-form-label label-name">Kelas</label>
                         <div class="col-sm-10">
-                            <select name="kelas" class="form-select" id="kelas" required>
+                            <select name="kelas" class="form-select form-control" id="kelas" required>
                                 <option value="<?= $result['kelas']; ?>"><?= $result['kelas']; ?></option>
                                 <?php
                                 for ($i = 1; $i <= 6; $i++) {
@@ -271,7 +292,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
                 <div class="mb-3 row">
-                    <label for="jabatan" class="col-sm-2 col-form-label">Jabatan </label>
+                    <label for="jabatan" class="col-sm-2 col-form-label label-name">Jabatan </label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="jabatan"
                             value="<?= htmlspecialchars($result['nama_jabatan']) ?>" disabled>
@@ -279,7 +300,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="tempat_lahir" class="col-sm-2 col-form-label">Tempat Lahir </label>
+                    <label for="tempat_lahir" class="col-sm-2 col-form-label label-name">Tempat Lahir </label>
                     <div class="col-sm-10">
                         <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir"
                             value="<?= htmlspecialchars($result['tempat_lahir']) ?>">
@@ -287,7 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                    <label for="tanggal_lahir" class="col-sm-2 col-form-label label-name">Tanggal Lahir</label>
                     <div class="col-sm-10">
                         <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir"
                             value="<?= htmlspecialchars(date('Y-m-d', strtotime($result['tanggal_lahir']))) ?>">
@@ -295,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="nomor_hp" class="col-sm-2 col-form-label">Nomor HP </label>
+                    <label for="nomor_hp" class="col-sm-2 col-form-label label-name">Nomor HP </label>
                     <div class="col-sm-10">
                         <input type="text" name="nomor_hp" class="form-control" id="nomor_hp"
                             value="<?= htmlspecialchars($result['nomor_hp']); ?>">
@@ -303,7 +324,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="alamat" class="col-sm-2 col-form-label">Alamat </label>
+                    <label for="alamat" class="col-sm-2 col-form-label label-name">Alamat </label>
                     <div class="col-sm-10">
                         <input type="text" name="alamat" class="form-control" id="alamat"
                             value="<?= htmlspecialchars($result['alamat']); ?>">
@@ -312,7 +333,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <?php if ($result['role_id'] === 3): ?>
                     <div class="mb-3 row">
-                        <label for="wali_kelas" class="col-sm-2 col-form-label">Wali Kelas </label>
+                        <label for="wali_kelas" class="col-sm-2 col-form-label label-name">Wali Kelas </label>
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control" id="wali_kelas"
                                 value="<?= htmlspecialchars($dataGuru['nama']); ?> ( <?= htmlspecialchars($dataGuru['nip']); ?> )"
@@ -323,7 +344,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="container d-flex justify-content-between">
-            <a href="index.php?page=profile&id=<?= $result['id']; ?>" class="btn btn-secondary mt-3"><- Kembali</a>
+            <a href="index.php?page=profile&id=<?= $result['id']; ?>" class="btn btn-secondary mt-3">
+                < Kembali</a>
                     <button type="submit" class="btn btn-primary mt-3" name="submit">Simpan</button>
         </div>
         </form>

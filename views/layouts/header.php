@@ -161,118 +161,118 @@ $userHariPiket = $stmt->fetchColumn() ?? '';
                                         <i class="fa fa-question-circle me-2 text-light"></i> Something Else
                                     </a>
                                 </li> -->
-                    </ul>
-                </div>
-                </li>
-            <?php endif; ?>
-            <!-- DATA SISWA for guru -->
-            <?php if ($_SESSION['role_id'] == 2): ?>
-                <li class="nav-item">
-                    <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                        data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
-                        aria-controls="data_siswa">
-                        <span>Data Siswa</span>
-                        <i class="fa fa-chevron-down"></i>
-                    </a>
-
-                    <div class="collapse ps-3 mt-1" id="data_siswa">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="index.php?page=daftar_siswa">
-                                    </i> Daftar Siswa
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="index.php?page=data_siswa_pelanggaran_siswa">
-                                    </i> Pelanggaran Siswa
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            <?php endif; ?>
-            <!-- DATA SISWA for admin -->
-            <?php if ($_SESSION['role_id'] == 1): ?>
-                <li class="nav-item">
-                    <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                        data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
-                        aria-controls="data_siswa">
-                        <span>Data Siswa</span>
-                        <i class="fa fa-chevron-down"></i>
-                    </a>
-
-                    <div class="collapse ps-3 mt-1" id="data_siswa">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="index.php?page=daftar_siswa_for_admin">
-                                    </i> Daftar Siswa
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            <?php endif; ?>
-            <!-- PELANGGARAN -->
+                </ul>
+            </div>
+            </li>
+        <?php endif; ?>
+        <!-- DATA SISWA for guru -->
+        <?php if ($_SESSION['role_id'] == 2): ?>
             <li class="nav-item">
                 <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                    data-bs-toggle="collapse" href="#pelanggaran" role="button" aria-expanded="false"
-                    aria-controls="pelanggaran">
-                    <span>Pelanggaran</span>
+                    data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
+                    aria-controls="data_siswa">
+                    <span>Data Siswa</span>
                     <i class="fa fa-chevron-down"></i>
                 </a>
 
-                <div class="collapse ps-3 mt-1" id="pelanggaran">
+                <div class="collapse ps-3 mt-1" id="data_siswa">
                     <ul class="nav flex-column">
-                        <?php if (($_SESSION['role_id'] == 2 && $userHariPiket !== $hariSaatIni) || ($_SESSION['role_id'] == 1 && $userHariPiket !== $hariSaatIni)): ?>
-                            <li>
-                                <a class="nav-link text-white" style="cursor: not-allowed;">
-                                    Input Pelanggaran (Non Aktif)
-                                </a>
-                            </li>
-                        <?php elseif (($_SESSION['role_id'] == 2 || $_SESSION['role_id'] == 1)): ?>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="index.php?page=input_pelanggaran">
-                                    Input Pelanggaran (Aktif)
-                                </a>
-                            </li>
-                        <?php endif; ?>
-
-
-                        <?php if ($_SESSION['role_id'] == 1): ?>
-                            <li class=" nav-item">
-                                <a class="nav-link text-white" href="index.php?page=rekap_pelanggaran">
-                                    Rekap Pelanggaran
-                                </a>
-                            </li>
-                        <?php endif; ?>
-
-                        <?php if ($_SESSION['role_id'] == 3): ?>
-                            <li class="nav-item">
-                                <a class="nav-link text-white"
-                                    href="index.php?page=pelanggaran_siswa&id=<?= $_SESSION['user_id'] ?>">
-                                    Pelanggaran Siswa
-                                </a>
-                            </li>
-                        <?php endif ?>
-
-                        <li>
-                            <hr class="dropdown-divider bg-light">
-                        </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="index.php?page=jenis_pelanggaran">
-                                Jenis Pelanggaran
+                            <a class="nav-link text-white" href="index.php?page=daftar_siswa">
+                                </i> Daftar Siswa
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="index.php?page=history_pelanggaran">
-                                History Pelanggaran
+                            <a class="nav-link text-white" href="index.php?page=data_siswa_pelanggaran_siswa">
+                                </i> Pelanggaran Siswa
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
-            <!-- PENGATURAN -->
-            <!-- <li class="nav-item">
+        <?php endif; ?>
+        <!-- DATA SISWA for admin -->
+        <?php if ($_SESSION['role_id'] == 1): ?>
+            <li class="nav-item">
+                <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                    data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
+                    aria-controls="data_siswa">
+                    <span>Data Siswa</span>
+                    <i class="fa fa-chevron-down"></i>
+                </a>
+
+                <div class="collapse ps-3 mt-1" id="data_siswa">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="index.php?page=daftar_siswa_for_admin">
+                                </i> Daftar Siswa
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        <?php endif; ?>
+        <!-- PELANGGARAN -->
+        <li class="nav-item">
+            <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                data-bs-toggle="collapse" href="#pelanggaran" role="button" aria-expanded="false"
+                aria-controls="pelanggaran">
+                <span>Pelanggaran</span>
+                <i class="fa fa-chevron-down"></i>
+            </a>
+
+            <div class="collapse ps-3 mt-1" id="pelanggaran">
+                <ul class="nav flex-column">
+                    <?php if (($_SESSION['role_id'] == 2 && $userHariPiket !== $hariSaatIni) || ($_SESSION['role_id'] == 1 && $userHariPiket !== $hariSaatIni)): ?>
+                        <li>
+                            <a class="nav-link text-white" style="cursor: not-allowed;">
+                                Input Pelanggaran (Non Aktif)
+                            </a>
+                        </li>
+                    <?php elseif (($_SESSION['role_id'] == 2 || $_SESSION['role_id'] == 1)): ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="index.php?page=input_pelanggaran">
+                                Input Pelanggaran (Aktif)
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+
+                    <?php if ($_SESSION['role_id'] == 1): ?>
+                        <li class=" nav-item">
+                            <a class="nav-link text-white" href="index.php?page=rekap_pelanggaran">
+                                Rekap Pelanggaran
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if ($_SESSION['role_id'] == 3): ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-white"
+                                href="index.php?page=pelanggaran_siswa&id=<?= $_SESSION['user_id'] ?>">
+                                Pelanggaran Siswa
+                            </a>
+                        </li>
+                    <?php endif ?>
+
+                    <li>
+                        <hr class="dropdown-divider bg-light">
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="index.php?page=jenis_pelanggaran">
+                            Jenis Pelanggaran
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="index.php?page=history_pelanggaran">
+                            History Pelanggaran
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <!-- PENGATURAN -->
+        <!-- <li class="nav-item">
                 <a class="nav-link text-white d-flex justify-content-between align-items-center"
                     data-bs-toggle="collapse" href="#pengaturan" role="button" aria-expanded="false"
                     aria-controls="pengaturan">
@@ -303,12 +303,12 @@ $userHariPiket = $stmt->fetchColumn() ?? '';
                     </ul>
                 </div>
             </li> -->
-            <li class="nav-item">
-                <a class="nav-link text-white" href="index.php?page=logout">
-                    Logout
-                </a>
-            </li>
-            </ul>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="index.php?page=logout">
+                Logout
+            </a>
+        </li>
+        </ul>
         </div>
 
         <!-- Main Content -->
@@ -421,6 +421,28 @@ $userHariPiket = $stmt->fetchColumn() ?? '';
                                             <a class="nav-link text-white" href="index.php?page=jadwal_piket_guru">
                                                 <!-- <i class="fa fa-bolt me-2 text-danger"></i>  -->
                                                 Jadwal Piket Guru
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        <?php endif; ?>
+
+                        <!-- DATA SISWA for admin navbar-sm -->
+                        <?php if ($_SESSION['role_id'] == 1): ?>
+                            <li class="nav-item">
+                                <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                                    data-bs-toggle="collapse" href="#data_siswa" role="button" aria-expanded="false"
+                                    aria-controls="data_siswa">
+                                    <span>Data Siswa</span>
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+
+                                <div class="collapse ps-3 mt-1" id="data_siswa">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link text-white" href="index.php?page=daftar_siswa_for_admin">
+                                                </i> Daftar Siswa
                                             </a>
                                         </li>
                                     </ul>

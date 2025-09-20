@@ -175,12 +175,41 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
 
 ?>
 
+<style>
+    @media screen and (max-width: 768px) {
+        .title {
+            font-size: 20px;
+        }
+
+        .form-select {
+            font-size: 12px;
+        }
+
+        .form-label {
+            font-size: 14px;
+        }
+
+        .btn {
+            font-size: 12px;
+            padding: 5px;
+        }
+
+        .title-kanan {
+            font-size: 16px;
+        }
+
+        .table-kanan {
+            font-size: 11.5px;
+        }
+    }
+</style>
+
 <div class="container-fluid mt-4">
     <div class="row">
 
         <!-- Form Input (Kiri) -->
         <div class="col-md-5 border-end">
-            <h3 class="mb-3">Form Input Pelanggaran Siswa</h3>
+            <h3 class="mb-3 title">Form Input Pelanggaran Siswa</h3>
             <form action="" method="post" id="pelanggaran-form" class="position-relative border rounded p-3">
                 <div class="mb-3">
                     <label for="kelas" class="form-label">Kelas</label>
@@ -196,7 +225,7 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
 
 
                 <div class="mb-3">
-                    <label for="siswa_id">Nama Siswa:</label>
+                    <label for="siswa_id" class="form-label">Nama Siswa:</label>
                     <select name="siswa_id" class="form-select" required>
                         <option value="">Pilih Siswa</option>
                         <?php if (!empty($siswaList)): ?>
@@ -209,7 +238,7 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="pelanggaran_id">Jenis Pelanggaran:</label>
+                    <label for="pelanggaran_id" class="form-label">Jenis Pelanggaran:</label>
                     <select name="pelanggaran_id" class="form-select" required>
                         <option value="">Pelanggaran</option>
                         <?php foreach ($pelanggaranList as $p): ?>
@@ -226,10 +255,10 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
         <!-- Tabel Daftar Siswa (Kanan) -->
         <div class="col-md-7 border-start">
             <div class="container d-flex justify-content-between">
-                <h3 class="mb-3">Daftar Siswa yang Melanggar <span class="fw-bold" id="tanggal"></span></h3>
+                <h3 class="mb-3 title-kanan">Daftar Siswa yang Melanggar <span class="fw-bold" id="tanggal"></span></h3>
             </div>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover text-center">
+                <table class="table table-bordered table-hover text-center table-kanan">
                     <thead class="table-primary">
                         <tr>
                             <th>No</th>
@@ -290,7 +319,7 @@ $items = array_slice($dataPelanggaran, $start, $perPage);
 
 
 <script>
-    document.getElementById('kelas').addEventListener('change', function () {
+    document.getElementById('kelas').addEventListener('change', function() {
         var kelas = this.value;
 
 

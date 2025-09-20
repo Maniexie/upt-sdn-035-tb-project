@@ -24,12 +24,41 @@ $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
 // var_dump($getJabatanUser);
 
 ?>
+<style>
+    /* Untuk layar kecil (max-width: 767px) */
+    @media screen and (max-width: 768px) {
+        .table-search {
+            /* display: none; */
+            width: 150px;
+            padding: 1px;
+        }
+
+        .daftar-user {
+            font-size: 20px;
+        }
+
+        .btn-tambah-user {
+            font-size: 12px;
+            padding: 3px;
+        }
+
+        .table {
+            font-size: 13px;
+        }
+
+        .btn-sm {
+            font-size: 10px;
+            padding: 1px;
+        }
+    }
+</style>
+
 <div class="container">
-    <h1 class="text-center me-5 mb-2">Daftar User</h1>
-    <section class="d-flex justify-content-between mb-0">
-        <a href="index.php?page=tambah_user" class="btn  btn-primary mb-3">Tambah User</a>
+    <h1 class="text-center me-5 mb-2 daftar-user">Daftar User</h1>
+    <section class="d-flex justify-content-between mb-0 ">
+        <a href="index.php?page=tambah_user" class="btn btn-primary mb-3 btn-tambah-user">+ Tambah User</a>
         <form role="search">
-            <input class="form-control " type="search" placeholder="Search" aria-label="Search" id="searchInput">
+            <input class="form-control table-search " type="search" placeholder="Search" aria-label="Search" id="searchInput" autofocus>
         </form>
     </section>
 
@@ -116,11 +145,11 @@ $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const searchInput = document.getElementById("searchInput");
         const rows = document.querySelectorAll("tbody tr");
 
-        searchInput.addEventListener("keyup", function () {
+        searchInput.addEventListener("keyup", function() {
             const keyword = this.value.toLowerCase();
 
             rows.forEach(row => {

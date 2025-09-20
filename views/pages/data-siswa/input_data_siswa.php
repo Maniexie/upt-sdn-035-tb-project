@@ -153,6 +153,33 @@ if (isset($_POST["submit"])) {
 
 
 ?>
+
+
+<style>
+    /* Untuk layar kecil (max-width: 767px) */
+    @media screen and (max-width: 768px) {
+        .btn {
+            font-size: 12px;
+        }
+
+        .title {
+            font-size: 20px;
+        }
+
+        label {
+            font-size: 12px;
+        }
+
+        .form-control {
+            height: 30px;
+        }
+
+        .form-select {
+            height: 30px;
+            font-size: 12px;
+        }
+    }
+</style>
 <div class="container w-auto">
     <!-- Halaman edit siswa -->
     <section>
@@ -161,7 +188,7 @@ if (isset($_POST["submit"])) {
                 Kembali</a>
         </div>
         <div class="container-md">
-            <h1 class="text-center">Halaman Edit Data Siswa </h1>
+            <h1 class="text-center title">Halaman Edit Data Siswa </h1>
             <?php if (!empty($error_message)): ?>
                 <div class="alert alert-danger">
                     <?= htmlspecialchars($error_message) ?>

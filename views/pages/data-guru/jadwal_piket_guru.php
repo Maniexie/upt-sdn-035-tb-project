@@ -17,8 +17,26 @@ $jadwalPiket = $getAllJadwalPiket->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
+<style>
+    /* Untuk layar kecil (max-width: 767px) */
+    @media screen and (max-width: 768px) {
+        .title {
+            font-size: 22px;
+        }
+
+        .table {
+            font-size: 12px;
+        }
+
+        .btn {
+            font-size: 10px;
+            padding: 3px;
+        }
+    }
+</style>
+
 <div class="container">
-    <h1 class="text-center me-5">Jadwal Piket Guru</h1>
+    <h1 class="text-center me-5 title">Jadwal Piket Guru</h1>
     <section class="text-center">
         <div class="table-responsive" style="max-height: 700px; overflow-y: auto;">
             <table class="table table-hover">

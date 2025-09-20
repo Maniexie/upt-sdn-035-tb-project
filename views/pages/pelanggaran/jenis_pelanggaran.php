@@ -4,8 +4,34 @@ require_once __DIR__ . '/../../../koneksi.php';
 
 $getNamaPelanggaran = $db->query('SELECT * FROM pelanggaran')->fetchAll();
 ?>
+
+<style>
+    @media screen and (max-width: 768px) {
+        .title {
+            font-size: 22px;
+        }
+
+        .btn {
+            font-size: 12px;
+        }
+
+        .btn-flex {
+            font-size: 12px;
+            display: flex;
+            gap: 2px;
+        }
+
+        table {
+            font-size: 14px;
+        }
+
+        .nb {
+            font-size: 12px;
+        }
+    }
+</style>
 <div class="container">
-    <h1 class="text-center me-5">Jenis Pelanggaran Beserta Poin</h1>
+    <h1 class="text-center me-5 title">Jenis Pelanggaran Beserta Poin</h1>
     <?php if ($_SESSION['role_id'] == 1): ?>
         <div class="container mb-2">
             <a href="index.php?page=input_jenis_pelanggaran" class="btn btn-primary" target="_blank"> + Input Jenis
@@ -33,7 +59,7 @@ $getNamaPelanggaran = $db->query('SELECT * FROM pelanggaran')->fetchAll();
                             <td><?= $item['poin'] ?></td>
 
                             <?php if ($_SESSION['role_id'] == 1): ?>
-                                <td>
+                                <td class="btn-flex">
                                     <a href="index.php?page=edit_jenis_pelanggaran&id=<?= $item['id'] ?>"
                                         class="btn btn-sm btn-primary">Edit</a>
                                     <button type="button" class="btn btn-danger btn-sm"
@@ -50,8 +76,8 @@ $getNamaPelanggaran = $db->query('SELECT * FROM pelanggaran')->fetchAll();
     </section>
 
     <section>
-        <div class="container">
-            <h6>NB:</h6>
+        <div class="container nb">
+            <h6 class="nb">NB:</h6>
             <ul>
                 <li>Semua pelanggaran di atas akan dikaji dan ditindak sesuai dengan akumulasi poin, namun tetap
                     mempertimbangkan aspek-aspek yang melatar belakangi tindakan pelanggaran tersebut.</li>

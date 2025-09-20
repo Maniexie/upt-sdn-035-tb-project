@@ -90,13 +90,36 @@ if (isset($_POST["submit"])) {
 
 
     exit();
-}
-;
+};
 ?>
 
+<style>
+    @media screen and (max-width: 768px) {
+        .title {
+            font-size: 22px;
+        }
+
+        label {
+            font-size: 16px;
+        }
+
+        .form-control {
+            font-size: 14px;
+        }
+
+        .form-select {
+            font-size: 14px;
+        }
+
+        .btn {
+            font-size: 12px;
+            padding: 4px;
+        }
+    }
+</style>
 
 <div class="container-md">
-    <h1 class="text-center">Halaman Merubah Pelanggaran </h1>
+    <h1 class="text-center title">Halaman Merubah Pelanggaran </h1>
     <form action="" method="POST" class="border rounded p-3">
 
         <div class="form-group">
@@ -162,7 +185,7 @@ if (isset($_POST["submit"])) {
         $stmt_pelanggaran = $db->query("SELECT * FROM pelanggaran");
         $pelanggaranList = $stmt_pelanggaran->fetchAll();
         foreach ($pelanggaranList as $p):
-            ?>
+        ?>
             if (pelanggaranId == <?= $p['id'] ?>) {
                 // Update nilai poin pada input field
                 document.getElementById('poin').value = <?= $p['poin'] ?>;
@@ -173,11 +196,10 @@ if (isset($_POST["submit"])) {
 
 <!-- border spinner -->
 <script>
-
     Swal.fire("SweetAlert2 is working!");
 
     // Hilangkan alert sukses setelah 3 detik
-    setTimeout(function () {
+    setTimeout(function() {
         const alert = document.getElementById('success-alert');
         if (alert) {
             alert.remove();
@@ -186,7 +208,6 @@ if (isset($_POST["submit"])) {
     setTimeout(() => {
         myModal.hide();
     }, 3000);
-
 </script>
 
 <?php

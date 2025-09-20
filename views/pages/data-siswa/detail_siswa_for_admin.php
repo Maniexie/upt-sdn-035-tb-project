@@ -21,6 +21,28 @@ $namaGuru = $guru ? $guru['nama'] : 'Nama Wali Kelas';
 $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
 
 ?>
+
+
+<style>
+    /* Untuk layar kecil (max-width: 767px) */
+    @media screen and (max-width: 768px) {
+        .card-title {
+            font-size: 18px;
+        }
+
+        .form-control-plaintext {
+            font-size: 12px;
+        }
+
+        .col-form-label {
+            font-size: 14px;
+        }
+
+        .btn {
+            font-size: 10px;
+        }
+    }
+</style>
 <div class="container w-auto">
     <section>
         <div class="container d-flex justify-content-between">
@@ -34,7 +56,7 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
         <div class="card mt-4 p-4">
             <div class="card-header">
                 <h2 class="card-title text-capitalize">
-                    Detail Siswa <?= htmlspecialchars($dataSiswa['nama']) ?>
+                    Detail Siswa : <?= htmlspecialchars($dataSiswa['nama']) ?>
                 </h2>
             </div>
             <div class="mb-3 row">
@@ -166,14 +188,17 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
 
 <!-- Script untuk melakukan scroll ke elemen tertentu -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const urlParams = new URLSearchParams(window.location.search);
         const scrollToId = urlParams.get('scroll_to');
 
         if (scrollToId) {
             const targetElement = document.getElementById(scrollToId);
             if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
             }
         }
     });

@@ -54,6 +54,32 @@ if (isset($_POST['submit'])) {
 
 ?>
 
+<style>
+    /* Untuk layar kecil (max-width: 767px) */
+    @media screen and (max-width: 768px) {
+        .card-title {
+            font-size: 16px;
+        }
+
+        .col-form-label {
+            font-size: 13px;
+        }
+
+        .form-control {
+            font-size: 12px;
+        }
+
+        .form-select {
+            font-size: 12px;
+        }
+
+        .btn {
+            font-size: 12px;
+            padding: 4px;
+        }
+    }
+</style>
+
 <div class="container">
     <div class="row mt-2">
         <div class="col-md-12">

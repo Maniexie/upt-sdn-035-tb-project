@@ -156,6 +156,27 @@ if (isset($_POST['submit'])) {
     exit();
 }
 ?>
+<style>
+    /* Untuk layar kecil (max-width: 767px) */
+    @media screen and (max-width: 768px) {
+        .card-title {
+            font-size: 14px;
+        }
+
+        .text-sm {
+            font-size: 12px;
+        }
+
+        .form-control-sm {
+            width: 10%px;
+
+        }
+
+        .btn-s {
+            font-size: 10px;
+        }
+    }
+</style>
 
 <div class="container">
     <div class="row mt-2">
@@ -171,58 +192,58 @@ if (isset($_POST['submit'])) {
                     <form action="" method="post">
                         <div class="mb-3 row">
 
-                            <label for="nisn" class="col-sm-2 col-form-label">NISN</label>
+                            <label for="nisn" class="col-sm-2 col-form-label text-sm">NISN</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nisn" id="nisn">
+                                <input type="text" class="form-control form-control-sm" name="nisn" id="nisn">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="nip" class="col-sm-2 col-form-label">NIP</label>
+                            <label for="nip" class="col-sm-2 col-form-label text-sm">NIP</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nip" id="nip ">
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label for="nik" class="col-sm-2 col-form-label">NIK</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nik" id="nik">
+                                <input type="text" class="form-control form-control-sm" name="nip" id="nip ">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                            <label for="nik" class="col-sm-2 col-form-label text-sm">NIK</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="email" id="staticEmail">
+                                <input type="text" class="form-control form-control-sm" name="nik" id="nik">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="username" class="col-sm-2 col-form-label">Username</label>
+                            <label for="staticEmail" class="col-sm-2 col-form-label text-sm">Email</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="username" id="username">
+                                <input type="text" class="form-control form-control-sm" name="email" id="staticEmail">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="password" class="col-sm-2 col-form-label">Password</label>
+                            <label for="username" class="col-sm-2 col-form-label text-sm">Username</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="password" id="password">
+                                <input type="text" class="form-control form-control-sm" name="username" id="username">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="password" class="col-sm-2 col-form-label text-sm">Password</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-control-sm" name="password" id="password">
                             </div>
                         </div>
 
 
                         <div class="mb-3 row">
-                            <label for="nama" class="col-sm-2 col-form-label">Nama</label>
+                            <label for="nama" class="col-sm-2 col-form-label text-sm">Nama</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nama" id="nama">
+                                <input type="text" class="form-control form-control-sm" name="nama" id="nama">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
+                            <label for="kelas" class="col-sm-2 col-form-label text-sm">Kelas</label>
                             <div class="col-sm-10">
-                                <select name="kelas" class="form-select" id="kelas" required>
+                                <select name="kelas" class="form-select form-select-sm" id="kelas" required>
                                     <option value="-">-</option>
                                     <?php
                                     for ($i = 1; $i <= 6; $i++) {
@@ -236,9 +257,9 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="nama" class="col-sm-2 col-form-label">Jadwal Piket</label>
+                            <label for="nama" class="col-sm-2 col-form-label text-sm">Jadwal Piket</label>
                             <div class="col-sm-10">
-                                <select name="jadwal_piket_id" class="form-select" id="" required autofocus>
+                                <select name="jadwal_piket_id" class="form-select form-select-sm" id="" required autofocus>
                                     <?php
                                     $stmt = $db->prepare("SELECT * FROM jadwal_piket");
                                     $stmt->execute();
@@ -252,14 +273,14 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="role_name" class="col-sm-2 col-form-label">Status</label>
+                            <label for="role_name" class="col-sm-2 col-form-label text-sm">Status</label>
                             <div class="col-sm-10">
                                 <?php
                                 $stmt = $db->prepare("SELECT id AS id_role, role_name FROM roles");
                                 $stmt->execute();
                                 $allRoles = $stmt->fetchAll();
                                 ?>
-                                <select name="role_id" class="form-select text-capitalize" id="role_id" required>
+                                <select name="role_id" class="form-select form-select-sm text-capitalize" id="role_id" required>
                                     <?php foreach ($allRoles as $r): ?>
                                         <option class="text-capitalize" value="<?= $r['id_role']; ?>">
                                             <span class=" text-capitalize">
@@ -270,14 +291,14 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="nama_jabatan" class="col-sm-2 col-form-label">Jabatan</label>
+                            <label for="nama_jabatan" class="col-sm-2 col-form-label text-sm">Jabatan</label>
                             <div class="col-sm-10">
                                 <?php
                                 $stmt = $db->prepare("SELECT id AS id_jabatan, nama_jabatan AS jabatan_nama , status_kelas FROM jabatan");
                                 $stmt->execute();
                                 $alljabatan = $stmt->fetchAll();
                                 ?>
-                                <select name="jabatan_id" class="form-select text-capitalize" id="nama_jabatan">
+                                <select name="jabatan_id" class="form-select form-select-sm text-capitalize" id="nama_jabatan">
                                     <?php foreach ($alljabatan as $jbtn): ?>
                                         <option class="text-capitalize" value="<?= $jbtn['id_jabatan']; ?>">
                                             <span class="text-capitalize">
@@ -289,38 +310,38 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="nomor_hp" class="col-sm-2 col-form-label">Nomor HP</label>
+                            <label for="nomor_hp" class="col-sm-2 col-form-label text-sm">Nomor HP</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nomor_hp" id="nomor_hp">
+                                <input type="text" class="form-control form-control-sm" name="nomor_hp" id="nomor_hp">
                             </div>
                         </div>
 
 
                         <div class="mb-3 row">
-                            <label for="tempat_lahir" class="col-sm-2 col-form-label">Tempat Lahir</label>
+                            <label for="tempat_lahir" class="col-sm-2 col-form-label text-sm">Tempat Lahir</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir">
+                                <input type="text" class="form-control form-control-sm" name="tempat_lahir" id="tempat_lahir">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                            <label for="tanggal_lahir" class="col-sm-2 col-form-label text-sm">Tanggal Lahir</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir">
+                                <input type="date" class="form-control form-control-sm" name="tanggal_lahir" id="tanggal_lahir">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
+                            <label for="alamat" class="col-sm-2 col-form-label text-sm">Alamat</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="alamat" id="alamat">
+                                <input type="text" class="form-control form-control-sm" name="alamat" id="alamat">
                             </div>
                         </div>
 
                         <div class="container mb-3 d-flex justify-content-between">
-                            <a href="index.php?page=daftar_user" class="btn btn-secondary">
+                            <a href="index.php?page=daftar_user" class="btn btn-s btn-secondary">
                                 ← Kembali</a>
-                            <button type="submit" name="submit" class="btn btn-primary">
+                            <button type="submit" name="submit" class="btn btn-s btn-primary">
                                 Submit
                             </button>
                         </div>
@@ -334,22 +355,22 @@ if (isset($_POST['submit'])) {
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const fields = ["nisn", "nip", "nik", "username"];
 
         fields.forEach(field => {
             const input = document.getElementById(field);
             if (input) {
-                input.addEventListener("blur", function () { // blur = saat pindah dari input
+                input.addEventListener("blur", function() { // blur = saat pindah dari input
                     const value = this.value.trim();
                     if (value !== "") {
                         fetch("views/ajax/check_unique_input_user.php", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/x-www-form-urlencoded"
-                            },
-                            body: "field=" + encodeURIComponent(field) + "&value=" + encodeURIComponent(value)
-                        })
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/x-www-form-urlencoded"
+                                },
+                                body: "field=" + encodeURIComponent(field) + "&value=" + encodeURIComponent(value)
+                            })
                             .then(res => res.json())
                             .then(data => {
                                 if (data.status === "duplicate") {

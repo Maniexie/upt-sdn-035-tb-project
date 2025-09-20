@@ -53,6 +53,33 @@ switch ($dataUser["role_id"]) {
 }
 ?>
 
+<style>
+    /* Untuk layar kecil (max-width: 767px) */
+    @media screen and (max-width: 768px) {
+        .card-title {
+            font-size: 14px;
+        }
+
+        .btn {
+            font-size: 10px;
+            padding: 2px 3px 2px 3px;
+        }
+
+        .form-control {
+            width: 100%;
+            /* Atau atur sesuai kebutuhan */
+            padding: 0.25rem 0.5rem;
+            font-size: 0.675rem;
+            line-height: 1.5;
+            border-radius: 0.2rem;
+        }
+
+        .form-label {
+            font-size: 12px;
+        }
+    }
+</style>
+
 <div class="container">
     <div class="row mt-2">
         <div class="col-md-12">

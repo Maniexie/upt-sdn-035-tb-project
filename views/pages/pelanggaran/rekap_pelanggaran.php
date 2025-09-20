@@ -50,6 +50,26 @@ foreach ($urutanKelas as $kelas) {
 
 ?>
 
+<style>
+    @media screen and (max-width: 768px) {
+        .accordion-button {
+            font-size: 13px;
+        }
+
+        .accordion-body {
+            font-size: 12px;
+        }
+
+        .btn-sm {
+            font-size: 12px;
+            display: flex;
+            gap: 2px;
+            padding: 3px;
+        }
+
+    }
+</style>
+
 <div class="container-fluid mt-4">
     <section>
         <div class="accordion" id="accordionTable">
@@ -102,7 +122,7 @@ foreach ($urutanKelas as $kelas) {
                                                     <td><?= htmlspecialchars($siswa['nama_siswa']) ?></td>
                                                     <td><?= htmlspecialchars($siswa['kelas']) ?></td>
                                                     <td><?= $siswa['total_poin'] ?></td>
-                                                    <td>
+                                                    <td class="btn-sm">
                                                         <a href="index.php?page=detail_pelanggaran&id=<?= $siswa['siswa_id'] ?>"
                                                             class="btn btn-primary btn-sm">
                                                             Detail
