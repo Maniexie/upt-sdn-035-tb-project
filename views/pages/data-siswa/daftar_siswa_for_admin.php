@@ -23,6 +23,10 @@ foreach ($dataSiswaArray as $siswa) {
         .title-sm {
             display: none;
         }
+
+        .tambah-siswa-sm {
+            display: none;
+        }
     }
 
     /* Untuk layar kecil (max-width: 767px) */
@@ -64,11 +68,11 @@ foreach ($dataSiswaArray as $siswa) {
 
 <div class="container-fluid mt-4">
     <h2 class="mb-4 title-sm">Daftar Siswa SDN 035 TARAIBANGUN</h2>
-    <a href="index.php?page=input_data_siswa" class="btn btn-primary tambah-siswa-sm">Tambah Siswa</a>
+    <a href="index.php?page=input_data_siswa" class="btn btn-primary tambah-siswa-sm">+Tambah Siswa</a>
     <section>
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="mb-4 title-lg">Daftar Siswa SDN 035 TARAIBANGUN</h2>
-            <a href="index.php?page=input_data_siswa" class="btn btn-primary tambah-siswa-lg">Tambah Siswa</a>
+            <a href="index.php?page=input_data_siswa" class="btn btn-primary tambah-siswa-lg">+Tambah Siswa</a>
         </div>
 
     </section>
@@ -137,7 +141,7 @@ foreach ($dataSiswaArray as $siswa) {
 
 <!-- JavaScript -  -->
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const urlParams = new URLSearchParams(window.location.search);
         const scrollToId = urlParams.get('scroll_to');
 
