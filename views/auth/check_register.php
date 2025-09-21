@@ -52,6 +52,10 @@ if ($check_username->num_rows > 0) {
             timer: 5000,
             showConfirmButton: true
         }).then(() => {
+            localStorage.setItem('username', '" . htmlspecialchars($_POST['username']) . "');
+            localStorage.setItem('nama', '" . htmlspecialchars($_POST['nama']) . "');
+            localStorage.setItem('password', '" . htmlspecialchars($_POST['password']) . "');
+            localStorage.setItem('kelas', '" . htmlspecialchars($_POST['kelas']) . "');
             window.location.href = 'index.php?page=register';
         });
     </script>";

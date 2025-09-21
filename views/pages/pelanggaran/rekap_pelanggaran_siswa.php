@@ -3,6 +3,8 @@ require_once __DIR__ . '/../../layouts/header.php';
 require_once __DIR__ . '/../../../koneksi.php';
 
 
+
+
 // Ambil ID siswa dari URL
 if (!isset($_GET['id'])) {
     echo '<div class="alert alert-danger">ID siswa tidak ditemukan.</div>';
@@ -10,9 +12,10 @@ if (!isset($_GET['id'])) {
     exit;
 }
 
-$siswa_id = (int) $_GET['id'];
 
 // Ambil info siswa
+$siswa_id = (int) $_GET['id'];
+
 $siswa = $db->query("
     SELECT nama, kelas FROM users WHERE id = $siswa_id
 ")->fetch();
@@ -37,13 +40,36 @@ $dataPelanggaran = $db->query("
 
 // Hitung total poin
 $totalPoin = array_sum(array_column($dataPelanggaran, 'poin'));
+
+
+// Ambil kelas siswa
+$kelas_siswa = $siswa['kelas'];
+
+// Ambil wali kelas berdasarkan kelas siswa
+$waliKelasQuery = "
+        SELECT u.nama AS nama_wali_kelas, u.nip
+        FROM users u 
+        WHERE u.role_id = 2 AND u.kelas = ?
+    ";
+
+// Siapkan query untuk wali kelas
+$waliKelasStmt = $db->prepare($waliKelasQuery);
+$waliKelasStmt->execute([$kelas_siswa]);
+
+// Ambil hasilnya
+$waliKelas = $waliKelasStmt->fetch();
 ?>
+
+
+
+
 
 <div class="container mt-4">
     <h3>Rekap Pelanggaran Siswa</h3>
     <p><strong>Nama:</strong> <?= htmlspecialchars($siswa['nama']) ?></p>
     <p><strong>Kelas:</strong> <?= htmlspecialchars($siswa['kelas']) ?></p>
     <p><strong>Total Poin:</strong> <?= $totalPoin ?></p>
+    <p><strong>Wali Kelas:</strong> <?= $waliKelas['nama_wali_kelas'] ?></p>
 
     <div class="table-responsive mt-3">
         <table class="table table-bordered text-center">
@@ -80,11 +106,13 @@ $totalPoin = array_sum(array_column($dataPelanggaran, 'poin'));
 
     <div class="container d-flex justify-content-between">
         <?php if ($_SESSION['role_id'] == 1): ?>
-            <a href="index.php?page=rekap_pelanggaran" class="btn btn-secondary mt-3">← Kembali</a>
+            <a href="index.php?page=rekap_pelanggaran" class="btn btn-secondary mt-3" onclick="window.close();">←
+                Kembali</a>
         <?php endif; ?>
 
         <?php if ($_SESSION['role_id'] == 2): ?>
-            <a href="index.php?page=data_siswa_pelanggaran_siswa" class="btn btn-secondary mt-3">← Kembali</a>
+            <a href="index.php?page=data_siswa_pelanggaran_siswa" class="btn btn-secondary mt-3" onclick="window.close();">←
+                Kembali</a>
         <?php endif; ?>
 
         <a href="index.php?page=cetak_rekap_siswa&id=<?= $siswa_id ?>" class="btn btn-danger mt-3" target="_blank">

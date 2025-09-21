@@ -71,11 +71,31 @@ require_once __DIR__ . '/header.php';
                 type="submit">Submit</button>
         </div>
 
-        <p class="mb-5 pb-lg-2" style="color: #393f81;">Sudah punya akun? <a href="index.php?page=login"
+        <p class="mb-3 pb-lg-2" style="color: #393f81;">Sudah punya akun? <a href="index.php?page=login"
                 style="color: #393f81;">Masuk
                 disini</a></p>
     </form>
 </div>
+
+<!-- SCRIPT FOR USERNAME ALREADY EXIST -->
+<script type="text/javascript">
+    window.onload = function () {
+        let username = localStorage.getItem('username');
+        let nama = localStorage.getItem('nama');
+        let password = localStorage.getItem('password');
+        let kelas = localStorage.getItem('kelas');
+        if (username) {
+            document.getElementById('username').value = username; //Tampilkan username
+            document.getElementById('nama').value = nama; //Tampilkan nama
+            document.getElementById('password').value = password; //Tampilkan password
+            document.getElementById('kelas').value = kelas; //Tampilkan kelas
+            localStorage.removeItem('username'); //Hapus username setelah register
+            localStorage.removeItem('nama'); //Hapus nama setelah register
+            localStorage.removeItem('password'); //Hapus password setelah register
+            localStorage.removeItem('kelas'); //Hapus kelas setelah register
+        }
+    };
+</script>
 
 
 <?php

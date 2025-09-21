@@ -33,16 +33,24 @@ $dataPelanggaran = $db->query("
 $totalPoin = array_sum(array_column($dataPelanggaran, 'poin'));
 
 
-// Ambil data guru wali kelas
-$guru = $db->query("
-    SELECT users.nama,users.nip,jabatan.nama_jabatan,jabatan.status_kelas 
-    FROM users
-    JOIN jabatan ON users.jabatan_id = jabatan.id
-    LIMIT 1
-")->fetch();
+// Ambil kelas siswa
+$kelas_siswa = $siswa['kelas'];
 
-$namaGuru = $guru ? $guru['nama'] : 'Nama Wali Kelas';
-$nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
+// Ambil wali kelas berdasarkan kelas siswa
+$waliKelasQuery = "
+        SELECT u.nama AS nama_wali_kelas, u.nip
+        FROM users u 
+        WHERE u.role_id = 2 AND u.kelas = ?
+    ";
+
+// Siapkan query untuk wali kelas
+$waliKelasStmt = $db->prepare($waliKelasQuery);
+$waliKelasStmt->execute([$kelas_siswa]);
+
+// Ambil hasilnya
+$waliKelas = $waliKelasStmt->fetch();
+
+
 
 // --- Fungsi format tanggal ---
 function formatTanggalIndonesia($tanggal)
@@ -310,8 +318,8 @@ $html .= '
             <td style="width:50%; text-align:center;">
             Tarai Bangun,' . formatTanggalIndonesia(date('Y-m-d')) . '<br>
             Wali Kelas,<br><br><br><br><br>
-            <u><strong>' . $namaGuru . '</strong></u><br>
-            NIP: ' . $nipGuru . '
+            <u><strong>' . $waliKelas['nama_wali_kelas'] . '</strong></u><br>
+            NIP: ' . $waliKelas['nip'] . '
         </td>
     </tr>
 </table>

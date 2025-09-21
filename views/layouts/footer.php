@@ -20,7 +20,7 @@
 
 <!-- utilities -->
 <script src="<?= BASE_URL ?>assets/js/tanggal.js"></script>
-<script src="<?= BASE_URL ?>assets/js/slider.js"></script>
+<!-- <script src="<?= BASE_URL ?>assets/js/slider.js"></script> -->
 <script src="<?= BASE_URL ?>assets/js/sidebar.js"></script>
 
 

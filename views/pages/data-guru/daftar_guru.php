@@ -16,10 +16,13 @@ $dataGuru = $db->query("
         u.tanggal_lahir AS tanggal_lahir,
         u.alamat AS alamat,
         u.nomor_hp AS nomor_hp,
-        u.role_id AS role_id
+        u.role_id AS role_id,
+        u.jabatan_id AS jabatan_id,
+        j.nama_jabatan
     FROM users u 
-    WHERE u.role_id = 2 
-    ORDER BY u.kelas ASC
+    JOIN jabatan j ON u.jabatan_id = j.id
+    WHERE u.role_id IN (1,2)
+    ORDER BY   u.kelas ASC
 ")->fetchAll();
 ?>
 
@@ -55,7 +58,8 @@ $dataGuru = $db->query("
                         <button class="accordion-button <?= $collapsedClass ?>" type="button" data-bs-toggle="collapse"
                             data-bs-target="#<?= $collapseId ?>" aria-expanded="<?= $ariaExpanded ?>"
                             aria-controls="<?= $collapseId ?>">
-                            <?= htmlspecialchars($guru['nama']) ?> (Kelas: <?= htmlspecialchars($guru['kelas']) ?>)
+                            <?= htmlspecialchars($guru['nama']) ?> (Kelas: <?= htmlspecialchars($guru['kelas']) ?> ||
+                            Jabatan: <?= htmlspecialchars($guru['nama_jabatan']) ?>)
                         </button>
                     </h2>
                 </div>

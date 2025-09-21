@@ -20,6 +20,21 @@ if (isset($_POST['submit'])) {
                 timer: 5000,
                 showConfirmButton: true
             }).then(() => {
+                localStorage.setItem('nisn', '" . htmlspecialchars($_POST['nisn']) . "');
+                localStorage.setItem('nip', '" . htmlspecialchars($_POST['nip']) . "');
+                localStorage.setItem('nik', '" . htmlspecialchars($_POST['nik']) . "');
+                localStorage.setItem('email', '" . htmlspecialchars($_POST['email']) . "');
+                localStorage.setItem('username', '" . htmlspecialchars($_POST['username']) . "');
+                localStorage.setItem('password', '" . htmlspecialchars($_POST['password']) . "');
+                localStorage.setItem('nama', '" . htmlspecialchars($_POST['nama']) . "');
+                localStorage.setItem('kelas', '" . htmlspecialchars($_POST['kelas']) . "');
+                localStorage.setItem('jadwal_piket_id', '" . htmlspecialchars($_POST['jadwal_piket_id']) . "');
+                localStorage.setItem('role_id', '" . htmlspecialchars($_POST['role_id']) . "');
+                localStorage.setItem('jabatan_id', '" . htmlspecialchars($_POST['jabatan_id']) . "');
+                localStorage.setItem('nomor_hp', '" . htmlspecialchars($_POST['nomor_hp']) . "');
+                localStorage.setItem('tempat_lahir', '" . htmlspecialchars($_POST['tempat_lahir']) . "');
+                localStorage.setItem('tanggal_lahir', '" . htmlspecialchars($_POST['tanggal_lahir']) . "');
+                localStorage.setItem('alamat', '" . htmlspecialchars($_POST['alamat']) . "');
                 window.location.href = 'index.php?page=tambah_user';
             });
         </script>";
@@ -42,6 +57,21 @@ if (isset($_POST['submit'])) {
                 timer: 5000,
                 showConfirmButton: true
             }).then(() => {
+                localStorage.setItem('nisn', '" . htmlspecialchars($_POST['nisn']) . "');
+                localStorage.setItem('nip', '" . htmlspecialchars($_POST['nip']) . "');
+                localStorage.setItem('nik', '" . htmlspecialchars($_POST['nik']) . "');
+                localStorage.setItem('email', '" . htmlspecialchars($_POST['email']) . "');
+                localStorage.setItem('username', '" . htmlspecialchars($_POST['username']) . "');
+                localStorage.setItem('password', '" . htmlspecialchars($_POST['password']) . "');
+                localStorage.setItem('nama', '" . htmlspecialchars($_POST['nama']) . "');
+                localStorage.setItem('kelas', '" . htmlspecialchars($_POST['kelas']) . "');
+                localStorage.setItem('jadwal_piket_id', '" . htmlspecialchars($_POST['jadwal_piket_id']) . "');
+                localStorage.setItem('role_id', '" . htmlspecialchars($_POST['role_id']) . "');
+                localStorage.setItem('jabatan_id', '" . htmlspecialchars($_POST['jabatan_id']) . "');
+                localStorage.setItem('nomor_hp', '" . htmlspecialchars($_POST['nomor_hp']) . "');
+                localStorage.setItem('tempat_lahir', '" . htmlspecialchars($_POST['tempat_lahir']) . "');
+                localStorage.setItem('tanggal_lahir', '" . htmlspecialchars($_POST['tanggal_lahir']) . "');
+                localStorage.setItem('alamat', '" . htmlspecialchars($_POST['alamat']) . "');
                 window.location.href = 'index.php?page=tambah_user';
             });
         </script>";
@@ -65,13 +95,27 @@ if (isset($_POST['submit'])) {
                 timer: 5000,
                 showConfirmButton: true
             }).then(() => {
+                localStorage.setItem('nisn', '" . htmlspecialchars($_POST['nisn']) . "');
+                localStorage.setItem('nip', '" . htmlspecialchars($_POST['nip']) . "');
+                localStorage.setItem('nik', '" . htmlspecialchars($_POST['nik']) . "');
+                localStorage.setItem('email', '" . htmlspecialchars($_POST['email']) . "');
+                localStorage.setItem('username', '" . htmlspecialchars($_POST['username']) . "');
+                localStorage.setItem('password', '" . htmlspecialchars($_POST['password']) . "');
+                localStorage.setItem('nama', '" . htmlspecialchars($_POST['nama']) . "');
+                localStorage.setItem('kelas', '" . htmlspecialchars($_POST['kelas']) . "');
+                localStorage.setItem('jadwal_piket_id', '" . htmlspecialchars($_POST['jadwal_piket_id']) . "');
+                localStorage.setItem('role_id', '" . htmlspecialchars($_POST['role_id']) . "');
+                localStorage.setItem('jabatan_id', '" . htmlspecialchars($_POST['jabatan_id']) . "');
+                localStorage.setItem('nomor_hp', '" . htmlspecialchars($_POST['nomor_hp']) . "');
+                localStorage.setItem('tempat_lahir', '" . htmlspecialchars($_POST['tempat_lahir']) . "');
+                localStorage.setItem('tanggal_lahir', '" . htmlspecialchars($_POST['tanggal_lahir']) . "');
+                localStorage.setItem('alamat', '" . htmlspecialchars($_POST['alamat']) . "');
                 window.location.href = 'index.php?page=tambah_user';
             });
         </script>";
             exit;
         }
     }
-
 
 
     // Jika username sudah terdaftar
@@ -89,15 +133,27 @@ if (isset($_POST['submit'])) {
                 timer: 5000,
                 showConfirmButton: true
             }).then(() => {
+                localStorage.setItem('nisn', '" . htmlspecialchars($_POST['nisn']) . "');
+                localStorage.setItem('nip', '" . htmlspecialchars($_POST['nip']) . "');
+                localStorage.setItem('nik', '" . htmlspecialchars($_POST['nik']) . "');
+                localStorage.setItem('email', '" . htmlspecialchars($_POST['email']) . "');
+                localStorage.setItem('username', '" . htmlspecialchars($_POST['username']) . "');
+                localStorage.setItem('password', '" . htmlspecialchars($_POST['password']) . "');
+                localStorage.setItem('nama', '" . htmlspecialchars($_POST['nama']) . "');
+                localStorage.setItem('kelas', '" . htmlspecialchars($_POST['kelas']) . "');
+                localStorage.setItem('jadwal_piket_id', '" . htmlspecialchars($_POST['jadwal_piket_id']) . "');
+                localStorage.setItem('role_id', '" . htmlspecialchars($_POST['role_id']) . "');
+                localStorage.setItem('jabatan_id', '" . htmlspecialchars($_POST['jabatan_id']) . "');
+                localStorage.setItem('nomor_hp', '" . htmlspecialchars($_POST['nomor_hp']) . "');
+                localStorage.setItem('tempat_lahir', '" . htmlspecialchars($_POST['tempat_lahir']) . "');
+                localStorage.setItem('tanggal_lahir', '" . htmlspecialchars($_POST['tanggal_lahir']) . "');
+                localStorage.setItem('alamat', '" . htmlspecialchars($_POST['alamat']) . "');
                 window.location.href = 'index.php?page=tambah_user';
             });
         </script>";
             exit;
         }
     }
-
-
-
 
 
     // Query untuk menambah data user
@@ -139,7 +195,6 @@ if (isset($_POST['submit'])) {
     echo "
     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil!',
@@ -147,11 +202,24 @@ if (isset($_POST['submit'])) {
                 confirmButtonColor: '#3085d6',
                 timer: 6000,
                 timerProgressBar: true,
-                    willClose: () => {
+                }).then(() => {
+                    localStorage.removeItem('nisn');
+                    localStorage.removeItem('nip');
+                    localStorage.removeItem('nik');
+                    localStorage.removeItem('email');
+                    localStorage.removeItem('username');
+                    localStorage.removeItem('password');
+                    localStorage.removeItem('nama');
+                    localStorage.removeItem('kelas');
+                    localStorage.removeItem('role_id');
+                    localStorage.removeItem('jabatan_id');
+                    localStorage.removeItem('jadwal_piket_id');
+                    localStorage.removeItem('nomor_hp');
+                    localStorage.removeItem('tempat_lahir');
+                    localStorage.removeItem('tanggal_lahir');
+                    localStorage.removeItem('alamat');
                     window.location.href = `index.php?page=daftar_user`;
-                }
             });
-        });
     </script>";
     exit();
 }
@@ -194,13 +262,13 @@ if (isset($_POST['submit'])) {
 
                             <label for="nisn" class="col-sm-2 col-form-label text-sm">NISN</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control form-control-sm" name="nisn" id="nisn">
+                                <input type="text" class="form-control form-control-sm" name="nisn" id="nisn" autofocus>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="nip" class="col-sm-2 col-form-label text-sm">NIP</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control form-control-sm" name="nip" id="nip ">
+                                <input type="text" class="form-control form-control-sm" name="nip" id="nip">
                             </div>
                         </div>
 
@@ -214,14 +282,15 @@ if (isset($_POST['submit'])) {
                         <div class="mb-3 row">
                             <label for="staticEmail" class="col-sm-2 col-form-label text-sm">Email</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control form-control-sm" name="email" id="staticEmail">
+                                <input type="text" class="form-control form-control-sm" name="email" id="email">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="username" class="col-sm-2 col-form-label text-sm">Username</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control form-control-sm" name="username" id="username">
+                                <input type="text" class="form-control form-control-sm" name="username" id="username"
+                                    required>
                             </div>
                         </div>
 
@@ -259,7 +328,8 @@ if (isset($_POST['submit'])) {
                         <div class="mb-3 row">
                             <label for="nama" class="col-sm-2 col-form-label text-sm">Jadwal Piket</label>
                             <div class="col-sm-10">
-                                <select name="jadwal_piket_id" class="form-select form-select-sm" id="" required autofocus>
+                                <select name="jadwal_piket_id" class="form-select form-select-sm" id="jadwal_piket_id"
+                                    required autofocus>
                                     <?php
                                     $stmt = $db->prepare("SELECT * FROM jadwal_piket");
                                     $stmt->execute();
@@ -280,7 +350,8 @@ if (isset($_POST['submit'])) {
                                 $stmt->execute();
                                 $allRoles = $stmt->fetchAll();
                                 ?>
-                                <select name="role_id" class="form-select form-select-sm text-capitalize" id="role_id" required>
+                                <select name="role_id" class="form-select form-select-sm text-capitalize" id="role_id"
+                                    required>
                                     <?php foreach ($allRoles as $r): ?>
                                         <option class="text-capitalize" value="<?= $r['id_role']; ?>">
                                             <span class=" text-capitalize">
@@ -291,14 +362,15 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="nama_jabatan" class="col-sm-2 col-form-label text-sm">Jabatan</label>
+                            <label for="jabatan_id" class="col-sm-2 col-form-label text-sm">Jabatan</label>
                             <div class="col-sm-10">
                                 <?php
                                 $stmt = $db->prepare("SELECT id AS id_jabatan, nama_jabatan AS jabatan_nama , status_kelas FROM jabatan");
                                 $stmt->execute();
                                 $alljabatan = $stmt->fetchAll();
                                 ?>
-                                <select name="jabatan_id" class="form-select form-select-sm text-capitalize" id="nama_jabatan">
+                                <select name="jabatan_id" class="form-select form-select-sm text-capitalize"
+                                    id="jabatan_id">
                                     <?php foreach ($alljabatan as $jbtn): ?>
                                         <option class="text-capitalize" value="<?= $jbtn['id_jabatan']; ?>">
                                             <span class="text-capitalize">
@@ -320,14 +392,16 @@ if (isset($_POST['submit'])) {
                         <div class="mb-3 row">
                             <label for="tempat_lahir" class="col-sm-2 col-form-label text-sm">Tempat Lahir</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control form-control-sm" name="tempat_lahir" id="tempat_lahir">
+                                <input type="text" class="form-control form-control-sm" name="tempat_lahir"
+                                    id="tempat_lahir">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="tanggal_lahir" class="col-sm-2 col-form-label text-sm">Tanggal Lahir</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control form-control-sm" name="tanggal_lahir" id="tanggal_lahir">
+                                <input type="date" class="form-control form-control-sm" name="tanggal_lahir"
+                                    id="tanggal_lahir">
                             </div>
                         </div>
 
@@ -353,42 +427,61 @@ if (isset($_POST['submit'])) {
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const fields = ["nisn", "nip", "nik", "username"];
+<!-- SCRIPT FOR USERNAME , NISN , NIK , NIP ALREADY EXIST -->
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        let nisn = localStorage.getItem('nisn');
+        let nip = localStorage.getItem('nip');
+        let nik = localStorage.getItem('nik');
+        let email = localStorage.getItem('email');
+        let username = localStorage.getItem('username');
+        let password = localStorage.getItem('password');
+        let nama = localStorage.getItem('nama');
+        let kelas = localStorage.getItem('kelas');
+        let jadwal_piket_id = localStorage.getItem('jadwal_piket_id');
+        let role_id = localStorage.getItem('role_id');
+        let jabatan_id = localStorage.getItem('jabatan_id');
+        let nomor_hp = localStorage.getItem('nomor_hp');
+        let tempat_lahir = localStorage.getItem('tempat_lahir');
+        let tanggal_lahir = localStorage.getItem('tanggal_lahir');
+        let alamat = localStorage.getItem('alamat');
 
-        fields.forEach(field => {
-            const input = document.getElementById(field);
-            if (input) {
-                input.addEventListener("blur", function() { // blur = saat pindah dari input
-                    const value = this.value.trim();
-                    if (value !== "") {
-                        fetch("views/ajax/check_unique_input_user.php", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/x-www-form-urlencoded"
-                                },
-                                body: "field=" + encodeURIComponent(field) + "&value=" + encodeURIComponent(value)
-                            })
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.status === "duplicate") {
-                                    Swal.fire({
-                                        icon: "error",
-                                        title: "Duplikat!",
-                                        text: data.message,
-                                        confirmButtonColor: "#d33"
-                                    });
-                                    input.value = ""; // kosongkan input kalau duplicate
-                                    input.focus();
-                                }
-                            });
-                    }
-                });
-            }
-        });
+        if (username || nisn || nip || nik) {
+            document.getElementById('nisn').value = nisn;
+            document.getElementById('nip').value = nip;
+            document.getElementById('nik').value = nik;
+            document.getElementById('email').value = email;
+            document.getElementById('username').value = username;
+            document.getElementById('nama').value = nama;
+            document.getElementById('password').value = password;
+            document.getElementById('kelas').value = kelas;
+            document.getElementById('role_id').value = role_id;
+            document.getElementById('jabatan_id').value = jabatan_id;
+            document.getElementById('jadwal_piket_id').value = jadwal_piket_id;
+            document.getElementById('nomor_hp').value = nomor_hp;
+            document.getElementById('tempat_lahir').value = tempat_lahir;
+            document.getElementById('tanggal_lahir').value = tanggal_lahir;
+            document.getElementById('alamat').value = alamat;
+
+            // Clear the localStorage after using the data
+            localStorage.removeItem('nisn');
+            localStorage.removeItem('nip');
+            localStorage.removeItem('nik');
+            localStorage.removeItem('email');
+            localStorage.removeItem('username');
+            localStorage.removeItem('password');
+            localStorage.removeItem('nama');
+            localStorage.removeItem('kelas');
+            localStorage.removeItem('role_id');
+            localStorage.removeItem('jabatan_id');
+            localStorage.removeItem('jadwal_piket_id');
+            localStorage.removeItem('nomor_hp');
+            localStorage.removeItem('tempat_lahir');
+            localStorage.removeItem('tanggal_lahir');
+            localStorage.removeItem('alamat');
+        }
     });
+
 </script>
 
 

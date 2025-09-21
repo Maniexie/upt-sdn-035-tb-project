@@ -46,7 +46,8 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
 <div class="container w-auto">
     <section>
         <div class="container d-flex justify-content-between">
-            <a href="index.php?page=daftar_siswa_for_admin&scroll_to=<?= htmlspecialchars($dataSiswa['id']) ?> "
+            <a type="button"
+                href="index.php?page=daftar_siswa_for_admin&scroll_to=<?= htmlspecialchars($dataSiswa['id']) ?> "
                 class="btn btn-secondary mt-3" onclick="window.close();">
                 ← Kembali
             </a>
@@ -188,7 +189,7 @@ $nipGuru = $guru ? $guru['nip'] : 'NIP Wali Kelas';
 
 <!-- Script untuk melakukan scroll ke elemen tertentu -->
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const urlParams = new URLSearchParams(window.location.search);
         const scrollToId = urlParams.get('scroll_to');
 

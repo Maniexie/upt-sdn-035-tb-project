@@ -172,7 +172,9 @@ if (isset($_POST["submit"])) {
 
         .form-control {
             height: 30px;
+            font-size: 12px;
         }
+
 
         .form-select {
             height: 30px;
@@ -188,7 +190,7 @@ if (isset($_POST["submit"])) {
                 Kembali</a>
         </div>
         <div class="container-md">
-            <h1 class="text-center title">Halaman Edit Data Siswa </h1>
+            <h1 class="text-center title">Halaman Tambah Data Siswa </h1>
             <?php if (!empty($error_message)): ?>
                 <div class="alert alert-danger">
                     <?= htmlspecialchars($error_message) ?>

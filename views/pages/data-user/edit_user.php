@@ -9,6 +9,7 @@ $result = $stmt->fetchAll();
 
 
 if (isset($_POST['submit'])) {
+    // var_dump($_POST); // Debugging
     $id = $_POST['id'];
     $nisn = trim($_POST['nisn']);
     $nip = trim($_POST['nip']);
@@ -57,6 +58,8 @@ if (isset($_POST['submit'])) {
                     title: 'Gagal!',
                     text: 'Data $field sudah digunakan oleh user lain',
                     confirmButtonColor: '#d33'
+                }).then((result) => {
+                    window.location.href = 'index.php?page=edit_user&id=$id';
                 });
             });
         </script>
@@ -69,20 +72,21 @@ if (isset($_POST['submit'])) {
         WHERE id = :id');
         $stmt->execute([
             ':id' => $id,
-            ':nisn' => $nisn,
-            ':nip' => $nip,
-            ':nik' => $nik,
-            ':nama' => $_POST['nama'],
-            ':username' => $username,
-            ':email' => $email,
-            ':kelas' => $_POST['kelas'],
-            ':jabatan_id' => $_POST['jabatan_id'],
-            ':role_id' => $_POST['role_id'],
-            ':tempat_lahir' => $_POST['tempat_lahir'],
-            ':tanggal_lahir' => $_POST['tanggal_lahir'],
-            ':alamat' => $_POST['alamat'],
-            ':nomor_hp' => $_POST['nomor_hp']
+            ':nisn' => trim($_POST['nisn']),
+            ':nip' => trim($_POST['nip']),
+            ':nik' => trim($_POST['nik']),
+            ':nama' => trim($_POST['nama']),
+            ':username' => trim($_POST['username']),
+            ':email' => trim($_POST['email']),
+            ':kelas' => trim($_POST['kelas']),
+            ':jabatan_id' => trim($_POST['jabatan_id']),
+            ':role_id' => trim($_POST['role_id']),
+            ':tempat_lahir' => trim($_POST['tempat_lahir']),
+            ':tanggal_lahir' => trim($_POST['tanggal_lahir']),
+            ':alamat' => trim($_POST['alamat']),
+            ':nomor_hp' => trim($_POST['nomor_hp'])
         ]);
+
 
         $nama = htmlspecialchars($_POST['nama']);
         echo "
@@ -157,7 +161,7 @@ if (isset($_POST['submit'])) {
                             <div class="mb-3 row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="email" id="staticEmail"
+                                    <input type="text" class="form-control" name="email" id="email"
                                         value="<?= $row['email']; ?>">
                                 </div>
                             </div>
@@ -278,5 +282,7 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 </div>
+
+
 
 <?php require_once __DIR__ . '/../../layouts/header.php'; ?>

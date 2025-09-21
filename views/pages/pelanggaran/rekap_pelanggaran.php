@@ -123,13 +123,15 @@ foreach ($urutanKelas as $kelas) {
                                                     <td><?= htmlspecialchars($siswa['kelas']) ?></td>
                                                     <td><?= $siswa['total_poin'] ?></td>
                                                     <td class="btn-sm">
-                                                        <a href="index.php?page=detail_pelanggaran&id=<?= $siswa['siswa_id'] ?>"
+                                                        <a target="_blank"
+                                                            href="index.php?page=detail_pelanggaran&id=<?= $siswa['siswa_id'] ?>"
                                                             class="btn btn-primary btn-sm">
                                                             Detail
                                                             <!-- <i class="fa-solid fa-file-pdf"></i> -->
                                                         </a>
 
-                                                        <a href="index.php?page=rekap_pelanggaran_siswa&id=<?= $siswa['siswa_id'] ?>"
+                                                        <a target="_blank"
+                                                            href="index.php?page=rekap_pelanggaran_siswa&id=<?= $siswa['siswa_id'] ?>"
                                                             class="btn btn-success btn-sm">
                                                             Rekap
                                                             <i class="fa-solid fa-file-pdf"></i>

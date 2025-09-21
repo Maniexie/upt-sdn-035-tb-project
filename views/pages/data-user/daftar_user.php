@@ -50,6 +50,11 @@ $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
             font-size: 10px;
             padding: 1px;
         }
+
+        /* .table-responsive {
+            max-height: 100px;
+            overflow-y: auto;
+        } */
     }
 </style>
 
@@ -58,7 +63,8 @@ $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
     <section class="d-flex justify-content-between mb-0 ">
         <a href="index.php?page=tambah_user" class="btn btn-primary mb-3 btn-tambah-user">+ Tambah User</a>
         <form role="search">
-            <input class="form-control table-search " type="search" placeholder="Search" aria-label="Search" id="searchInput" autofocus>
+            <input class="form-control table-search " type="search" placeholder="Search" aria-label="Search"
+                id="searchInput" autofocus>
         </form>
     </section>
 
@@ -145,11 +151,11 @@ $getAllUser = $getAllUserStmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const searchInput = document.getElementById("searchInput");
         const rows = document.querySelectorAll("tbody tr");
 
-        searchInput.addEventListener("keyup", function() {
+        searchInput.addEventListener("keyup", function () {
             const keyword = this.value.toLowerCase();
 
             rows.forEach(row => {

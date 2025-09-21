@@ -63,6 +63,7 @@ echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
             timer: 5000,
             showConfirmButton: true
         }).then(() => {
+        localStorage.setItem('username', '" . htmlspecialchars($_POST['username']) . "');
             window.location.href = 'index.php?page=login';
         });
     </script>";

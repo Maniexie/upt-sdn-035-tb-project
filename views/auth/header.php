@@ -20,10 +20,10 @@
             margin: 0;
         }
 
-        .register_form {
+        /* .register_form {
             margin-top: 10px;
             height: 500px;
-        }
+        } */
 
         .kotak {
             margin-top: 10px;
@@ -47,11 +47,13 @@
                 width: auto;
             }
 
+
             body {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: burlywood;
+                background-color: #9A616D;
+            }
+
+            section {
+                background-color: #9A616D;
             }
 
         }
@@ -68,13 +70,14 @@
     </style>
 </head>
 
-<section class="vh-100 d-flex justify-content-center align-items-center" style="background-color: #9A616D;">
-    <div class="register_form">
-        <div class="card">
-            <div class="row g-0">
-                <div class="col-md-6 col-lg-5 d-none d-md-block">
-                    <img src="<?= BASE_URL ?>assets/img/logo.jpg" alt="Auth Form" class="img-fluid mt-5 ms-5 pb-5"
-                        style="border-radius: 1rem 0 0 1rem;" />
-                </div>
-                <div class="col-md-6 col-lg-7 d-flex align-items-center">
-                    <div class="card-body p-4 p-lg-5 text-black">
+<body style="background-color: #9A616D;">
+    <section class="vh-100 d-flex justify-content-center align-items-center" style="background-color: #9A616D;">
+        <div class="register_form">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-6 col-lg-5 d-none d-md-block">
+                        <img src="<?= BASE_URL ?>assets/img/logo.jpg" alt="Auth Form" class="img-fluid mt-5 ms-5 pb-5"
+                            style="border-radius: 1rem 0 0 1rem;" />
+                    </div>
+                    <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                        <div class="card-body p-4 p-lg-5 text-black">

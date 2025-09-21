@@ -46,20 +46,23 @@ if (isset($_POST['submit'])) {
 ?>
 
 <style>
-    .card-title {
-        font-size: 16px;
-    }
+    @media screen and (max-width: 768px) {
 
-    .form-label-small {
-        font-size: 12px;
-    }
+        .card-title {
+            font-size: 16px;
+        }
 
-    .form-input-sm {
-        font-size: 10px;
-    }
+        .form-label-small {
+            font-size: 12px;
+        }
 
-    .btn {
-        font-size: 10px;
+        .form-input-sm {
+            font-size: 10px;
+        }
+
+        .btn {
+            font-size: 10px;
+        }
     }
 </style>
 
@@ -85,16 +88,19 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="kode_jabatan" class="col-sm-2 col-form-label form-label-small">kode_jabatan</label>
+                            <label for="kode_jabatan"
+                                class="col-sm-2 col-form-label form-label-small">kode_jabatan</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control form-input-sm" name="kode_jabatan" id="kode_jabatan"
-                                    value="<?= $result['kode_jabatan'] ?>">
+                                <input type="text" class="form-control form-input-sm" name="kode_jabatan"
+                                    id="kode_jabatan" value="<?= $result['kode_jabatan'] ?>">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="nama_jabatan" class="col-sm-2 col-form-label form-label-small">nama_jabatan</label>
+                            <label for="nama_jabatan"
+                                class="col-sm-2 col-form-label form-label-small">nama_jabatan</label>
                             <div class="col-sm-10">
-                                <select name="nama_jabatan" id="nama_jabatan" class="form-control form-select form-input-sm">
+                                <select name="nama_jabatan" id="nama_jabatan"
+                                    class="form-control form-select form-input-sm">
                                     <?php
                                     $options = [
                                         'Kepala Sekolah',
@@ -125,7 +131,8 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="status_kelas" class="col-sm-2 col-form-label form-label-small">status_kelas</label>
+                            <label for="status_kelas"
+                                class="col-sm-2 col-form-label form-label-small">status_kelas</label>
                             <div class="col-sm-10">
                                 <select name="status_kelas" id="status_kelas" class="form-select form-input-sm">
                                     <option value="-">-</option>
