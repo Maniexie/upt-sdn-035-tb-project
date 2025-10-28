@@ -23,7 +23,6 @@
 <!-- <script src="<?= BASE_URL ?>assets/js/slider.js"></script> -->
 <script src="<?= BASE_URL ?>assets/js/sidebar.js"></script>
 
-
 <!-- chart js -->
 <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

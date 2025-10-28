@@ -1,5 +1,6 @@
 <?php
 
+
 require_once __DIR__ . ("/../../config/koneksi.php");
 require_once(__DIR__ . '/../layouts/header.php');
 
@@ -75,7 +76,7 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
 
 
 <script>
-    window.onload = function() {
+    window.onload = function () {
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             theme: "dark2",
@@ -180,6 +181,7 @@ while ($row = $getDataPelanggaranHarian->fetch_assoc()) {
 
 <!-- chart js -->
 <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+
 </div>
 </div>
 

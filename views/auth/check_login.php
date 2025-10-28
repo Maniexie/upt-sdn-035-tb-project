@@ -35,6 +35,7 @@ if ($user = $result->fetch_assoc()) {
         $_SESSION['user_username'] = $user['username'];
         $_SESSION['user_kelas'] = $user['kelas'];
         $_SESSION['user_jadwal_piket'] = $user['jadwal_piket_id'];
+        $_SESSION['user_validator'] = $user['validator'];
 
         // Redirect sesuai role
         switch ($user['role_name']) {

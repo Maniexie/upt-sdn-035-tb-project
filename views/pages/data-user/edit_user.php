@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
         // Lolos validasi → Update data
         $stmt = $db->prepare('UPDATE users SET nisn = :nisn, nip = :nip, nik = :nik, nama = :nama, 
         username = :username, email = :email, kelas = :kelas, jabatan_id = :jabatan_id, role_id = :role_id , 
-        tempat_lahir = :tempat_lahir, tanggal_lahir = :tanggal_lahir, alamat = :alamat, nomor_hp = :nomor_hp 
+        tempat_lahir = :tempat_lahir, tanggal_lahir = :tanggal_lahir, alamat = :alamat, nomor_hp = :nomor_hp , validator = :validator
         WHERE id = :id');
         $stmt->execute([
             ':id' => $id,
@@ -84,7 +84,8 @@ if (isset($_POST['submit'])) {
             ':tempat_lahir' => trim($_POST['tempat_lahir']),
             ':tanggal_lahir' => trim($_POST['tanggal_lahir']),
             ':alamat' => trim($_POST['alamat']),
-            ':nomor_hp' => trim($_POST['nomor_hp'])
+            ':nomor_hp' => trim($_POST['nomor_hp']),
+            ':validator' => trim($_POST['validator'])
         ]);
 
 
@@ -228,6 +229,19 @@ if (isset($_POST['submit'])) {
                                                     <?= htmlspecialchars($jbtn['jabatan_nama']); ?></span>
                                             </option>
                                         <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3 row">
+                                <label for="validator" class="col-sm-2 col-form-label">Validator</label>
+                                <div class="col-sm-10">
+
+                                    <select name="validator" class="form-select text-capitalize" id="validator" required>
+                                        <option value="">Pilih Validator</option>
+                                        <option value="yes" <?= $row['validator'] == 'yes' ? 'selected' : ''; ?>>Yes</option>
+                                        <option value="no" <?= $row['validator'] == 'no' ? 'selected' : ''; ?>>No</option>
                                     </select>
                                 </div>
                             </div>

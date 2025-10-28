@@ -187,6 +187,23 @@ switch ($page) {
         $title = "Detail Siswa";
         $content = "pages/data-siswa/detail_siswa_for_guru.php";
         break;
+    case "soal_supervisi":
+        $title = "Soal Supervisi";
+        $content = "pages/supervisi/soal_supervisi.php";
+        break;
+    case "input_questioner":
+        $title = "Input Quesioner";
+        $content = "pages/supervisi/input_questioner.php";
+        break;
+    case "input_questioner_category":
+        $title = "Input Category Quesioner";
+        $content = "pages/supervisi/input_questioner_category.php";
+        break;
+
+    case "questioner":
+        $title = "Questioner";
+        $content = "pages/supervisi/questioner.php";
+        break;
     default:
         $title = "Page Not Found";
         $content = "pages/404.php"; // optional
@@ -271,6 +288,19 @@ $allowedPages = [
 
     //pelanggaran//input-pelanggaran
     'edit_input_pelanggaran' => 'views/pages/pelanggaran/edit_input_pelanggaran.php',
+
+
+    //supervisi
+    'soal_supervisi' => 'views/pages/supervisi/soal_supervisi.php',
+    'input_questioner' => 'views/pages/supervisi/input_questioner.php',
+    'input_questioner_category' => 'views/pages/supervisi/input_questioner_category.php',
+    'questioner' => 'views/pages/supervisi/questioner.php',
+    'daftar_validator' => 'views/pages/supervisi/daftar_validator.php',
+    'tambah_validator' => 'views/pages/supervisi/tambah_validator.php',
+    'daftar_validitas_aiken' => 'views/pages/supervisi/daftar_validitas_aiken.php',
+    'daftar_responden' => 'views/pages/supervisi/daftar_responden.php',
+    'aiken_detail' => 'views/pages/supervisi/aiken_detail.php',
+    'aiken_chart' => 'views/pages/supervisi/aiken_chart.php',
 
     //ajax
     'get_siswa_by_kelas' => 'views/ajax/get_siswa_by_kelas.php',

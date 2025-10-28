@@ -36,6 +36,13 @@ $userHariPiket = $stmt->fetchColumn() ?? '';
 //     exit();
 // }
 
+
+// Cek apakah pengguna sudah mengisi questioner sebelumnya
+$stmt = $db->prepare('SELECT COUNT(*) FROM questioner_answer WHERE user_id = :user_id');
+$stmt->execute(['user_id' => $_SESSION['user_id']]);
+$userAnsweredCount = $stmt->fetchColumn();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -271,6 +278,60 @@ $userHariPiket = $stmt->fetchColumn() ?? '';
                     </ul>
                 </div>
             </li>
+            <!-- SUPERVISI -->
+            <?php if ($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2): ?>
+                <li class="nav-item">
+                    <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                        data-bs-toggle="collapse" href="#supervisi-bro" role="button" aria-expanded="false"
+                        aria-controls="supervisi-bro">
+                        <span>Supervisi</span>
+                        <i class="fa fa-chevron-down"></i>
+                    </a>
+
+                    <div class="collapse ps-3 mt-1" id="supervisi-bro">
+                        <ul class="nav flex-column">
+                            <?php if ($_SESSION['role_id'] == 1): ?>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="index.php?page=soal_supervisi">
+                                        <i class="fa fa-bolt me-2 text-warning"></i> Soal Supervisi
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+
+                            <?php if (($_SESSION['role_id'] == 1 || $_SESSION['role_id'] == 2) && $_SESSION['user_validator'] == 'yes'): ?>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="index.php?page=questioner">
+                                        <i class="fa fa-cogs me-2 text-info"></i> Questioner
+                                        <?php if ($_SESSION['user_validator'] == 'yes' && $userAnsweredCount > 0): ?>
+                                            <span class="badge bg-success rounded-pill ms-2">✅</span>
+                                        <?php endif; ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+
+
+
+
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="index.php?page=daftar_validator">
+                                    <i class="fa fa-book me-2 text-warning"></i> Daftar Validator
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="index.php?page=daftar_responden">
+                                    <i class="fa fa-book me-2 text-warning"></i> Daftar Responden
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="index.php?page=daftar_validitas_aiken">
+                                    <i class="fa fa-question-circle me-2 text-light"></i> Daftar Validitas Aiken
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            <?php endif; ?>
             <!-- PENGATURAN -->
             <!-- <li class="nav-item">
                 <a class="nav-link text-white d-flex justify-content-between align-items-center"

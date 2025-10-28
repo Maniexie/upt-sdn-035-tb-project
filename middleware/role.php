@@ -44,6 +44,17 @@ function checkRoleAccess($page)
             'edit_jenis_pelanggaran',
             'hapus_jenis_pelanggaran',
             'edit_input_pelanggaran',
+            'soal_supervisi',
+            'input_questioner_category',
+            'input_questioner',
+            'questioner',
+            'daftar_validator',
+            'tambah_validator',
+            'daftar_validitas_aiken',
+            'daftar_responden',
+            'aiken_detail',
+            'aiken_chart',
+
 
         ],
         2 => [ // guru
@@ -64,6 +75,13 @@ function checkRoleAccess($page)
             'edit_input_pelanggaran',
             'edit_profile',
             'detail_siswa_for_guru',
+            'questioner',
+            'daftar_validator',
+            'daftar_validitas_aiken',
+            'daftar_responden',
+            'aiken_detail',
+            'aiken_chart',
+
         ],
         3 => [ // siswa
             'dashboard',
