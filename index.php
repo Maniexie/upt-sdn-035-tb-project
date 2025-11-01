@@ -302,6 +302,11 @@ $allowedPages = [
     'aiken_detail' => 'views/pages/supervisi/aiken_detail.php',
     'aiken_chart' => 'views/pages/supervisi/aiken_chart.php',
 
+
+    //supervisi-kepala-sekolah
+    'daftar_guru_for_supervisi' => 'views/pages/supervisi-kepala-sekolah/daftar_guru_for_supervisi.php',
+    'form_penilaian_kepala_sekolah' => 'views/pages/supervisi-kepala-sekolah/form_penilaian_kepala_sekolah.php',
+
     //ajax
     'get_siswa_by_kelas' => 'views/ajax/get_siswa_by_kelas.php',
     'check_unique_input_user' => 'views/ajax/check_unique_input_user.php',

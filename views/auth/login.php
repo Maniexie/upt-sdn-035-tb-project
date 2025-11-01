@@ -39,7 +39,8 @@ require_once __DIR__ . '/header.php';
     <div class="form-outline mb-4">
         <label class="form-label" for="username">ID</label>
         <input id="username" type="text" name="username" class="form-control" required autofocus checked
-            placeholder="NIP / NISN / Username" value="<?= htmlspecialchars($_POST['username'] ?? '') ?>" />
+            placeholder="NIP / NISN / Username"
+            value="<?= htmlspecialchars($_POST[trim('username')] ?? $_SESSION['username'] ?? '') ?>" />
     </div>
 
     <div class="form-outline mb-4">

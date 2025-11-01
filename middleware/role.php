@@ -54,6 +54,8 @@ function checkRoleAccess($page)
             'daftar_responden',
             'aiken_detail',
             'aiken_chart',
+            'form_penilaian_kepala_sekolah',
+            'daftar_guru_for_supervisi',
 
 
         ],

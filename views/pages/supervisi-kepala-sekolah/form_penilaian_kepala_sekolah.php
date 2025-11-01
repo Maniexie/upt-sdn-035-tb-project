@@ -2,44 +2,39 @@
 require_once __DIR__ . '/../../layouts/header.php';
 require_once __DIR__ . '/../../../koneksi.php';
 
+// Mendapatkan ID pengguna dari URL / daftar_guru_for_supervisi
+$id = (int) $_GET['id'];
+//==============================================================//
+
+// Cek login
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 } else {
     echo 'Session user_id tidak ditemukan.';
     exit;
 }
+//==============================================================//
 
-// Cek apakah pengguna sudah mengisi questioner sebelumnya
-$stmt = $db->prepare('SELECT COUNT(*) FROM questioner_answer WHERE user_id = :user_id');
-$stmt->execute(['user_id' => $_SESSION['user_id']]);
-$userAnsweredCount = $stmt->fetchColumn();
+// Mengambil data user
+$getAllUserStmt = $db->prepare('SELECT * FROM users WHERE role_id IN (1, 2) AND id = :id LIMIT 1');
+$getAllUserStmt->execute(['id' => $id]);
 
-if ($userAnsweredCount > 0) {
-    echo "
-    <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'Terimakasih 🙏',
-                        text: 'Kamu Sudah Mengisi Questioner.',
-                        confirmButtonColor: '#3085d6',
-                        timer: 60000,
-                        timerProgressBar: true,
-                        willClose: () => {
-                            window.location.href = 'index.php?page=daftar_validator';
-                        }
-                    });
-                });
-            </script>
-    ";
-
+if (!$getAllUserStmt) {
+    echo "<div class='alert alert-danger'>Data pengguna tidak ditemukan di database.</div>";
+    require_once __DIR__ . '/../../layouts/footer.php';
+    exit;
 }
 
+$getAllUserStmt = $getAllUserStmt->fetch();
+//=================================================================//
 
 
+
+// Mendapatkan questioner valid 
 $stmt = $db->prepare('SELECT questioner.id  ,questioner.questioner_category_id , questioner.question , questioner_category.name_category 
                       FROM questioner 
                       JOIN questioner_category ON questioner.questioner_category_id = questioner_category.id 
+                      WHERE questioner.status_valid = "Valid"
                       ORDER BY questioner.questioner_category_id ASC');
 $stmt->execute();
 $questioner = $stmt->fetchAll();
@@ -48,14 +43,11 @@ $questioner = $stmt->fetchAll();
 $groupedQuestions = [];
 foreach ($questioner as $item) {
     $groupedQuestions[$item['questioner_category_id']]['name_category'] = $item['name_category'];
-    // $groupedQuestions[$item['questioner_category_id']]['questions'][] = $item['question'];
     // Menyimpan ID pertanyaan bersama dengan pertanyaan
     $groupedQuestions[$item['questioner_category_id']]['questions'][] = [
         'id' => $item['id'],  // Menyimpan ID pertanyaan
         'question' => $item['question']
     ];
-
-
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -94,8 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Persiapkan query untuk menyimpan jawaban
         $questioner_answer_query = $db->prepare('
-            INSERT INTO questioner_answer (user_id, questioner_id, answer, answerA, answerB, answerC, answerD, answerE)
-            VALUES (:user_id, :questioner_id, :answer, :answerA, :answerB, :answerC, :answerD, :answerE)
+            INSERT INTO responden (user_id, questioner_id, supervisi_id , answer, answerA, answerB, answerC, answerD, answerE, created_at)
+            VALUES (:user_id, :questioner_id,:supervisi_id, :answer, :answerA, :answerB, :answerC, :answerD, :answerE, NOW())
         ');
 
         // Looping kategori dan pertanyaan untuk menyimpan jawaban
@@ -110,7 +102,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Query untuk memasukkan jawaban ke database
             $questioner_answer_query->execute([
                 'questioner_id' => $questionerId,  // Menyimpan ID pertanyaan
-                'user_id' => $user_id_questioner,
+                'user_id' => $id,
+                'supervisi_id' => $_SESSION['user_id'],
                 'answer' => $answer,
                 'answerA' => $answerA,
                 'answerB' => $answerB,
@@ -120,7 +113,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ]);
         }
 
-
         // Menampilkan pesan sukses setelah pengiriman data
         echo "
             <script>
@@ -128,12 +120,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     Swal.fire({
                         icon: 'success',
                         title: 'Berhasil!',
-                        text: 'Jawaban berhasil disimpan.',
+                        text: 'Supervisi berhasil disimpan.',
                         confirmButtonColor: '#3085d6',
                         timer: 60000,
                         timerProgressBar: true,
                         willClose: () => {
-                            window.location.href = 'index.php?page=daftar_validator';
+                            window.location.href = 'index.php?page=daftar_guru_for_supervisi';
                         }
                     });
                 });
@@ -147,19 +139,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="table">
         <div class="form ">
             <form action="" method="post" class="mt-1 border rounded p-3">
+                <ul class="list-none">
+                    <li>
+                        <p class="color-primary">Nama Guru : <span>
+                                <?= htmlspecialchars($getAllUserStmt['nama']) ?></span>
+                        </p>
+                    </li>
+                </ul>
 
                 <?php foreach ($groupedQuestions as $categoryId => $categoryData): ?>
                     <h5 class="mt-3 color-primary" style="background-color: blueviolet; color: white;">Kategori:
                         <?= $categoryData['name_category'] ?>
                     </h5>
-                    <div class="questioner-button border rounded">
+                    <div class=" questioner-button border rounded">
 
                         <?php foreach ($categoryData['questions'] as $index => $question): ?>
                             <!-- Menampilkan pertanyaan -->
-                            <p class="border-bottom border-top"> <?= $index + 1 ?>. <?= $question['question'] ?></p>
+                            <p class="border-bottom border-top"> <?= $index + 1 ?>. <?= $question['question'] ?> || Status
+                                Questioner =
+                            </p>
 
                             <!-- Menggunakan nama unik untuk setiap radio button, berdasarkan categoryId dan index pertanyaan -->
-                            <div class="form-check ">
+                            <div class=" form-check ">
                                 <input class="form-check-input" type="radio" name="answer[<?= $question['id'] ?>]" value="A"
                                     id="radioDefault1_<?= $categoryId ?>_<?= $index ?>" required>
                                 <label class="form-check-label" for="radioDefault1_<?= $categoryId ?>_<?= $index ?>">

@@ -73,6 +73,11 @@ $validators = $getValidators->fetchAll(PDO::FETCH_ASSOC);
                     $n_c_minus_1 = $count * $c_minus_1;
                     $V = $sumS / $n_c_minus_1;
                     $status = ($V >= 0.8) ? '<span class="badge bg-success">Valid</span>' : '<span class="badge bg-danger">Tidak Valid</span>';
+                    $updateValid = $db->prepare('UPDATE questioner SET status_valid = :status_valid WHERE id = :id');
+                    $updateValid->execute([
+                        'status_valid' => ($V >= 0.8) ? 'Valid' : 'Tidak Valid',
+                        'id' => $q['id']
+                    ]);
 
                     echo "<tr class='text-center'>
                             <td>{$no}</td>
