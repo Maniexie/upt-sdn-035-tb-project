@@ -8,6 +8,7 @@ function checkRoleAccess($page)
         1 => [ // admin
             'index',
             'dashboard',
+            'note',
             'profile',
             'input_pelanggaran',
             'edit_pelanggaran',
@@ -56,6 +57,9 @@ function checkRoleAccess($page)
             'aiken_chart',
             'form_penilaian_kepala_sekolah',
             'daftar_guru_for_supervisi',
+            'input_periode_supervisi',
+            'periode_supervisi',
+
 
 
         ],

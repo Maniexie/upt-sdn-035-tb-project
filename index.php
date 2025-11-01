@@ -220,6 +220,7 @@ $allowedPages = [
     'logout' => 'views/auth/logout.php',
 
     // pages dashboard
+    'note' => 'views/pages/note.php',
     'index' => 'views/pages/index.php',
     'dashboard' => 'views/pages/index.php',
 
@@ -304,8 +305,13 @@ $allowedPages = [
 
 
     //supervisi-kepala-sekolah
+    'input_periode_supervisi' => 'views/pages/supervisi-kepala-sekolah/periode-supervisi/input_periode_supervisi.php',
     'daftar_guru_for_supervisi' => 'views/pages/supervisi-kepala-sekolah/daftar_guru_for_supervisi.php',
     'form_penilaian_kepala_sekolah' => 'views/pages/supervisi-kepala-sekolah/form_penilaian_kepala_sekolah.php',
+
+    //supervisi-kepala-sekolah//periode-supervisi
+    'periode_supervisi' => 'views/pages/supervisi-kepala-sekolah/periode-supervisi/periode_supervisi.php',
+
 
     //ajax
     'get_siswa_by_kelas' => 'views/ajax/get_siswa_by_kelas.php',

@@ -15,6 +15,8 @@ if (isset($_SESSION['user_id'])) {
 }
 //==============================================================//
 
+
+
 // Mengambil data user
 $getAllUserStmt = $db->prepare('SELECT * FROM users WHERE role_id IN (1, 2) AND id = :id LIMIT 1');
 $getAllUserStmt->execute(['id' => $id]);
@@ -31,7 +33,7 @@ $getAllUserStmt = $getAllUserStmt->fetch();
 
 
 // Mendapatkan questioner valid 
-$stmt = $db->prepare('SELECT questioner.id  ,questioner.questioner_category_id , questioner.question , questioner_category.name_category 
+$stmt = $db->prepare('SELECT questioner.id  ,questioner.questioner_category_id , questioner.question , questioner_category.name_category , questioner.status_valid as status_valid
                       FROM questioner 
                       JOIN questioner_category ON questioner.questioner_category_id = questioner_category.id 
                       WHERE questioner.status_valid = "Valid"
@@ -46,7 +48,8 @@ foreach ($questioner as $item) {
     // Menyimpan ID pertanyaan bersama dengan pertanyaan
     $groupedQuestions[$item['questioner_category_id']]['questions'][] = [
         'id' => $item['id'],  // Menyimpan ID pertanyaan
-        'question' => $item['question']
+        'question' => $item['question'],
+        'status_valid' => $item['status_valid']
     ];
 }
 
@@ -84,10 +87,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Jika semua jawaban sudah terisi, lanjutkan ke penyimpanan ke database
         $user_id_questioner = $_SESSION['user_id'];
 
+        // Pastikan ada periode aktif berdasarkan tanggal hari ini
+        $today = date('Y-m-d');
+        // Cek apakah sudah ada periode untuk hari ini
+        $cekPeriode = $db->prepare("SELECT id FROM periode_supervisi 
+                            WHERE tanggal_mulai <= :today AND tanggal_selesai >= :today 
+                            LIMIT 1");
+        $cekPeriode->execute(['today' => $today]);
+        $periode = $cekPeriode->fetch();
+
+        if (!$periode) {
+            echo '<script>alert("Pesan peringatan Anda di sini!");</script>';
+            // Jika belum ada, buat periode baru otomatis
+            $db->query("UPDATE periode_supervisi SET status = 'Nonaktif' WHERE status = 'Aktif'");
+            $nama_periode = 'Periode ' . date('d M Y');
+            $insertPeriode = $db->prepare("INSERT INTO periode_supervisi 
+        (nama_periode, tanggal_mulai, tanggal_selesai, status) 
+        VALUES (:nama_periode, :tanggal_mulai, :tanggal_selesai, 'Aktif')");
+            $insertPeriode->execute([
+                'nama_periode' => $nama_periode,
+                'tanggal_mulai' => $today,
+                'tanggal_selesai' => $today
+            ]);
+
+            // Ambil id periode baru
+            // $periode_id = $db->lastInsertId();
+        } else {
+            $periode_id = $periode['id'];
+        }
+
+
+        // Ambil periode aktif
+        // $getPeriode = $db->query("SELECT id FROM periode_supervisi WHERE tanggal_mulai <= CURDATE() AND CURDATE() <= tanggal_selesai LIMIT 1");
+        // $periode = $getPeriode->fetch();
+        // $periode_id = $periode ? $periode['id'] : null;
+
         // Persiapkan query untuk menyimpan jawaban
         $questioner_answer_query = $db->prepare('
-            INSERT INTO responden (user_id, questioner_id, supervisi_id , answer, answerA, answerB, answerC, answerD, answerE, created_at)
-            VALUES (:user_id, :questioner_id,:supervisi_id, :answer, :answerA, :answerB, :answerC, :answerD, :answerE, NOW())
+            INSERT INTO responden (user_id, questioner_id, supervisi_id , periode_id, answer, answerA, answerB, answerC, answerD, answerE, created_at)
+            VALUES (:user_id, :questioner_id,:supervisi_id,:periode_id, :answer, :answerA, :answerB, :answerC, :answerD, :answerE, NOW())
         ');
 
         // Looping kategori dan pertanyaan untuk menyimpan jawaban
@@ -104,6 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'questioner_id' => $questionerId,  // Menyimpan ID pertanyaan
                 'user_id' => $id,
                 'supervisi_id' => $_SESSION['user_id'],
+                'periode_id' => $periode_id,
                 'answer' => $answer,
                 'answerA' => $answerA,
                 'answerB' => $answerB,
@@ -155,8 +194,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         <?php foreach ($categoryData['questions'] as $index => $question): ?>
                             <!-- Menampilkan pertanyaan -->
-                            <p class="border-bottom border-top"> <?= $index + 1 ?>. <?= $question['question'] ?> || Status
-                                Questioner =
+                            <p class="border-bottom border-top"> <?= $index + 1 ?>. <?= $question['question'] ?>
+                                <!-- || Status Questioner = <?= $question['status_valid'] ?> -->
                             </p>
 
                             <!-- Menggunakan nama unik untuk setiap radio button, berdasarkan categoryId dan index pertanyaan -->

@@ -76,6 +76,13 @@ $userAnsweredCount = $stmt->fetchColumn();
                     <!-- <i id="toggleSidebar" class="fa-solid fa-bars fa-xl mt-3" style="cursor: pointer;"></i> -->
                 </div>
                 <ul class="nav flex-column">
+                    <!-- Note -->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="index.php?page=note">
+                            <i class="fa-solid fa-house text-white"></i>
+                            Note
+                        </a>
+                    </li>
                     <!-- Home -->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="index.php?page=index">
@@ -108,19 +115,35 @@ $userAnsweredCount = $stmt->fetchColumn();
                             <div class="collapse ps-3 mt-1" id="dashboard_supervisi_kepala_sekolah">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
+                                        <a class="nav-link text-white" href="index.php?page=periode_supervisi">
+                                            Periode Supervisi
+                                        </a>
+                                        <!-- Dropdown 2 (Sub-menu) -->
+                                        <ul class="nav flex-column ms-3">
+                                            <li class="nav-item">
+
+                                                <a class="nav-link text-white"
+                                                    href="index.php?page=input_periode_supervisi">
+                                                    Input Periode Supervisi
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-white" href="index.php?page=submenu2">
+                                                    Sub Menu 2
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link text-white" href="index.php?page=daftar_guru_for_supervisi">
-                                            </i> Daftar Supervisi
+                                            Daftar Supervisi
                                         </a>
                                     </li>
-                                    <!-- <li class="nav-item">
-                                        <a class="nav-link text-white" href="index.php?page=daftar_jabatan">
-                                            </i> Daftar Jabatan
-                                        </a>
-                                    </li> -->
                                 </ul>
                             </div>
                         </li>
                     <?php endif; ?>
+
 
 
                     <!-- DATA USER for admin -->
